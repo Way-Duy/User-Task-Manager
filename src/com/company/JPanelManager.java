@@ -15,7 +15,7 @@ import javax.swing.UIManager;
 public class JPanelManager extends JFrame {
     public JPanelManager() {
         super("User Task Manager");
-        loginMenu();
+        loginMenu(); // calls the first login menu
     }
 
     private JLabel labelUsername = new JLabel("Enter username: ");
@@ -61,15 +61,15 @@ public class JPanelManager extends JFrame {
 
         pack();
         setLocationRelativeTo(null);
-        buttonLogin.addActionListener(new ActionListener() {
+        buttonLogin.addActionListener(new ActionListener() { // on pressing any button
             @Override
             public void actionPerformed(ActionEvent e) {
                 Object src = e.getSource();
 
-                if( src == buttonLogin)
+                if( src == buttonLogin) // on pressing login button
                 {
-                    menu2();
-                    loginPanel.removeAll();
+                    loginPanel.removeAll(); // removes all loginPanel components
+                    menu2(); // moves onto the next menu
                 }
             }
         });
@@ -77,10 +77,11 @@ public class JPanelManager extends JFrame {
 
     public void menu2() {
         repaint();
+        //TODO: create gui for menu2
     }
 
     public static void main(String[] args) {
-        // set look and feel to the system look and feel
+
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception ex) {
