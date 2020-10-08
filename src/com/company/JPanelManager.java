@@ -321,12 +321,12 @@ public class JPanelManager extends JFrame {
     public void menuMembers()
     {
         menuMembersVis(true);
-        buttonTasks.addActionListener(new ActionListener() { // on pressing any button
+        buttonCreateMember.addActionListener(new ActionListener() { // on pressing any button
             @Override
             public void actionPerformed(ActionEvent e) {
                 Object src = e.getSource();
 
-                if( src == buttonCreateTask) // on pressing button
+                if( src == buttonCreateMember) // on pressing button
                 {
 
                     menuMembersVis(false);
@@ -360,7 +360,7 @@ public class JPanelManager extends JFrame {
     public void menuTeams()
     {
         menuTeamsVis(true);
-        buttonTasks.addActionListener(new ActionListener() { // on pressing any button
+        buttonCreateTeam.addActionListener(new ActionListener() { // on pressing any button
             @Override
             public void actionPerformed(ActionEvent e) {
                 Object src = e.getSource();
@@ -399,7 +399,7 @@ public class JPanelManager extends JFrame {
     {
         menuTasksVis(true);
         // add the panel to this frame
-        buttonTasks.addActionListener(new ActionListener() { // on pressing any button
+        buttonCreateTask.addActionListener(new ActionListener() { // on pressing any button
             @Override
             public void actionPerformed(ActionEvent e) {
                 Object src = e.getSource();
@@ -407,16 +407,15 @@ public class JPanelManager extends JFrame {
                 if( src == buttonCreateTask) // on pressing button
                 {
                     menuTasksVis(false);
-                    //menuCreateTask(); // moves onto the next menu
+                    menuCreateTask(); // moves onto the next menu
                 }
             }
         });
 
         buttonReturn.addActionListener(new ActionListener() { // on pressing any button
-            @Override
+            //@Override
             public void actionPerformed(ActionEvent e) {
                 Object src = e.getSource();
-
                 if( src == buttonReturn) // on pressing button
                 {
                     menuTasksVis(false);
@@ -436,7 +435,7 @@ public class JPanelManager extends JFrame {
     public void menuCategories()
     {
         menuCategoryVis(true);
-        buttonReturn.addActionListener(new ActionListener() { // on pressing any button
+        buttonCreateCategory.addActionListener(new ActionListener() { // on pressing any button
             @Override
             public void actionPerformed(ActionEvent e) {
                 Object src = e.getSource();
@@ -464,11 +463,38 @@ public class JPanelManager extends JFrame {
     }
     //TODO: Complete Create Functions
     //instantiate text field
+    //private JLabel labelTask = new JLabel("Enter username: ");
+    //private JLabel labelPassword = new JLabel("Enter password: ");
+    //private JTextField textTask = new JTextField(20);
+    //private JPasswordField fieldPassword = new JPasswordField(20);
+    //private JButton buttonReturnSecond = new JButton("Main Menu");
     public void menuCreateTask()
     {
-        //set fields and button visible
-        // on click ok
-        //Member member = new Member(namefield, descfield, etc..)
+        userPanel.setBackground(Color.WHITE);
+        private JLabel labelTask = new JLabel("Enter username: ");
+        //private JLabel labelPassword = new JLabel("Enter password: ");
+        private JTextField textTask = new JTextField(20);
+        //private JPasswordField fieldPassword = new JPasswordField(20);
+        private JButton buttonReturnSecond = new JButton("Main Menu");
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.anchor = GridBagConstraints.WEST;
+        constraints.insets = new Insets(10, 10, 10, 10);
+        constraints.gridx = 0;
+        constraints.gridy = 0;
+        loginPanel.add(labelTask, constraints);
+
+        constraints.gridx = 1;
+        loginPanel.add(textTask, constraints);
+
+        constraints.gridx = 0;
+        constraints.gridy = 1;
+        loginPanel.add(buttonReturnSecond, constraints);
+
+        constraints.gridx = 1;
+        loginPanel.add(fieldPassword, constraints);
+        labelTask.setVisible(true);
+        textTask.setVisible(true);
+        buttonReturnSecond.setVisible(true);
     }//instantiate text field
     public void menuCreateTeam()
     {
