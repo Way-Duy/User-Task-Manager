@@ -10,12 +10,10 @@ public class Team
         this.name =name;
         this.team.addAll(team);
     }
-
     public String getName() 
     {
         return name;
     }
-
     public List<Member> getTeam() 
     {
         return team;
