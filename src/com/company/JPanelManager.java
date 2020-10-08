@@ -477,7 +477,28 @@ public class JPanelManager extends JFrame {
             }
         });
     }
+    //TODO: Complete Create Functions
+    //instantiate text field
+    public void menuCreateTask()
+    {
+        //set fields and button visible
+        // on click ok
+        //Member member = new Member(namefield, descfield, etc..)
+    }//instantiate text field
+    public void menuCreateTeam()
+    {
+        //set fields and button visible
+        // on click ok
+        //Team team = new Team(namefield, descfield, etc..)
+    }//instantiate text field
+    public void menuCreateCategory()
+    {
+        //set fields and button visible
+        // on click ok
+        //Category category = new Category(namefield, descfield, etc..)
 
+    }
+    //instantiate text field
     
     public static void main(String[] args) {
 
