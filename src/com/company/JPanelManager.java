@@ -237,22 +237,18 @@ public class JPanelManager extends JFrame {
         menu2();
 
     }
-    public void invis() //set general stuff visibility to false
+    public void invis(boolean a) //set general stuff visibility to false
     {
-        buttonMembers.setVisible(false);
-        buttonTeams.setVisible(false);
-        buttonTasks.setVisible(false);
-        buttonCategories.setVisible(false);
-        labelUser.setVisible(false);
+        buttonMembers.setVisible(a);
+        buttonTeams.setVisible(a);
+        buttonTasks.setVisible(a);
+        buttonCategories.setVisible(a);
+        labelUser.setVisible(a);
     }
     public void menu2() {
         //repaint();
         userPanel.setBackground(Color.WHITE);
-        buttonMembers.setVisible(true);
-        buttonTeams.setVisible(true);
-        buttonTasks.setVisible(true);
-        buttonCategories.setVisible(true);
-        labelUser.setVisible(true);
+        invis(true);
         buttonMembers.addActionListener(new ActionListener() 
         {
             @Override
@@ -263,7 +259,7 @@ public class JPanelManager extends JFrame {
                 if (src == buttonMembers) // on pressing button
                 {
                     userPanel.setBackground(Color.CYAN);
-                    invis();//set general stuff visibility to false
+                    invis(false);//set general stuff visibility to false
                     menuMembers(); // moves onto the next menu
                 }
             }
@@ -277,7 +273,7 @@ public class JPanelManager extends JFrame {
                 if (src == buttonTeams) // on pressing button
                 {
                     userPanel.setBackground(Color.RED);
-                    invis();//set general stuff visibility to false
+                    invis(false);//set general stuff visibility to false
                     menuTeams(); // moves onto the next menu
                 }
             }
@@ -290,7 +286,7 @@ public class JPanelManager extends JFrame {
                 if (src == buttonTasks) // on pressing button
                 { // turns the menu buttons off
                     userPanel.setBackground(Color.GREEN);
-                    invis();//set general stuff visibility to false
+                    invis(false);//set general stuff visibility to false
                     menuTasks(); // moves onto the next menu
                 }
             }
@@ -305,7 +301,7 @@ public class JPanelManager extends JFrame {
                 if (src == buttonCategories) // on pressing button
                 {
                     userPanel.setBackground(Color.YELLOW);
-                    invis();//set general stuff visibility to false
+                    invis(false);//set general stuff visibility to false
                     menuCategories(); // moves onto the next menu
                 }
             }
