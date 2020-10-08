@@ -55,8 +55,7 @@ public class JPanelManager extends JFrame {
 
         // set border for the panel
         loginPanel.setPreferredSize(new Dimension(600, 600));
-        loginPanel.setBorder(BorderFactory.createTitledBorder(
-                BorderFactory.createEtchedBorder(), "Login Panel"));
+        loginPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "Login Panel"));
 
         // add the panel to this frame
         add(loginPanel);
@@ -89,7 +88,7 @@ public class JPanelManager extends JFrame {
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.anchor = GridBagConstraints.WEST;
         constraints.insets = new Insets(10, 10, 10, 10);
-
+        
         // add components to the panel
         constraints.gridx = 0;
         constraints.gridy = 0;
@@ -121,8 +120,7 @@ public class JPanelManager extends JFrame {
 
         // set border for the panel
         userPanel.setPreferredSize(new Dimension(600, 600));
-        userPanel.setBorder(BorderFactory.createTitledBorder(
-                BorderFactory.createEtchedBorder(), "User Panel"));
+        userPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "User Panel"));
 
         // MEMBER   GUI
         GridBagConstraints MemberConstraints = new GridBagConstraints();
@@ -208,6 +206,10 @@ public class JPanelManager extends JFrame {
         categoryConstraints.insets = new Insets(10, 10, 10, 10);
 
         // add components to the panel
+        teamConstraints.gridx = 0;
+        teamConstraints.gridy = 0;
+        userPanel.add(labelMenuCategory, teamConstraints);
+
         categoryConstraints.gridx = 0;
         categoryConstraints.gridy = 8;
         categoryConstraints.gridwidth = 2;
@@ -221,6 +223,7 @@ public class JPanelManager extends JFrame {
         categoryConstraints.anchor = GridBagConstraints.CENTER;
         userPanel.add(buttonCreateCategory,categoryConstraints);
         buttonCreateCategory.setVisible(false);
+        labelMenuCategory.setVisible(false);
         // set border for the panel
         /*
         userPanel.setPreferredSize(new Dimension(600, 600));
@@ -234,28 +237,33 @@ public class JPanelManager extends JFrame {
         menu2();
 
     }
+    public void invis() //set general stuff visibility to false
+    {
+        buttonMembers.setVisible(false);
+        buttonTeams.setVisible(false);
+        buttonTasks.setVisible(false);
+        buttonCategories.setVisible(false);
+        labelUser.setVisible(false);
+    }
     public void menu2() {
         //repaint();
+        userPanel.setBackground(Color.WHITE);
         buttonMembers.setVisible(true);
         buttonTeams.setVisible(true);
         buttonTasks.setVisible(true);
         buttonCategories.setVisible(true);
         labelUser.setVisible(true);
-        buttonMembers.addActionListener(new ActionListener() {
-
+        buttonMembers.addActionListener(new ActionListener() 
+        {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(ActionEvent e)
+            {
                 Object src = e.getSource();
 
                 if (src == buttonMembers) // on pressing button
                 {
-
-                    buttonMembers.setVisible(false);
-                    buttonTeams.setVisible(false);
-                    buttonTasks.setVisible(false);
-                    buttonCategories.setVisible(false);
-                    labelUser.setVisible(false);
-
+                    userPanel.setBackground(Color.CYAN);
+                    invis();//set general stuff visibility to false
                     menuMembers(); // moves onto the next menu
                 }
             }
@@ -268,12 +276,8 @@ public class JPanelManager extends JFrame {
 
                 if (src == buttonTeams) // on pressing button
                 {
-
-                    buttonMembers.setVisible(false);
-                    buttonTeams.setVisible(false);
-                    buttonTasks.setVisible(false);
-                    buttonCategories.setVisible(false);
-                    labelUser.setVisible(false);
+                    userPanel.setBackground(Color.RED);
+                    invis();//set general stuff visibility to false
                     menuTeams(); // moves onto the next menu
                 }
             }
@@ -285,13 +289,8 @@ public class JPanelManager extends JFrame {
 
                 if (src == buttonTasks) // on pressing button
                 { // turns the menu buttons off
-
-                    buttonMembers.setVisible(false);
-                    buttonTeams.setVisible(false);
-                    buttonTasks.setVisible(false);
-                    buttonCategories.setVisible(false);
-                    labelUser.setVisible(false);
-
+                    userPanel.setBackground(Color.GREEN);
+                    invis();//set general stuff visibility to false
                     menuTasks(); // moves onto the next menu
                 }
             }
@@ -305,11 +304,8 @@ public class JPanelManager extends JFrame {
 
                 if (src == buttonCategories) // on pressing button
                 {
-                    buttonMembers.setVisible(false);
-                    buttonTeams.setVisible(false);
-                    buttonTasks.setVisible(false);
-                    buttonCategories.setVisible(false);
-                    labelUser.setVisible(false);
+                    userPanel.setBackground(Color.YELLOW);
+                    invis();//set general stuff visibility to false
                     menuCategories(); // moves onto the next menu
                 }
             }
@@ -319,14 +315,16 @@ public class JPanelManager extends JFrame {
     private JLabel labelMenuMembers = new JLabel("Current Members(s)");
     private JButton buttonCreateMember = new JButton("Create New Member");
     private JButton buttonReturn = new JButton("Main Menu");
-
-
+    
+    public void menuMembersVis(Boolean a)
+    {
+        labelMenuMembers.setVisible(a);//menu visibility
+        buttonCreateMember.setVisible(a);
+        buttonReturn.setVisible(a);
+    }
     public void menuMembers()
     {
-
-        labelMenuMembers.setVisible(true);
-        buttonCreateMember.setVisible(true);
-        buttonReturn.setVisible(true);
+        menuMembersVis(true);
         buttonTasks.addActionListener(new ActionListener() { // on pressing any button
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -335,9 +333,7 @@ public class JPanelManager extends JFrame {
                 if( src == buttonCreateTask) // on pressing button
                 {
 
-                    labelMenuMembers.setVisible(false);
-                    buttonCreateMember.setVisible(false);
-                    buttonReturn.setVisible(false);
+                    menuMembersVis(false);
                     //menuCreateMember(); // moves onto the next menu
                 }
             }
@@ -350,9 +346,7 @@ public class JPanelManager extends JFrame {
 
                 if( src == buttonReturn) // on pressing button
                 {
-                    labelMenuMembers.setVisible(false);
-                    buttonCreateMember.setVisible(false);
-                    buttonReturn.setVisible(false);
+                    menuMembersVis(false);
                     menu2(); // moves onto the next menu
                 }
             }
@@ -361,11 +355,15 @@ public class JPanelManager extends JFrame {
 
     private JLabel labelMenuTeams = new JLabel("Current Team(s)");
     private JButton buttonCreateTeam = new JButton("Create New Team");
+    public void menuTeamsVis(Boolean a)
+    {
+        labelMenuTeams.setVisible(a);
+        buttonCreateTeam.setVisible(a);
+        buttonReturn.setVisible(a);
+    }
     public void menuTeams()
     {
-        labelMenuTeams.setVisible(true);
-        buttonCreateTeam.setVisible(true);
-        buttonReturn.setVisible(true);
+        menuTeamsVis(true);
         buttonTasks.addActionListener(new ActionListener() { // on pressing any button
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -373,8 +371,7 @@ public class JPanelManager extends JFrame {
 
                 if( src == buttonCreateTeam) // on pressing button
                 {
-                    labelMenuTeams.setVisible(false);
-                    buttonCreateTeam.setVisible(false);
+                    menuTeamsVis(false);
                     //menuCreateTeam(); // moves onto the next menu
                 }
             }
@@ -387,9 +384,7 @@ public class JPanelManager extends JFrame {
 
                 if( src == buttonReturn) // on pressing button
                 {
-
-                    labelMenuTeams.setVisible(false);
-                    buttonCreateTeam.setVisible(false);
+                    menuTeamsVis(false);
                     menu2(); // moves onto the next menu
                 }
             }
@@ -398,17 +393,16 @@ public class JPanelManager extends JFrame {
 
     private JLabel labelMenuTasks = new JLabel("Current Task(s)");
     private JButton buttonCreateTask = new JButton("Create New Task");
-
+    public void menuTasksVis(Boolean a)
+    {
+        labelMenuTasks.setVisible(a);
+        buttonReturn.setVisible(a);
+        buttonCreateTask.setVisible(a);
+    }
     public void menuTasks()
     {
-
-        labelMenuTasks.setVisible(true);
-        buttonReturn.setVisible(true);
-        buttonCreateTask.setVisible(true);
-
+        menuTasksVis(true);
         // add the panel to this frame
-
-
         buttonTasks.addActionListener(new ActionListener() { // on pressing any button
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -416,11 +410,7 @@ public class JPanelManager extends JFrame {
 
                 if( src == buttonCreateTask) // on pressing button
                 {
-
-
-                    labelMenuTasks.setVisible(false);
-                    buttonReturn.setVisible(false);
-                    buttonCreateTask.setVisible(false);
+                    menuTasksVis(false);
                     //menuCreateTask(); // moves onto the next menu
                 }
             }
@@ -433,21 +423,23 @@ public class JPanelManager extends JFrame {
 
                 if( src == buttonReturn) // on pressing button
                 {
-
-                    labelMenuTasks.setVisible(false);
-                    buttonReturn.setVisible(false);
-                    buttonCreateTask.setVisible(false);
+                    menuTasksVis(false);
                     menu2(); // moves onto the next menu
                 }
             }
         });
     }
-
+    private JLabel labelMenuCategory = new JLabel("Current Category(s)");
     private JButton buttonCreateCategory = new JButton("Create New Category");
+    public void menuCategoryVis(Boolean a)
+    {
+        labelMenuCategory.setVisible(a);
+        buttonCreateCategory.setVisible(a);
+        buttonReturn.setVisible(a);
+    }
     public void menuCategories()
     {
-        buttonCreateCategory.setVisible(true);
-        buttonReturn.setVisible(true);
+        menuCategoryVis(true);
         buttonReturn.addActionListener(new ActionListener() { // on pressing any button
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -455,8 +447,7 @@ public class JPanelManager extends JFrame {
 
                 if(src == buttonCreateCategory)
                 {
-                    buttonCreateCategory.setVisible(false);
-                    buttonReturn.setVisible(false);
+                    menuCategoryVis(false);
                     //menuCreateCategory(); // moves onto the next menu
                 }
 
@@ -469,9 +460,7 @@ public class JPanelManager extends JFrame {
 
                 if( src == buttonReturn) // on pressing button
                 {
-
-                    buttonCreateCategory.setVisible(false);
-                    buttonReturn.setVisible(false);
+                    menuCategoryVis(false);
                     menu2(); // moves onto the next menu
                 }
             }
