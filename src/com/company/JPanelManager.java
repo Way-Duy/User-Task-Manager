@@ -76,7 +76,6 @@ public class JPanelManager extends JFrame {
             }
         });
     }
-
     private JLabel labelUser = new JLabel("Hello User.");
     private JButton buttonMembers = new JButton("View Member(s)");
     private JButton buttonTeams = new JButton("View Team(s)");
@@ -243,6 +242,7 @@ public class JPanelManager extends JFrame {
         buttonCategories.setVisible(true);
         labelUser.setVisible(true);
         buttonMembers.addActionListener(new ActionListener() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
                 Object src = e.getSource();
@@ -255,12 +255,13 @@ public class JPanelManager extends JFrame {
                     buttonTasks.setVisible(false);
                     buttonCategories.setVisible(false);
                     labelUser.setVisible(false);
+
                     menuMembers(); // moves onto the next menu
                 }
             }
         });
-
         buttonTeams.addActionListener(new ActionListener() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
                 Object src = e.getSource();
@@ -277,7 +278,6 @@ public class JPanelManager extends JFrame {
                 }
             }
         });
-
         buttonTasks.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -291,12 +291,14 @@ public class JPanelManager extends JFrame {
                     buttonTasks.setVisible(false);
                     buttonCategories.setVisible(false);
                     labelUser.setVisible(false);
+
                     menuTasks(); // moves onto the next menu
                 }
             }
         });
 
         buttonCategories.addActionListener(new ActionListener() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
                 Object src = e.getSource();
@@ -406,6 +408,7 @@ public class JPanelManager extends JFrame {
 
         // add the panel to this frame
 
+
         buttonTasks.addActionListener(new ActionListener() { // on pressing any button
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -475,6 +478,7 @@ public class JPanelManager extends JFrame {
         });
     }
 
+    
     public static void main(String[] args) {
 
         try {
