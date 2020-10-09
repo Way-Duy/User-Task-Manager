@@ -1,8 +1,9 @@
 package com.company;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.util.ArrayList;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -62,7 +63,7 @@ public class JPanelManager extends JFrame {
 
         pack();
         setLocationRelativeTo(null);
-        buttonLogin.addActionListener(new ActionListener() { // on pressing any button
+        buttonLogin.addActionListener(new ActionListener() { 
             @Override
             public void actionPerformed(ActionEvent e) {
                 Object src = e.getSource();
@@ -85,6 +86,7 @@ public class JPanelManager extends JFrame {
     private JPanel userPanel = new JPanel(new GridBagLayout());
     public void instantiateMenu()
     {
+        labelUser.setOpaque(true);
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.anchor = GridBagConstraints.WEST;
         constraints.insets = new Insets(10, 10, 10, 10);
@@ -237,19 +239,65 @@ public class JPanelManager extends JFrame {
         TaskCon.gridx = 0;
         TaskCon.gridy = 0;
         TaskCon.anchor = GridBagConstraints.CENTER;
-        userPanel.add(labelTask, TaskCon);
+        userPanel.add(labelTaskName, TaskCon);
+        TaskCon.gridy = 1;
+        userPanel.add(labelTaskDescription, TaskCon);
+        TaskCon.gridy = 2;
+        userPanel.add(labelTaskDueDate, TaskCon);
+        TaskCon.gridy = 3;
+        userPanel.add(labelTaskCreatedOn, TaskCon);
+        TaskCon.gridy = 4;
+        userPanel.add(labelTaskStatus, TaskCon);
+        TaskCon.gridy = 5;
+        userPanel.add(labelTaskCreatedBy, TaskCon);
+        TaskCon.gridy = 6;
+        userPanel.add(labelTaskAssignedTo, TaskCon);
+
+
+
 
         TaskCon.gridx = 1;
         TaskCon.anchor = GridBagConstraints.CENTER;
-        userPanel.add(textTask, TaskCon);
+
+        TaskCon.gridy = 0;
+        userPanel.add(textTaskName, TaskCon);
+        TaskCon.gridy = 1;
+        userPanel.add(textTaskDescription, TaskCon);
+        TaskCon.gridy = 2;
+        userPanel.add(textTaskDueDate, TaskCon);
+        TaskCon.gridy = 3;
+        userPanel.add(textTaskCreatedOn, TaskCon);
+        TaskCon.gridy = 4;
+        userPanel.add(textTaskStatus, TaskCon);
+        TaskCon.gridy = 5;
+        userPanel.add(textTaskCreatedBy, TaskCon);
+        TaskCon.gridy = 6;
+        userPanel.add(textTaskAssignedTo, TaskCon);
 
         TaskCon.gridx = 0;
-        TaskCon.gridy = 1;
+        TaskCon.gridy = 7;
         TaskCon.anchor = GridBagConstraints.CENTER;
         userPanel.add(buttonReturnSecond, TaskCon);
-        labelTask.setVisible(false);
-        textTask.setVisible(false);
+        TaskCon.gridx = 1;
+        userPanel.add(buttonTaskCreate, TaskCon);
+        labelTaskName.setVisible(false);
+        labelTaskDescription.setVisible(false);
+        labelTaskDueDate.setVisible(false);
+        labelTaskCreatedOn.setVisible(false);
+        labelTaskStatus.setVisible(false);
+        labelTaskCreatedBy.setVisible(false);
+        labelTaskAssignedTo.setVisible(false);
+        textTaskName.setVisible(false);
+        textTaskDescription.setVisible(false);
+        textTaskDueDate.setVisible(false);
+        textTaskCreatedOn.setVisible(false);
+        textTaskStatus.setVisible(false);
+        textTaskCreatedBy.setVisible(false);
+        textTaskAssignedTo.setVisible(false);
         buttonReturnSecond.setVisible(false);
+        buttonReturnSecond.setVisible(false);
+        buttonReturnSecond.setVisible(false);
+        buttonTaskCreate.setVisible(false);
         add(userPanel);
         pack();
         setLocationRelativeTo(null);
@@ -341,7 +389,7 @@ public class JPanelManager extends JFrame {
     public void menuMembers()
     {
         menuMembersVis(true);
-        buttonCreateMember.addActionListener(new ActionListener() { // on pressing any button
+        buttonCreateMember.addActionListener(new ActionListener() { 
             @Override
             public void actionPerformed(ActionEvent e) {
                 Object src = e.getSource();
@@ -355,7 +403,7 @@ public class JPanelManager extends JFrame {
             }
         });
 
-        buttonReturn.addActionListener(new ActionListener() { // on pressing any button
+        buttonReturn.addActionListener(new ActionListener() { 
             @Override
             public void actionPerformed(ActionEvent e) {
                 Object src = e.getSource();
@@ -380,7 +428,7 @@ public class JPanelManager extends JFrame {
     public void menuTeams()
     {
         menuTeamsVis(true);
-        buttonCreateTeam.addActionListener(new ActionListener() { // on pressing any button
+        buttonCreateTeam.addActionListener(new ActionListener() { 
             @Override
             public void actionPerformed(ActionEvent e) {
                 Object src = e.getSource();
@@ -393,7 +441,7 @@ public class JPanelManager extends JFrame {
             }
         });
 
-        buttonReturn.addActionListener(new ActionListener() { // on pressing any button
+        buttonReturn.addActionListener(new ActionListener() { 
             @Override
             public void actionPerformed(ActionEvent e) {
                 Object src = e.getSource();
@@ -419,7 +467,7 @@ public class JPanelManager extends JFrame {
     {
         menuTasksVis(true);
         // add the panel to this frame
-        buttonCreateTask.addActionListener(new ActionListener() { // on pressing any button
+        buttonCreateTask.addActionListener(new ActionListener() { 
             @Override
             public void actionPerformed(ActionEvent e) {
                 Object src = e.getSource();
@@ -432,7 +480,7 @@ public class JPanelManager extends JFrame {
             }
         });
 
-        buttonReturn.addActionListener(new ActionListener() { // on pressing any button
+        buttonReturn.addActionListener(new ActionListener() { 
             @Override
             public void actionPerformed(ActionEvent e) {
                 Object src = e.getSource();
@@ -455,7 +503,7 @@ public class JPanelManager extends JFrame {
     public void menuCategories()
     {
         menuCategoryVis(true);
-        buttonCreateCategory.addActionListener(new ActionListener() { // on pressing any button
+        buttonCreateCategory.addActionListener(new ActionListener() { 
             @Override
             public void actionPerformed(ActionEvent e) {
                 Object src = e.getSource();
@@ -468,7 +516,7 @@ public class JPanelManager extends JFrame {
 
             }
         });
-        buttonReturn.addActionListener(new ActionListener() { // on pressing any button
+        buttonReturn.addActionListener(new ActionListener() { 
             @Override
             public void actionPerformed(ActionEvent e) {
                 Object src = e.getSource();
@@ -485,23 +533,96 @@ public class JPanelManager extends JFrame {
     //instantiate text field
 
     
-    private JLabel labelTask = new JLabel("Enter task: ");
-    private JTextField textTask = new JTextField(20);
+    private JLabel labelTaskName = new JLabel("Name: ");
+    private JLabel labelTaskDescription = new JLabel("Description: ");
+    private JLabel labelTaskDueDate = new JLabel("DueDate: ");
+    private JLabel labelTaskCreatedOn = new JLabel("CreatedOn: ");
+    private JLabel labelTaskStatus = new JLabel("Status: ");
+    private JLabel labelTaskCreatedBy = new JLabel("CreatedBy: ");
+    private JLabel labelTaskAssignedTo = new JLabel("AssignedTo: ");
+    private JTextField textTaskName = new JTextField(20);
+    private JTextField textTaskDescription = new JTextField(20);
+    private JTextField textTaskDueDate = new JTextField(20);
+    private JTextField textTaskCreatedOn = new JTextField(20);
+    private JTextField textTaskStatus = new JTextField(20);
+    private JTextField textTaskCreatedBy = new JTextField(20);
+    private JTextField textTaskAssignedTo = new JTextField(20);
     private JButton buttonReturnSecond = new JButton("Back");
+    private JButton buttonTaskCreate = new JButton("Create");
     public void menuCreateTask()
     {
-        labelTask.setVisible(true);
-        textTask.setVisible(true);
+        labelTaskName.setVisible(true);
+        labelTaskDescription.setVisible(true);
+        labelTaskDueDate.setVisible(true);
+        labelTaskCreatedOn.setVisible(true);
+        labelTaskStatus.setVisible(true);
+        labelTaskCreatedBy.setVisible(true);
+        labelTaskAssignedTo.setVisible(true);
+        textTaskName.setVisible(true);
+        textTaskDescription.setVisible(true);
+        textTaskDueDate.setVisible(true);
+        textTaskCreatedOn.setVisible(true);
+        textTaskStatus.setVisible(true);
+        textTaskCreatedBy.setVisible(true);
+        textTaskAssignedTo.setVisible(true);
         buttonReturnSecond.setVisible(true);
-        buttonReturnSecond.addActionListener(new ActionListener() { // on pressing any button
+        buttonTaskCreate.setVisible(true);
+        buttonTaskCreate.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Object src = e.getSource();
+            if( src == buttonTaskCreate ) // on pressing button
+            {
+                labelTaskName.setVisible(false);
+                labelTaskDescription.setVisible(false);
+                labelTaskDueDate.setVisible(false);
+                labelTaskCreatedOn.setVisible(false);
+                labelTaskStatus.setVisible(false);
+                labelTaskCreatedBy.setVisible(false);
+                labelTaskAssignedTo.setVisible(false);
+                textTaskName.setVisible(false);
+                textTaskDescription.setVisible(false);
+                textTaskDueDate.setVisible(false);
+                textTaskCreatedOn.setVisible(false);
+                textTaskStatus.setVisible(false);
+                textTaskCreatedBy.setVisible(false);
+                textTaskAssignedTo.setVisible(false);
+                buttonReturnSecond.setVisible(false);
+                buttonReturnSecond.setVisible(false);
+                buttonTaskCreate.setVisible(false);
+                // name, description, due date, created on, status, created by, assigned to
+                Task task = new Task(textTaskName.getText(), textTaskDescription.getText(), textTaskDueDate.getText(), textTaskCreatedOn.getText(),
+                        textTaskStatus.getText(), nobody, nobody);
+                tasks.add(task);
+                //Task task = new Task(textTaskName.getText(), textTaskDescription.getText(), textTaskDueDate.getText(), textTaskCreatedOn.getText(),
+                        //textTaskStatus.getText(), textTaskCreatedBy.getText(), textTaskAssignedTo.getText());
+                menuTasks(); // moves onto the next menu
+            }
+        }
+    });
+        buttonReturnSecond.addActionListener(new ActionListener() { 
             @Override
             public void actionPerformed(ActionEvent e) {
                 Object src = e.getSource();
                 if( src == buttonReturnSecond) // on pressing button
                 {
-                    labelTask.setVisible(false);
-                    textTask.setVisible(false);
+                    labelTaskName.setVisible(false);
+                    labelTaskDescription.setVisible(false);
+                    labelTaskDueDate.setVisible(false);
+                    labelTaskCreatedOn.setVisible(false);
+                    labelTaskStatus.setVisible(false);
+                    labelTaskCreatedBy.setVisible(false);
+                    labelTaskAssignedTo.setVisible(false);
+                    textTaskName.setVisible(false);
+                    textTaskDescription.setVisible(false);
+                    textTaskDueDate.setVisible(false);
+                    textTaskCreatedOn.setVisible(false);
+                    textTaskStatus.setVisible(false);
+                    textTaskCreatedBy.setVisible(false);
+                    textTaskAssignedTo.setVisible(false);
                     buttonReturnSecond.setVisible(false);
+                    buttonReturnSecond.setVisible(false);
+                    buttonTaskCreate.setVisible(false);
                     menuTasks(); // moves onto the next menu
                 }
             }
@@ -521,7 +642,12 @@ public class JPanelManager extends JFrame {
 
     }
     //instantiate text field
-    
+
+    private static Member nobody = new Member("N/A", "1234");
+    private static  ArrayList<Member> members = new ArrayList<Member>();
+    private static ArrayList<Task> tasks = new ArrayList<Task>();
+    private static ArrayList<Team> teams = new ArrayList<Team>();
+    private static ArrayList<TaskCategory> categories = new ArrayList<TaskCategory>();
     public static void main(String[] args) {
 
         try {
@@ -529,7 +655,7 @@ public class JPanelManager extends JFrame {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-
+        members.add(nobody);
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
