@@ -230,6 +230,25 @@ public class JPanelManager extends JFrame {
         userPanel.setBorder(BorderFactory.createTitledBorder(
                 BorderFactory.createEtchedBorder(), "Tasks Panel"));
          */
+        GridBagConstraints TaskCon = new GridBagConstraints();
+        TaskCon.anchor = GridBagConstraints.WEST;
+        TaskCon.insets = new Insets(10, 10, 10, 10);
+        TaskCon.gridx = 0;
+        TaskCon.gridy = 0;
+        TaskCon.anchor = GridBagConstraints.CENTER;
+        userPanel.add(labelTask, TaskCon);
+
+        TaskCon.gridx = 1;
+        TaskCon.anchor = GridBagConstraints.CENTER;
+        userPanel.add(textTask, TaskCon);
+
+        TaskCon.gridx = 0;
+        TaskCon.gridy = 1;
+        TaskCon.anchor = GridBagConstraints.CENTER;
+        userPanel.add(buttonReturnSecond, TaskCon);
+        labelTask.setVisible(false);
+        textTask.setVisible(false);
+        buttonReturnSecond.setVisible(false);
         add(userPanel);
         pack();
         setLocationRelativeTo(null);
@@ -413,7 +432,7 @@ public class JPanelManager extends JFrame {
         });
 
         buttonReturn.addActionListener(new ActionListener() { // on pressing any button
-            //@Override
+            @Override
             public void actionPerformed(ActionEvent e) {
                 Object src = e.getSource();
                 if( src == buttonReturn) // on pressing button
@@ -463,38 +482,29 @@ public class JPanelManager extends JFrame {
     }
     //TODO: Complete Create Functions
     //instantiate text field
-    //private JLabel labelTask = new JLabel("Enter username: ");
-    //private JLabel labelPassword = new JLabel("Enter password: ");
-    //private JTextField textTask = new JTextField(20);
-    //private JPasswordField fieldPassword = new JPasswordField(20);
-    //private JButton buttonReturnSecond = new JButton("Main Menu");
+
+    
+    private JLabel labelTask = new JLabel("Enter task: ");
+    private JTextField textTask = new JTextField(20);
+    private JButton buttonReturnSecond = new JButton("Back");
     public void menuCreateTask()
     {
-        userPanel.setBackground(Color.WHITE);
-        private JLabel labelTask = new JLabel("Enter username: ");
-        //private JLabel labelPassword = new JLabel("Enter password: ");
-        private JTextField textTask = new JTextField(20);
-        //private JPasswordField fieldPassword = new JPasswordField(20);
-        private JButton buttonReturnSecond = new JButton("Main Menu");
-        GridBagConstraints constraints = new GridBagConstraints();
-        constraints.anchor = GridBagConstraints.WEST;
-        constraints.insets = new Insets(10, 10, 10, 10);
-        constraints.gridx = 0;
-        constraints.gridy = 0;
-        loginPanel.add(labelTask, constraints);
-
-        constraints.gridx = 1;
-        loginPanel.add(textTask, constraints);
-
-        constraints.gridx = 0;
-        constraints.gridy = 1;
-        loginPanel.add(buttonReturnSecond, constraints);
-
-        constraints.gridx = 1;
-        loginPanel.add(fieldPassword, constraints);
         labelTask.setVisible(true);
         textTask.setVisible(true);
         buttonReturnSecond.setVisible(true);
+        buttonReturnSecond.addActionListener(new ActionListener() { // on pressing any button
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Object src = e.getSource();
+                if( src == buttonReturnSecond) // on pressing button
+                {
+                    labelTask.setVisible(false);
+                    textTask.setVisible(false);
+                    buttonReturnSecond.setVisible(false);
+                    menuTasks(); // moves onto the next menu
+                }
+            }
+        });
     }//instantiate text field
     public void menuCreateTeam()
     {
