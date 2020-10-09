@@ -12,6 +12,10 @@ public class Member
     {
         return username;
     }
+    public String getPassword()
+    {
+        return password;
+    }
     public boolean testPassword(String attempt)
     {
         if (attempt == password)

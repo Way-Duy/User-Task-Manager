@@ -1,9 +1,11 @@
 package com.company;
+
 public class Task 
 {
     String name, description, due_date, created_on, status;
     Member created_by, assigned_to;
     Task subtasks;
+    String  textColor = "White";
     Task(String name,String description,String due_date,String created_on,String status,Member created_by,Member assigned_to,Task subtasks)
     {
         this.name = name;
@@ -32,9 +34,41 @@ public class Task
         return name;
     }
 
-    public void assignColor()
-    { // not sure how to assign colors in terminal
+    public String getTextColor() {
+        return textColor;
+    }
 
+    public Member getAssigned_to() {
+        return assigned_to;
+    }
+
+    public Member getCreated_by() {
+        return created_by;
+    }
+
+    public String getCreated_on() {
+        return created_on;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public Task getSubtasks() {
+        return subtasks;
+    }
+
+    public String getDue_date() {
+        return due_date;
+    }
+
+    public void assignColor(String textColor)
+    {
+        this.textColor = textColor;
     }
 
     public String getInfo()

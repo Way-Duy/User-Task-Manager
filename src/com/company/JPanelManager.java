@@ -4,15 +4,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
+import javax.swing.*;
+
 public class JPanelManager extends JFrame {
     public JPanelManager() {
         super("User Task Manager");
@@ -134,10 +127,20 @@ public class JPanelManager extends JFrame {
         MemberConstraints.gridy = 0;
         userPanel.add(labelMenuMembers, MemberConstraints);
 
-        MemberConstraints.gridx = 0;
+        MemberConstraints.gridy = 1;
+        userPanel.add(labelMenuUsername, MemberConstraints);
         MemberConstraints.gridy = 2;
+        userPanel.add(labelMenuPassword, MemberConstraints);
+
+        MemberConstraints.gridx = 0;
+        MemberConstraints.gridy = 3;
         MemberConstraints.gridwidth = 2;
         MemberConstraints.anchor = GridBagConstraints.CENTER;
+        userPanel.add(buttonPreviousMember, MemberConstraints);
+        MemberConstraints.gridx = 1;
+        userPanel.add(buttonNextMember, MemberConstraints);
+        MemberConstraints.gridx = 1;
+        MemberConstraints.gridy = 8;
         userPanel.add(buttonCreateMember, MemberConstraints);
 
         MemberConstraints.gridx = 0;
@@ -146,34 +149,51 @@ public class JPanelManager extends JFrame {
         MemberConstraints.anchor = GridBagConstraints.CENTER;
         userPanel.add(buttonReturn, MemberConstraints);
 
-        labelMenuMembers.setVisible(false);
-        buttonCreateMember.setVisible(false);
-        buttonReturn.setVisible(false);
+
+        menuMembersVis(false);
         // TASKS    GUI
 
         GridBagConstraints constraintsTasks = new GridBagConstraints();
         constraintsTasks.anchor = GridBagConstraints.WEST;
-        constraintsTasks.insets = new Insets(10, 10, 10, 10);
+        constraintsTasks.insets = new Insets(12, 12, 12, 12);
 
         // add components to the panel
         constraintsTasks.gridx = 0;
         constraintsTasks.gridy = 0;
         userPanel.add(labelMenuTasks, constraintsTasks);
-
-        constraintsTasks.gridx = 0;
+        constraintsTasks.gridy = 1;
+        userPanel.add(labelMenuTaskName, constraintsTasks);
         constraintsTasks.gridy = 2;
-        constraintsTasks.gridwidth = 2;
-        constraintsTasks.anchor = GridBagConstraints.CENTER;
+        userPanel.add(labelMenuTaskDescription, constraintsTasks);
+        constraintsTasks.gridy = 3;
+        userPanel.add(labelMenuTaskDueDate, constraintsTasks);
+        constraintsTasks.gridy = 4;
+        userPanel.add(labelMenuTaskCreatedOn, constraintsTasks);
+        constraintsTasks.gridy = 5;
+        userPanel.add(labelMenuTaskStatus, constraintsTasks);
+        constraintsTasks.gridy = 6;
+        userPanel.add(labelMenuTaskCreatedBy, constraintsTasks);
+        constraintsTasks.gridy = 7;
+        userPanel.add(labelMenuTaskAssignedTo, constraintsTasks);
+        constraintsTasks.gridy = 8;
+        userPanel.add(labelMenuTaskSubtasks, constraintsTasks);
+
+        constraintsTasks.gridy = 9;
+        userPanel.add(buttonNextTask, constraintsTasks);
+        constraintsTasks.gridx = 1;
+        userPanel.add(buttonPreviousTask, constraintsTasks);
+        constraintsTasks.gridx = 1;
+        constraintsTasks.gridy = 10;
         userPanel.add(buttonCreateTask, constraintsTasks);
 
         constraintsTasks.gridx = 0;
-        constraintsTasks.gridy = 8;
+        constraintsTasks.gridy = 10;
+
+        userPanel.add(buttonTaskReturn, constraintsTasks);
+
         constraintsTasks.gridwidth = 2;
         constraintsTasks.anchor = GridBagConstraints.CENTER;
-        userPanel.add(buttonReturn, constraintsTasks);
-        labelMenuTasks.setVisible(false);
-        buttonReturn.setVisible(false);
-        buttonCreateTask.setVisible(false);
+        menuTasksVis(false);
 
         // Teams GUI
 
@@ -226,12 +246,9 @@ public class JPanelManager extends JFrame {
         userPanel.add(buttonCreateCategory,categoryConstraints);
         buttonCreateCategory.setVisible(false);
         labelMenuCategory.setVisible(false);
-        // set border for the panel
-        /*
-        userPanel.setPreferredSize(new Dimension(600, 600));
-        userPanel.setBorder(BorderFactory.createTitledBorder(
-                BorderFactory.createEtchedBorder(), "Tasks Panel"));
-         */
+       
+        
+        
         // Task Adding Menu GUI
         GridBagConstraints TaskCon = new GridBagConstraints();
         TaskCon.anchor = GridBagConstraints.WEST;
@@ -273,31 +290,55 @@ public class JPanelManager extends JFrame {
         userPanel.add(textTaskCreatedBy, TaskCon);
         TaskCon.gridy = 6;
         userPanel.add(textTaskAssignedTo, TaskCon);
-
-        TaskCon.gridx = 0;
+        TaskCon.gridx = 3;
         TaskCon.gridy = 7;
+        userPanel.add(comboColorBox, TaskCon   );
+        TaskCon.gridx = 0;
+        TaskCon.gridy = 8;
         TaskCon.anchor = GridBagConstraints.CENTER;
         userPanel.add(buttonReturnSecond, TaskCon);
         TaskCon.gridx = 1;
         userPanel.add(buttonTaskCreate, TaskCon);
-        labelTaskName.setVisible(false);
-        labelTaskDescription.setVisible(false);
-        labelTaskDueDate.setVisible(false);
-        labelTaskCreatedOn.setVisible(false);
-        labelTaskStatus.setVisible(false);
-        labelTaskCreatedBy.setVisible(false);
-        labelTaskAssignedTo.setVisible(false);
-        textTaskName.setVisible(false);
-        textTaskDescription.setVisible(false);
-        textTaskDueDate.setVisible(false);
-        textTaskCreatedOn.setVisible(false);
-        textTaskStatus.setVisible(false);
-        textTaskCreatedBy.setVisible(false);
-        textTaskAssignedTo.setVisible(false);
-        buttonReturnSecond.setVisible(false);
-        buttonReturnSecond.setVisible(false);
-        buttonReturnSecond.setVisible(false);
-        buttonTaskCreate.setVisible(false);
+
+        menuCreateTaskVis(false);
+        
+        //Member adding GUI
+
+        GridBagConstraints MemberAddConstraints = new GridBagConstraints();
+        MemberAddConstraints.anchor = GridBagConstraints.WEST;
+        MemberAddConstraints.insets = new Insets(10, 10, 10, 10);
+        MemberAddConstraints.gridx = 0;
+        MemberAddConstraints.gridy = 0;
+        MemberAddConstraints.anchor = GridBagConstraints.CENTER;
+        userPanel.add(labelMemberUsername, MemberAddConstraints);
+        MemberAddConstraints.gridy = 1;
+        userPanel.add(labelMemberPassword, MemberAddConstraints);
+
+
+
+
+        MemberAddConstraints.gridx = 1;
+        MemberAddConstraints.anchor = GridBagConstraints.CENTER;
+
+        MemberAddConstraints.gridy = 0;
+        userPanel.add(textMemberUsername, MemberAddConstraints);
+        MemberAddConstraints.gridy = 1;
+        userPanel.add(textMemberPassword, MemberAddConstraints);
+        MemberAddConstraints.gridy = 2;
+
+        MemberAddConstraints.anchor = GridBagConstraints.CENTER;
+
+        MemberAddConstraints.gridx = 0;
+        userPanel.add(buttonMemberReturn, MemberAddConstraints);
+        MemberAddConstraints.gridx = 1;
+        userPanel.add(buttonMemberCreate, MemberAddConstraints);
+
+        labelMemberUsername.setVisible(false);
+        labelMemberPassword.setVisible(false);
+        buttonMemberCreate.setVisible(false);
+        textMemberUsername.setVisible(false);
+        textMemberPassword.setVisible(false);
+        buttonMemberReturn.setVisible(false);
         add(userPanel);
         pack();
         setLocationRelativeTo(null);
@@ -376,18 +417,30 @@ public class JPanelManager extends JFrame {
         });
     }
 
-    private JLabel labelMenuMembers = new JLabel("Current Members(s)");
+    private JLabel labelMenuMembers = new JLabel("Current Member(s)");
+    private JLabel labelMenuUsername = new JLabel("Username: ");
+    private JLabel labelMenuPassword = new JLabel("Password: ");
+    private JButton buttonPreviousMember = new JButton("Previous Member");
+    private JButton buttonNextMember = new JButton("Next Member");
     private JButton buttonCreateMember = new JButton("Create New Member");
     private JButton buttonReturn = new JButton("Main Menu");
-    
+
+    int memberIndex = 0;
     public void menuMembersVis(Boolean a)
     {
         labelMenuMembers.setVisible(a);//menu visibility
         buttonCreateMember.setVisible(a);
         buttonReturn.setVisible(a);
+        buttonNextMember.setVisible(a);
+        buttonPreviousMember.setVisible(a);
+        labelMenuUsername.setVisible(a);
+        labelMenuPassword.setVisible(a);
     }
     public void menuMembers()
     {
+
+        labelMenuUsername.setText("Username: " + members.get(memberIndex).getUsername());
+        labelMenuPassword.setText("Password: " + members.get(memberIndex).getPassword());
         menuMembersVis(true);
         buttonCreateMember.addActionListener(new ActionListener() { 
             @Override
@@ -398,11 +451,43 @@ public class JPanelManager extends JFrame {
                 {
 
                     menuMembersVis(false);
-                    //menuCreateMember(); // moves onto the next menu
+                    menuCreateMember(); // moves onto the next menu
                 }
             }
         });
+        buttonNextMember.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Object src = e.getSource();
 
+            if( src == buttonNextMember) // on pressing button
+            {
+                if((memberIndex+1) <members.size()) {
+                    memberIndex++;
+                    labelMenuUsername.setText("Username: " + members.get(memberIndex).getUsername());
+                    labelMenuPassword.setText("Password: " + members.get(memberIndex).getPassword());
+                }
+
+            }
+        }
+    });
+
+        buttonPreviousMember.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Object src = e.getSource();
+
+                if( src == buttonPreviousMember) // on pressing button
+                {
+                    if((memberIndex-1) >= 0) {
+                        memberIndex--;
+                        labelMenuUsername.setText("Username: " + members.get(memberIndex).getUsername());
+                        labelMenuPassword.setText("Password: " + members.get(memberIndex).getPassword());
+                    }
+
+                }
+            }
+        });
         buttonReturn.addActionListener(new ActionListener() { 
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -456,15 +541,56 @@ public class JPanelManager extends JFrame {
     }
 
     private JLabel labelMenuTasks = new JLabel("Current Task(s)");
+    private JLabel labelMenuTaskName = new JLabel();
+    private JLabel labelMenuTaskDescription = new JLabel();
+    private JLabel labelMenuTaskDueDate = new JLabel();
+    private JLabel labelMenuTaskCreatedOn = new JLabel();
+    private JLabel labelMenuTaskStatus = new JLabel();
+    private JLabel labelMenuTaskCreatedBy = new JLabel();
+    private JLabel labelMenuTaskAssignedTo = new JLabel();
+    private JLabel labelMenuTaskSubtasks = new JLabel();
+    private JButton buttonTaskReturn = new JButton ("Back");
     private JButton buttonCreateTask = new JButton("Create New Task");
+
+    private JButton buttonNextTask = new JButton ("Next");
+    private JButton buttonPreviousTask = new JButton ("Previous");
+    private int taskIndex = 0;
     public void menuTasksVis(Boolean a)
     {
         labelMenuTasks.setVisible(a);
-        buttonReturn.setVisible(a);
+        labelMenuTaskDescription.setVisible(a);
+        labelMenuTaskDueDate.setVisible(a);
+        labelMenuTaskCreatedOn.setVisible(a);
+        labelMenuTaskStatus.setVisible(a);
+        labelMenuTaskCreatedBy.setVisible(a);
+        labelMenuTaskAssignedTo.setVisible(a);
+        labelMenuTaskSubtasks.setVisible(a);
+        labelMenuTaskName.setVisible(a);
         buttonCreateTask.setVisible(a);
+        buttonNextTask.setVisible(a);
+        buttonTaskReturn.setVisible(a);
+        buttonPreviousTask.setVisible(a);
     }
     public void menuTasks()
     {
+        labelMenuTaskName.setText("Name: " + tasks.get(taskIndex).getName());
+        if(tasks.get(taskIndex).getTextColor()== "White") {
+            labelMenuTaskName.setForeground(Color.WHITE);
+        }
+        else if(tasks.get(taskIndex).getTextColor()== "Black")
+            labelMenuTaskName.setForeground(Color.BLACK);
+        else if(tasks.get(taskIndex).getTextColor()== "Red")
+            labelMenuTaskName.setForeground(Color.RED);
+        else if(tasks.get(taskIndex).getTextColor()== "Green")
+            labelMenuTaskName.setForeground(Color.GREEN);
+
+        labelMenuTaskDescription.setText("Description: " + tasks.get(taskIndex).getDescription());
+        labelMenuTaskDueDate.setText("Due Date: " + tasks.get(taskIndex).getDue_date());
+        labelMenuTaskCreatedOn.setText("Created On: " + tasks.get(taskIndex).getCreated_on());
+        labelMenuTaskStatus.setText("Status: " + tasks.get(taskIndex).getStatus());
+        labelMenuTaskCreatedBy.setText("Created By: " + tasks.get(taskIndex).getCreated_by().getUsername());
+        labelMenuTaskAssignedTo.setText("Assigned To: " + tasks.get(taskIndex).getAssigned_to().getUsername());
+        labelMenuTaskSubtasks.setText("Subtasks: " + tasks.get(taskIndex).getSubtasks());
         menuTasksVis(true);
         // add the panel to this frame
         buttonCreateTask.addActionListener(new ActionListener() { 
@@ -480,11 +606,74 @@ public class JPanelManager extends JFrame {
             }
         });
 
-        buttonReturn.addActionListener(new ActionListener() { 
+        buttonNextTask.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Object src = e.getSource();
-                if( src == buttonReturn) // on pressing button
+
+                if( src == buttonNextTask) // on pressing button
+                {
+                    if((taskIndex+1) <tasks.size()) {
+                        taskIndex++;
+                        labelMenuTaskName.setText("Name: " + tasks.get(taskIndex).getName());
+                        if(tasks.get(taskIndex).getTextColor()== "White") {
+                            labelMenuTaskName.setForeground(Color.WHITE);
+                        }
+                        else if(tasks.get(taskIndex).getTextColor()== "Black")
+                            labelMenuTaskName.setForeground(Color.BLACK);
+                        else if(tasks.get(taskIndex).getTextColor()== "Red")
+                            labelMenuTaskName.setForeground(Color.RED);
+                        else if(tasks.get(taskIndex).getTextColor()== "Green")
+                            labelMenuTaskName.setForeground(Color.GREEN);
+                        labelMenuTaskDescription.setText("Description: " + tasks.get(taskIndex).getDescription());
+                        labelMenuTaskDueDate.setText("Due Date: " + tasks.get(taskIndex).getDue_date());
+                        labelMenuTaskCreatedOn.setText("Created On: " + tasks.get(taskIndex).getCreated_on());
+                        labelMenuTaskStatus.setText("Status: " + tasks.get(taskIndex).getStatus());
+                        labelMenuTaskCreatedBy.setText("Created By: " + tasks.get(taskIndex).getCreated_by().getUsername());
+                        labelMenuTaskAssignedTo.setText("Assigned To: " + tasks.get(taskIndex).getAssigned_to().getUsername());
+                        labelMenuTaskSubtasks.setText("Subtasks: " + tasks.get(taskIndex).getSubtasks());
+                    }
+
+                }
+            }
+        });
+
+        buttonPreviousTask.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Object src = e.getSource();
+
+                if( src == buttonPreviousTask) // on pressing button
+                {
+                    if((taskIndex-1) >= 0) {
+                        taskIndex--;
+                        labelMenuTaskName.setText("Name: " + tasks.get(taskIndex).getName());
+                        if(tasks.get(taskIndex).getTextColor()== "White") { // Color
+                            labelMenuTaskName.setForeground(Color.WHITE);
+                        }
+                        else if(tasks.get(taskIndex).getTextColor()== "Black")
+                            labelMenuTaskName.setForeground(Color.BLACK);
+                        else if(tasks.get(taskIndex).getTextColor()== "Red")
+                            labelMenuTaskName.setForeground(Color.RED);
+                        else if(tasks.get(taskIndex).getTextColor()== "Green")
+                            labelMenuTaskName.setForeground(Color.GREEN);
+                        labelMenuTaskDescription.setText("Description: " + tasks.get(taskIndex).getDescription());
+                        labelMenuTaskDueDate.setText("Due Date: " + tasks.get(taskIndex).getDue_date());
+                        labelMenuTaskCreatedOn.setText("Created On: " + tasks.get(taskIndex).getCreated_on());
+                        labelMenuTaskStatus.setText("Status: " + tasks.get(taskIndex).getStatus());
+                        labelMenuTaskCreatedBy.setText("Created By: " + tasks.get(taskIndex).getCreated_by().getUsername());
+                        labelMenuTaskAssignedTo.setText("Assigned To: " + tasks.get(taskIndex).getAssigned_to().getUsername());
+                        labelMenuTaskSubtasks.setText("Subtasks: " + tasks.get(taskIndex).getSubtasks());
+                    }
+
+                }
+            }
+        });
+        buttonTaskReturn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Object src = e.getSource();
+                if( src == buttonTaskReturn) // on pressing button
                 {
                     menuTasksVis(false);
                     menu2(); // moves onto the next menu
@@ -549,50 +738,43 @@ public class JPanelManager extends JFrame {
     private JTextField textTaskAssignedTo = new JTextField(20);
     private JButton buttonReturnSecond = new JButton("Back");
     private JButton buttonTaskCreate = new JButton("Create");
+    String[] textColors = {"Black", "White", "Red", "Green"};
+    private JComboBox comboColorBox = new JComboBox(textColors);
+    public void menuCreateTaskVis(boolean a)
+    {
+
+        labelTaskName.setVisible(a);
+        labelTaskDescription.setVisible(a);
+        labelTaskDueDate.setVisible(a);
+        labelTaskCreatedOn.setVisible(a);
+        labelTaskStatus.setVisible(a);
+        labelTaskCreatedBy.setVisible(a);
+        labelTaskAssignedTo.setVisible(a);
+        textTaskName.setVisible(a);
+        textTaskDescription.setVisible(a);
+        textTaskDueDate.setVisible(a);
+        textTaskCreatedOn.setVisible(a);
+        textTaskStatus.setVisible(a);
+        textTaskCreatedBy.setVisible(a);
+        textTaskAssignedTo.setVisible(a);
+        buttonReturnSecond.setVisible(a);
+        buttonTaskCreate.setVisible(a);
+        comboColorBox.setVisible(a);
+    }
     public void menuCreateTask()
     {
-        labelTaskName.setVisible(true);
-        labelTaskDescription.setVisible(true);
-        labelTaskDueDate.setVisible(true);
-        labelTaskCreatedOn.setVisible(true);
-        labelTaskStatus.setVisible(true);
-        labelTaskCreatedBy.setVisible(true);
-        labelTaskAssignedTo.setVisible(true);
-        textTaskName.setVisible(true);
-        textTaskDescription.setVisible(true);
-        textTaskDueDate.setVisible(true);
-        textTaskCreatedOn.setVisible(true);
-        textTaskStatus.setVisible(true);
-        textTaskCreatedBy.setVisible(true);
-        textTaskAssignedTo.setVisible(true);
-        buttonReturnSecond.setVisible(true);
-        buttonTaskCreate.setVisible(true);
+        menuCreateTaskVis(true);
         buttonTaskCreate.addActionListener(new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
             Object src = e.getSource();
             if( src == buttonTaskCreate ) // on pressing button
             {
-                labelTaskName.setVisible(false);
-                labelTaskDescription.setVisible(false);
-                labelTaskDueDate.setVisible(false);
-                labelTaskCreatedOn.setVisible(false);
-                labelTaskStatus.setVisible(false);
-                labelTaskCreatedBy.setVisible(false);
-                labelTaskAssignedTo.setVisible(false);
-                textTaskName.setVisible(false);
-                textTaskDescription.setVisible(false);
-                textTaskDueDate.setVisible(false);
-                textTaskCreatedOn.setVisible(false);
-                textTaskStatus.setVisible(false);
-                textTaskCreatedBy.setVisible(false);
-                textTaskAssignedTo.setVisible(false);
-                buttonReturnSecond.setVisible(false);
-                buttonReturnSecond.setVisible(false);
-                buttonTaskCreate.setVisible(false);
+                menuCreateTaskVis(false);
                 // name, description, due date, created on, status, created by, assigned to
                 Task task = new Task(textTaskName.getText(), textTaskDescription.getText(), textTaskDueDate.getText(), textTaskCreatedOn.getText(),
                         textTaskStatus.getText(), nobody, nobody);
+                task.assignColor((String)comboColorBox.getSelectedItem());
                 tasks.add(task);
                 //Task task = new Task(textTaskName.getText(), textTaskDescription.getText(), textTaskDueDate.getText(), textTaskCreatedOn.getText(),
                         //textTaskStatus.getText(), textTaskCreatedBy.getText(), textTaskAssignedTo.getText());
@@ -606,28 +788,14 @@ public class JPanelManager extends JFrame {
                 Object src = e.getSource();
                 if( src == buttonReturnSecond) // on pressing button
                 {
-                    labelTaskName.setVisible(false);
-                    labelTaskDescription.setVisible(false);
-                    labelTaskDueDate.setVisible(false);
-                    labelTaskCreatedOn.setVisible(false);
-                    labelTaskStatus.setVisible(false);
-                    labelTaskCreatedBy.setVisible(false);
-                    labelTaskAssignedTo.setVisible(false);
-                    textTaskName.setVisible(false);
-                    textTaskDescription.setVisible(false);
-                    textTaskDueDate.setVisible(false);
-                    textTaskCreatedOn.setVisible(false);
-                    textTaskStatus.setVisible(false);
-                    textTaskCreatedBy.setVisible(false);
-                    textTaskAssignedTo.setVisible(false);
-                    buttonReturnSecond.setVisible(false);
-                    buttonReturnSecond.setVisible(false);
-                    buttonTaskCreate.setVisible(false);
+
+                    menuCreateTaskVis(false);
                     menuTasks(); // moves onto the next menu
                 }
             }
         });
-    }//instantiate text field
+    }
+    //instantiate text field
     public void menuCreateTeam()
     {
         //set fields and button visible
@@ -639,11 +807,65 @@ public class JPanelManager extends JFrame {
         //set fields and button visible
         // on click ok
         //Category category = new Category(namefield, descfield, etc..)
+    }
 
+    private JButton buttonMemberCreate = new JButton("Create");
+    private JButton buttonMemberReturn = new JButton("Back");
+    private JLabel labelMemberUsername = new JLabel("Username: ");
+    private JLabel labelMemberPassword = new JLabel("Password: ");
+    private JTextField textMemberUsername = new JTextField(20);
+    private JTextField textMemberPassword = new JTextField(20);
+    public void menuCreateMember()
+    {
+        buttonMemberReturn.setVisible(true);
+        labelMemberUsername.setVisible(true);
+        labelMemberPassword.setVisible(true);
+        buttonMemberCreate.setVisible(true);
+        textMemberUsername.setVisible(true);
+        textMemberPassword.setVisible(true);
+        //set fields and button visible
+        buttonMemberCreate.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Object src = e.getSource();
+                if( src == buttonMemberCreate ) // on pressing button
+                {
+
+                    buttonMemberReturn.setVisible(false);
+                    labelMemberUsername.setVisible(false);
+                    labelMemberPassword.setVisible(false);
+                    buttonMemberCreate.setVisible(false);
+                    textMemberUsername.setVisible(false);
+                    textMemberPassword.setVisible(false);
+                    // UserName, Pass
+                    Member member = new Member(textMemberUsername.getText(), textMemberPassword.getText());
+                    members.add(member);
+                    menuMembers(); // moves onto the next menu
+                }
+            }
+        });
+        buttonMemberReturn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Object src = e.getSource();
+                if( src == buttonMemberReturn ) // on pressing button
+                {
+
+                    buttonMemberReturn.setVisible(false);
+                    labelMemberUsername.setVisible(false);
+                    labelMemberPassword.setVisible(false);
+                    buttonMemberCreate.setVisible(false);
+                    textMemberUsername.setVisible(false);
+                    textMemberPassword.setVisible(false);
+                    menuMembers(); // moves onto the next menu
+                }
+            }
+        });
     }
     //instantiate text field
 
     private static Member nobody = new Member("N/A", "1234");
+    private static Task nullTask = new Task("N/A", "N/A", "N/A", "N/A", "N/A", nobody,nobody);
     private static  ArrayList<Member> members = new ArrayList<Member>();
     private static ArrayList<Task> tasks = new ArrayList<Task>();
     private static ArrayList<Team> teams = new ArrayList<Team>();
@@ -656,6 +878,7 @@ public class JPanelManager extends JFrame {
             ex.printStackTrace();
         }
         members.add(nobody);
+        tasks.add(nullTask);
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
