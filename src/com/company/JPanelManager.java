@@ -230,6 +230,7 @@ public class JPanelManager extends JFrame {
         userPanel.setBorder(BorderFactory.createTitledBorder(
                 BorderFactory.createEtchedBorder(), "Tasks Panel"));
          */
+        // Task Adding Menu GUI
         GridBagConstraints TaskCon = new GridBagConstraints();
         TaskCon.anchor = GridBagConstraints.WEST;
         TaskCon.insets = new Insets(10, 10, 10, 10);
