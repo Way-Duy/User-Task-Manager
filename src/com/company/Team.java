@@ -5,10 +5,10 @@ public class Team
 {
     List<Member> team = new ArrayList<>();
     String name;
-    Team(String name, List<Member> team)
+    String memberNames = "" ;
+    Team(String name)
     {
         this.name =name;
-        this.team.addAll(team);
     }
     public String getName() 
     {
@@ -18,9 +18,15 @@ public class Team
     {
         return team;
     }
-    public void addMember(Member member)
+
+    public String getMemberNames() {
+        return memberNames;
+    }
+
+    public void addMemberString(String stringMember)
     {
-        team.add(member);
+        //team.add(member);
+        memberNames = memberNames + ",  " + stringMember;
     }
     public void deleteMember(Member member)
     {

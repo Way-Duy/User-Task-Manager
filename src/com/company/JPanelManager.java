@@ -197,29 +197,45 @@ public class JPanelManager extends JFrame {
 
         // Teams GUI
 
-        GridBagConstraints teamConstraints = new GridBagConstraints();
-        teamConstraints.anchor = GridBagConstraints.WEST;
-        teamConstraints.insets = new Insets(10, 10, 10, 10);
+        GridBagConstraints constraintsTeams = new GridBagConstraints();
+        constraintsTeams.anchor = GridBagConstraints.WEST;
+        constraintsTeams.insets = new Insets(10, 10, 10, 10);
 
         // add components to the panel
-        teamConstraints.gridx = 0;
-        teamConstraints.gridy = 0;
-        userPanel.add(labelMenuTeams, teamConstraints);
+        constraintsTeams.gridx = 0;
+        constraintsTeams.gridy = 0;
+        userPanel.add(labelMenuTeams, constraintsTeams);
 
-        teamConstraints.gridx = 0;
-        teamConstraints.gridy = 2;
-        teamConstraints.gridwidth = 2;
-        teamConstraints.anchor = GridBagConstraints.CENTER;
-        userPanel.add(buttonCreateTeam, teamConstraints);
 
-        teamConstraints.gridx = 0;
-        teamConstraints.gridy = 8;
-        teamConstraints.gridwidth = 2;
-        teamConstraints.anchor = GridBagConstraints.CENTER;
-        userPanel.add(buttonReturn, teamConstraints);
+        constraintsTeams.gridy = 1;
+        userPanel.add(labelMenuTeamName, constraintsTeams);
+        constraintsTeams.gridy = 2;
+        userPanel.add(labelMenuTeamMembers, constraintsTeams);
 
-        labelMenuTeams.setVisible(false);
-        buttonCreateTeam.setVisible(false);
+        constraintsTeams.gridy = 3;
+        userPanel.add(buttonNextTeam, constraintsTeams);
+        constraintsTeams.gridx = 1;
+        userPanel.add(buttonPreviousTeam, constraintsTeams);
+
+        constraintsTeams.gridx = 0;
+        constraintsTeams.gridy = 4;
+        userPanel.add(textMenuTeamaddMember,constraintsTeams);
+
+        constraintsTeams.gridx = 1;
+        userPanel.add(buttonTeamAddMember,constraintsTeams);
+
+        constraintsTeams.gridx = 0;
+        constraintsTeams.gridy = 5;
+        constraintsTeams.gridwidth = 2;
+        constraintsTeams.anchor = GridBagConstraints.CENTER;
+        userPanel.add(buttonCreateTeam, constraintsTeams);
+
+        constraintsTeams.gridx = 0;
+        constraintsTeams.gridy = 8;
+        constraintsTeams.gridwidth = 2;
+        constraintsTeams.anchor = GridBagConstraints.CENTER;
+        userPanel.add(buttonReturn, constraintsTeams);
+        menuTeamsVis(false);
 
         //CATEGORIES GUI
 
@@ -228,9 +244,10 @@ public class JPanelManager extends JFrame {
         categoryConstraints.insets = new Insets(10, 10, 10, 10);
 
         // add components to the panel
-        teamConstraints.gridx = 0;
-        teamConstraints.gridy = 0;
-        userPanel.add(labelMenuCategory, teamConstraints);
+        categoryConstraints.gridx = 0;
+        categoryConstraints.gridx = 0;
+        categoryConstraints.gridy = 0;
+        userPanel.add(labelMenuCategory, categoryConstraints);
 
         categoryConstraints.gridx = 0;
         categoryConstraints.gridy = 8;
@@ -332,13 +349,81 @@ public class JPanelManager extends JFrame {
         userPanel.add(buttonMemberReturn, MemberAddConstraints);
         MemberAddConstraints.gridx = 1;
         userPanel.add(buttonMemberCreate, MemberAddConstraints);
+        menuCreateMemberVis(false);
 
-        labelMemberUsername.setVisible(false);
-        labelMemberPassword.setVisible(false);
-        buttonMemberCreate.setVisible(false);
-        textMemberUsername.setVisible(false);
-        textMemberPassword.setVisible(false);
-        buttonMemberReturn.setVisible(false);
+        // MENU  CATEGORY CREATE GUI
+
+
+        GridBagConstraints CategoryAddConstraints = new GridBagConstraints();
+        CategoryAddConstraints.anchor = GridBagConstraints.WEST;
+        CategoryAddConstraints.insets = new Insets(10, 10, 10, 10);
+        CategoryAddConstraints.gridx = 0;
+        CategoryAddConstraints.gridy = 0;
+        CategoryAddConstraints.anchor = GridBagConstraints.CENTER;
+        userPanel.add(labelCategoryName, CategoryAddConstraints);
+        CategoryAddConstraints.gridy = 1;
+        userPanel.add(labelCategoryDescription, CategoryAddConstraints);
+        CategoryAddConstraints.gridy = 2;
+        userPanel.add(labelCategoryCreatedOn, CategoryAddConstraints);
+        CategoryAddConstraints.gridy = 3;
+        userPanel.add(labelCategoryCreatedBy, CategoryAddConstraints);
+
+
+
+
+        CategoryAddConstraints.gridx = 1;
+        CategoryAddConstraints.anchor = GridBagConstraints.CENTER;
+
+        CategoryAddConstraints.gridy = 0;
+        userPanel.add(textCategoryName, CategoryAddConstraints);
+        CategoryAddConstraints.gridy = 1;
+        userPanel.add(textCategoryDescription, CategoryAddConstraints);
+        CategoryAddConstraints.gridy = 2;
+        userPanel.add(textCategoryCreatedOn, CategoryAddConstraints);
+        CategoryAddConstraints.gridy = 3;
+        userPanel.add(textCategoryCreatedBy, CategoryAddConstraints);
+        CategoryAddConstraints.gridy = 4;
+
+        CategoryAddConstraints.anchor = GridBagConstraints.CENTER;
+
+        CategoryAddConstraints.gridx = 0;
+        userPanel.add(buttonCategoryReturn, CategoryAddConstraints);
+        CategoryAddConstraints.gridx = 1;
+        userPanel.add(buttonCategoryCreate, CategoryAddConstraints);
+        menuCreateCategoryVis(false);
+
+
+
+        //MENU TEAM CREATE GUI
+
+
+        GridBagConstraints TeamAddConstraints = new GridBagConstraints();
+        TeamAddConstraints.anchor = GridBagConstraints.WEST;
+        TeamAddConstraints.insets = new Insets(10, 10, 10, 10);
+        TeamAddConstraints.gridx = 0;
+        TeamAddConstraints.gridy = 0;
+        TeamAddConstraints.anchor = GridBagConstraints.CENTER;
+        userPanel.add(labelTeamName, TeamAddConstraints);
+
+
+
+
+        TeamAddConstraints.gridx = 1;
+        TeamAddConstraints.anchor = GridBagConstraints.CENTER;
+
+        TeamAddConstraints.gridy = 0;
+        userPanel.add(textTeamName, TeamAddConstraints);
+        TeamAddConstraints.gridy = 1;
+        TeamAddConstraints.anchor = GridBagConstraints.CENTER;
+
+        TeamAddConstraints.gridx = 0;
+        userPanel.add(buttonTeamReturn, TeamAddConstraints);
+        TeamAddConstraints.gridx = 1;
+        userPanel.add(buttonTeamCreate, TeamAddConstraints);
+        menuCreateTeamVis(false);
+
+
+
         add(userPanel);
         pack();
         setLocationRelativeTo(null);
@@ -503,15 +588,34 @@ public class JPanelManager extends JFrame {
     }
 
     private JLabel labelMenuTeams = new JLabel("Current Team(s)");
+    private JLabel labelMenuTeamName = new JLabel("Name: " );
+    private JLabel labelMenuTeamMembers = new JLabel("Members: ");
+    private JTextField textMenuTeamaddMember = new JTextField(20);
+
+    private JButton buttonTeamAddMember = new JButton("Add");
     private JButton buttonCreateTeam = new JButton("Create New Team");
+    private JButton buttonNextTeam = new JButton("Next");
+    private JButton buttonPreviousTeam = new JButton("Previous");
     public void menuTeamsVis(Boolean a)
     {
         labelMenuTeams.setVisible(a);
         buttonCreateTeam.setVisible(a);
         buttonReturn.setVisible(a);
+        labelMenuTeamName.setVisible(a);
+        labelMenuTeamMembers.setVisible(a);
+        buttonPreviousTeam.setVisible(a);
+        buttonNextTeam.setVisible(a);
+        buttonReturn.setVisible(a);
+        buttonTeamAddMember.setVisible(a);
+        textMenuTeamaddMember.setVisible(a);
     }
+
+    private int teamIndex = 0;
     public void menuTeams()
     {
+
+        labelMenuTeamName.setText("Description: " + teams.get(teamIndex).getName());
+        labelMenuTeamMembers.setText("Due Date: " + teams.get(teamIndex).getMemberNames());
         menuTeamsVis(true);
         buttonCreateTeam.addActionListener(new ActionListener() { 
             @Override
@@ -521,7 +625,56 @@ public class JPanelManager extends JFrame {
                 if( src == buttonCreateTeam) // on pressing button
                 {
                     menuTeamsVis(false);
-                    //menuCreateTeam(); // moves onto the next menu
+                    menuCreateTeam(); // moves onto the next menu
+                }
+            }
+        });
+        buttonTeamAddMember.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Object src = e.getSource();
+
+            if( src == buttonTeamAddMember) // on pressing button
+            {
+                teams.get(teamIndex).addMemberString(textMenuTeamaddMember.getText());
+                labelMenuTeamMembers.setText("Due Date: " + teams.get(teamIndex).getMemberNames());
+
+            }
+        }
+    });
+
+        buttonNextTeam.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Object src = e.getSource();
+
+                if( src == buttonNextTeam) // on pressing button
+                {
+                    if((teamIndex+1) <teams.size()) {
+                        teamIndex++;
+                        labelMenuTeamName.setText("Name: " + teams.get(teamIndex).getName());
+
+                        labelMenuTeamMembers.setText("Members: " + teams.get(teamIndex).getMemberNames());
+                    }
+
+                }
+            }
+        });
+
+        buttonPreviousTeam.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Object src = e.getSource();
+
+                if( src == buttonPreviousTeam) // on pressing button
+                {
+                    if((teamIndex-1) >= 0) {
+                        teamIndex--;
+                        labelMenuTeamName.setText("Name: " + teams.get(teamIndex).getName());
+                        
+                        labelMenuTeamMembers.setText("Members: " + teams.get(teamIndex).getMemberNames());
+                    }
+
                 }
             }
         });
@@ -700,7 +853,7 @@ public class JPanelManager extends JFrame {
                 if(src == buttonCreateCategory)
                 {
                     menuCategoryVis(false);
-                    //menuCreateCategory(); // moves onto the next menu
+                    menuCreateCategory(); // moves onto the next menu
                 }
 
             }
@@ -796,17 +949,114 @@ public class JPanelManager extends JFrame {
         });
     }
     //instantiate text field
+    public void menuCreateTeamVis(boolean a)
+    {
+
+        buttonTeamReturn.setVisible(a);
+        labelTeamName.setVisible(a);
+        buttonTeamCreate.setVisible(a);
+        textTeamName.setVisible(a);
+
+    }
+    private JButton buttonTeamCreate = new JButton("Create");
+    private JButton buttonTeamReturn = new JButton("Back");
+    private JLabel labelTeamName = new JLabel("Name: ");
+    private JTextField textTeamName = new JTextField(20);
     public void menuCreateTeam()
     {
-        //set fields and button visible
-        // on click ok
+        menuCreateTeamVis(true);
+        buttonTeamCreate.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Object src = e.getSource();
+                if( src == buttonTeamCreate ) // on pressing button
+                {
+
+
+                    menuCreateTeamVis(false);
+                    // UserName, Pass
+                    Team team = new Team(textTeamName.getText());
+                    teams.add(team);
+                    menuTeams(); // moves onto the next menu
+                }
+            }
+        });
+        buttonTeamReturn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Object src = e.getSource();
+                if( src == buttonTeamReturn ) // on pressing button
+                {
+
+
+                    menuCreateTeamVis(false);
+                    menuTeams(); // moves onto the next menu
+                }
+            }
+        });
         //Team team = new Team(namefield, descfield, etc..)
     }//instantiate text field
+    public void menuCreateCategoryVis(boolean a)
+    {
+
+        buttonCategoryReturn.setVisible(a);
+        labelCategoryName.setVisible(a);
+        labelCategoryDescription.setVisible(a);
+        labelCategoryCreatedBy.setVisible(a);
+        labelCategoryCreatedOn.setVisible(a);
+        buttonCategoryCreate.setVisible(a);
+        textCategoryName.setVisible(a);
+        textCategoryDescription.setVisible(a);
+        textCategoryCreatedOn.setVisible(a);
+        textCategoryCreatedBy.setVisible(a);
+    }
+    private JButton buttonCategoryCreate = new JButton("Create");
+    private JButton buttonCategoryReturn = new JButton("Back");
+    private JLabel labelCategoryName = new JLabel("Name: ");
+    private JLabel labelCategoryDescription = new JLabel("Description: ");
+    private JLabel labelCategoryCreatedOn = new JLabel("Created On: ");
+    private JLabel labelCategoryCreatedBy = new JLabel("Created By: ");
+    private JTextField textCategoryName = new JTextField(20);
+    private JTextField textCategoryDescription = new JTextField(20);
+    private JTextField textCategoryCreatedOn = new JTextField(20);
+    private JTextField textCategoryCreatedBy = new JTextField(20);
     public void menuCreateCategory()
     {
-        //set fields and button visible
-        // on click ok
-        //Category category = new Category(namefield, descfield, etc..)
+        menuCreateCategoryVis(true);
+
+        buttonCategoryCreate.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Object src = e.getSource();
+                if( src == buttonCategoryCreate ) // on pressing button
+                {
+
+
+                    menuCreateCategoryVis(false);
+                    // UserName, Pass
+                    TaskCategory category = new TaskCategory(textCategoryName.getText(), textCategoryDescription.getText(),
+                    textCategoryCreatedOn.getText(),nobody);
+                    // replace nobody with person who created it, to be replaced after login is finished
+
+                    //Category category = new Category(namefield, descfield, etc..)
+                    categories.add(category);
+                    menuCategories(); // moves onto the next menu
+                }
+            }
+        });
+        buttonCategoryReturn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Object src = e.getSource();
+                if( src == buttonCategoryReturn ) // on pressing button
+                {
+
+
+                    menuCreateCategoryVis(false);
+                    menuCategories(); // moves onto the next menu
+                }
+            }
+        });
     }
 
     private JButton buttonMemberCreate = new JButton("Create");
@@ -815,15 +1065,19 @@ public class JPanelManager extends JFrame {
     private JLabel labelMemberPassword = new JLabel("Password: ");
     private JTextField textMemberUsername = new JTextField(20);
     private JTextField textMemberPassword = new JTextField(20);
+    public void menuCreateMemberVis(boolean a)
+    {
+        buttonMemberReturn.setVisible(a);
+        labelMemberUsername.setVisible(a);
+        labelMemberPassword.setVisible(a);
+        buttonMemberCreate.setVisible(a);
+        textMemberUsername.setVisible(a);
+        textMemberPassword.setVisible(a);
+    }
+
     public void menuCreateMember()
     {
-        buttonMemberReturn.setVisible(true);
-        labelMemberUsername.setVisible(true);
-        labelMemberPassword.setVisible(true);
-        buttonMemberCreate.setVisible(true);
-        textMemberUsername.setVisible(true);
-        textMemberPassword.setVisible(true);
-        //set fields and button visible
+        menuCreateMemberVis(true);
         buttonMemberCreate.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -831,12 +1085,8 @@ public class JPanelManager extends JFrame {
                 if( src == buttonMemberCreate ) // on pressing button
                 {
 
-                    buttonMemberReturn.setVisible(false);
-                    labelMemberUsername.setVisible(false);
-                    labelMemberPassword.setVisible(false);
-                    buttonMemberCreate.setVisible(false);
-                    textMemberUsername.setVisible(false);
-                    textMemberPassword.setVisible(false);
+
+                    menuCreateMemberVis(false);
                     // UserName, Pass
                     Member member = new Member(textMemberUsername.getText(), textMemberPassword.getText());
                     members.add(member);
@@ -851,12 +1101,8 @@ public class JPanelManager extends JFrame {
                 if( src == buttonMemberReturn ) // on pressing button
                 {
 
-                    buttonMemberReturn.setVisible(false);
-                    labelMemberUsername.setVisible(false);
-                    labelMemberPassword.setVisible(false);
-                    buttonMemberCreate.setVisible(false);
-                    textMemberUsername.setVisible(false);
-                    textMemberPassword.setVisible(false);
+
+                    menuCreateMemberVis(false);
                     menuMembers(); // moves onto the next menu
                 }
             }
@@ -866,6 +1112,8 @@ public class JPanelManager extends JFrame {
 
     private static Member nobody = new Member("N/A", "1234");
     private static Task nullTask = new Task("N/A", "N/A", "N/A", "N/A", "N/A", nobody,nobody);
+    private static Team nullTeam = new Team("N/A");
+
     private static  ArrayList<Member> members = new ArrayList<Member>();
     private static ArrayList<Task> tasks = new ArrayList<Task>();
     private static ArrayList<Team> teams = new ArrayList<Team>();
@@ -879,6 +1127,7 @@ public class JPanelManager extends JFrame {
         }
         members.add(nobody);
         tasks.add(nullTask);
+        teams.add(nullTeam);
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
