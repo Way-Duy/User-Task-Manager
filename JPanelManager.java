@@ -457,7 +457,9 @@ public class JPanelManager extends JFrame {
                 {
                     userPanel.setBackground(Color.CYAN);
                     invis(false);//set general stuff visibility to false
+                    
                     menuMembers(); // moves onto the next menu
+                  //  ((JButton) e.getSource()).removeActionListener(this);
                 }
             }
         });
@@ -1118,7 +1120,10 @@ public class JPanelManager extends JFrame {
                     Member member = new Member(textMemberUsername.getText(), textMemberPassword.getText());
                     members.add(member);
                     
-                    menuMembers(); // moves onto the next menu
+                  //  ((JButton) e.getSource()).removeActionListener(this);
+                    
+                    menuMembers(); 
+                    // moves onto the next menu
                 }
             }
         });
@@ -1131,6 +1136,7 @@ public class JPanelManager extends JFrame {
 
 
                     menuCreateMemberVis(false);
+                //    ((JButton) e.getSource()).removeActionListener(this);
                     menuMembers(); // moves onto the next menu
                 }
             }
