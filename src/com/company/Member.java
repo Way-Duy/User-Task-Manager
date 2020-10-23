@@ -22,4 +22,15 @@ public class Member
             return true;
         return false;
     }
+    public void changeUsername(String username)
+    {
+
+      this.username = username;
+    }
+    public void changePassword(String Password)
+    {
+
+      this.password = password;
+      
+      }    
 }
