@@ -143,6 +143,10 @@ public class JPanelManager extends JFrame {
         MemberConstraints.gridy = 8;
         userPanel.add(buttonCreateMember, MemberConstraints);
 
+        MemberConstraints.gridx = 1;
+        MemberConstraints.gridy = 12;
+        userPanel.add(buttonDeleteMember, MemberConstraints);
+
         MemberConstraints.gridx = 0;
         MemberConstraints.gridy = 8;
         MemberConstraints.gridwidth = 2;
@@ -548,6 +552,24 @@ public class JPanelManager extends JFrame {
                     }
                 }
             });
+        buttonDeleteMember.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Object src = e.getSource();
+
+                if( src == buttonDeleteMember) // on pressing button
+                {
+                    if((memberIndex-1) >= 0) {
+                        members.remove(memberIndex);
+                        memberIndex--;
+                        labelMenuUsername.setText("Username: " + members.get(memberIndex).getUsername());
+                        labelMenuPassword.setText("Password: " + members.get(memberIndex).getPassword());
+                        System.out.println("deleting: " + memberIndex);
+                        // moves onto the next menu
+                    }
+                }
+            }
+        });
         // Menu View Team Buttons
 
         buttonCreateTeam.addActionListener(new ActionListener() {
@@ -894,7 +916,7 @@ public class JPanelManager extends JFrame {
     private JButton buttonNextMember = new JButton("Next Member");
     private JButton buttonCreateMember = new JButton("Create New Member");
     private JButton buttonReturn = new JButton("Main Menu");
-
+    private JButton buttonDeleteMember = new JButton("Delete Member");
     int memberIndex = 0;
     public void menuMembersVis(Boolean a)
     {
@@ -905,6 +927,7 @@ public class JPanelManager extends JFrame {
         buttonPreviousMember.setVisible(a);
         labelMenuUsername.setVisible(a);
         labelMenuPassword.setVisible(a);
+        buttonDeleteMember.setVisible(a);
     }
     public void menuMembers()
     {
