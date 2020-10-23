@@ -189,6 +189,9 @@ public class JPanelManager extends JFrame {
         constraintsTasks.gridx = 1;
         constraintsTasks.gridy = 10;
         userPanel.add(buttonCreateTask, constraintsTasks);
+        constraintsTasks.gridx = 1;
+        constraintsTasks.gridy = 12;
+        userPanel.add(buttonDeleteTask, constraintsTasks);
 
         constraintsTasks.gridx = 0;
         constraintsTasks.gridy = 10;
@@ -233,6 +236,9 @@ public class JPanelManager extends JFrame {
         constraintsTeams.gridwidth = 2;
         constraintsTeams.anchor = GridBagConstraints.CENTER;
         userPanel.add(buttonCreateTeam, constraintsTeams);
+        constraintsTeams.gridx = 0;
+        constraintsTeams.gridy = 7;
+        userPanel.add(buttonDeleteTeam, constraintsTeams);
 
         constraintsTeams.gridx = 0;
         constraintsTeams.gridy = 8;
@@ -564,7 +570,7 @@ public class JPanelManager extends JFrame {
                         memberIndex--;
                         labelMenuUsername.setText("Username: " + members.get(memberIndex).getUsername());
                         labelMenuPassword.setText("Password: " + members.get(memberIndex).getPassword());
-                        System.out.println("deleting: " + memberIndex);
+                        
                         // moves onto the next menu
                     }
                 }
@@ -643,6 +649,25 @@ public class JPanelManager extends JFrame {
                 {
                     menuTeamsVis(false);
                     selectMenu(); // moves onto the next menu
+                }
+            }
+        });
+          buttonDeleteTeam.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Object src = e.getSource();
+
+ 
+              if( src == buttonDeleteTeam) // on pressing button
+                {
+                    if((teamIndex-1) >= 0) {
+                        teams.remove(teamIndex);
+                        teamIndex--;
+                        labelMenuTeamName.setText("Name: " + teams.get(teamIndex).getName());
+
+                        labelMenuTeamMembers.setText("Members: " + teams.get(teamIndex).getMemberNames());
+                        // moves onto the next menu
+                    }
                 }
             }
         });
@@ -793,6 +818,37 @@ public class JPanelManager extends JFrame {
                 }
             }
         });
+           buttonDeleteTask.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Object src = e.getSource();
+
+                 if( src == buttonDeleteTask) // on pressing button
+                {
+                    if((taskIndex-1) >= 0) {
+                    tasks.remove(taskIndex);
+                        taskIndex--;
+                        labelMenuTaskName.setText("Name: " + tasks.get(taskIndex).getName());
+                        if(tasks.get(taskIndex).getTextColor()== "White") { // Color
+                            labelMenuTaskName.setForeground(Color.WHITE);
+                        }
+                        else if(tasks.get(taskIndex).getTextColor()== "Black")
+                            labelMenuTaskName.setForeground(Color.BLACK);
+                        else if(tasks.get(taskIndex).getTextColor()== "Red")
+                            labelMenuTaskName.setForeground(Color.RED);
+                        else if(tasks.get(taskIndex).getTextColor()== "Green")
+                            labelMenuTaskName.setForeground(Color.GREEN);
+                        labelMenuTaskDescription.setText("Description: " + tasks.get(taskIndex).getDescription());
+                        labelMenuTaskDueDate.setText("Due Date: " + tasks.get(taskIndex).getDue_date());
+                        labelMenuTaskCreatedOn.setText("Created On: " + tasks.get(taskIndex).getCreated_on());
+                        labelMenuTaskStatus.setText("Status: " + tasks.get(taskIndex).getStatus());
+                        labelMenuTaskCreatedBy.setText("Created By: " + tasks.get(taskIndex).getCreated_by().getUsername());
+                        labelMenuTaskAssignedTo.setText("Assigned To: " + tasks.get(taskIndex).getAssigned_to().getUsername());
+                        labelMenuTaskSubtasks.setText("Subtasks: " + tasks.get(taskIndex).getSubtasks());
+                    }
+                }
+            }
+        });
         //Menu Create Teams Buttons
 
         buttonTeamCreate.addActionListener(new ActionListener() {
@@ -891,6 +947,7 @@ public class JPanelManager extends JFrame {
                 }
             }
         });
+        
         // add the panel to this frame
         selectMenu();
 
@@ -946,6 +1003,7 @@ public class JPanelManager extends JFrame {
     private JButton buttonCreateTeam = new JButton("Create New Team");
     private JButton buttonNextTeam = new JButton("Next");
     private JButton buttonPreviousTeam = new JButton("Previous");
+    private JButton buttonDeleteTeam = new JButton("Delete Team");
     public void menuTeamsVis(Boolean a)
     {
         labelMenuTeams.setVisible(a);
@@ -958,6 +1016,7 @@ public class JPanelManager extends JFrame {
         buttonReturn.setVisible(a);
         buttonTeamAddMember.setVisible(a);
         textMenuTeamaddMember.setVisible(a);
+        buttonDeleteTeam.setVisible(a);
     }
 
     private int teamIndex = 0;
@@ -980,6 +1039,7 @@ public class JPanelManager extends JFrame {
     private JLabel labelMenuTaskSubtasks = new JLabel();
     private JButton buttonTaskReturn = new JButton ("Back");
     private JButton buttonCreateTask = new JButton("Create New Task");
+    private JButton buttonDeleteTask = new JButton("Delete Task");
 
     private JButton buttonNextTask = new JButton ("Next");
     private JButton buttonPreviousTask = new JButton ("Previous");
@@ -999,6 +1059,7 @@ public class JPanelManager extends JFrame {
         buttonNextTask.setVisible(a);
         buttonTaskReturn.setVisible(a);
         buttonPreviousTask.setVisible(a);
+        buttonDeleteTask.setVisible(a);
     }
     public void menuTasks()
     {
