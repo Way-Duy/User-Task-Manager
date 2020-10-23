@@ -143,9 +143,11 @@ public class JPanelManager extends JFrame {
         MemberConstraints.gridy = 8;
         userPanel.add(buttonCreateMember, MemberConstraints);
 
-        MemberConstraints.gridx = 1;
+        MemberConstraints.gridx = 2;
         MemberConstraints.gridy = 12;
         userPanel.add(buttonDeleteMember, MemberConstraints);
+        MemberConstraints.gridx = 0;
+        userPanel.add(buttonEditMember, MemberConstraints);
 
         MemberConstraints.gridx = 0;
         MemberConstraints.gridy = 8;
@@ -192,6 +194,9 @@ public class JPanelManager extends JFrame {
         constraintsTasks.gridx = 1;
         constraintsTasks.gridy = 12;
         userPanel.add(buttonDeleteTask, constraintsTasks);
+        constraintsTasks.gridx = 0;
+        constraintsTasks.gridy = 12;
+        userPanel.add(buttonEditTask, constraintsTasks);
 
         constraintsTasks.gridx = 0;
         constraintsTasks.gridy = 10;
@@ -243,6 +248,9 @@ public class JPanelManager extends JFrame {
         constraintsTeams.gridx = 0;
         constraintsTeams.gridy = 7;
         userPanel.add(buttonDeleteTeam, constraintsTeams);
+        constraintsTeams.gridx = 1;
+        constraintsTeams.gridy = 8;
+        userPanel.add(buttonEditTeam, constraintsTeams);
 
         constraintsTeams.gridx = 0;
         constraintsTeams.gridy = 8;
@@ -292,6 +300,11 @@ public class JPanelManager extends JFrame {
         categoryConstraints.gridwidth = 2;
 
         userPanel.add(buttonCreateCategory,categoryConstraints);
+        categoryConstraints.gridy = 10;
+        userPanel.add(buttonDeleteCategory,categoryConstraints);
+        categoryConstraints.gridx = 0;
+        categoryConstraints.gridy = 10;
+        userPanel.add(buttonEditCategory,categoryConstraints);
         menuCategoryVis(false);
 
         // Task Adding Menu GUI
@@ -377,8 +390,9 @@ public class JPanelManager extends JFrame {
         userPanel.add(buttonMemberReturn, MemberAddConstraints);
         MemberAddConstraints.gridx = 1;
         userPanel.add(buttonMemberCreate, MemberAddConstraints);
+        userPanel.add(buttonMemberEdit, MemberAddConstraints);
         menuCreateMemberVis(false);
-
+        
         // MENU  CATEGORY CREATE GUI
 
 
@@ -518,7 +532,20 @@ public class JPanelManager extends JFrame {
         });
         // Menu View Member Buttons
 
-            buttonCreateMember.addActionListener(new ActionListener() {
+            buttonEditMember.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    Object src = e.getSource();
+
+                    if (src == buttonEditMember) // on pressing button
+                    {
+
+                        menuMembersVis(false);
+                        menuCreateMember(true); // moves onto the next menu
+                    }
+                }
+            });
+               buttonCreateMember.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     Object src = e.getSource();
@@ -527,7 +554,7 @@ public class JPanelManager extends JFrame {
                     {
 
                         menuMembersVis(false);
-                        menuCreateMember(); // moves onto the next menu
+                        menuCreateMember(false); // moves onto the next menu
                     }
                 }
             });
@@ -666,6 +693,7 @@ public class JPanelManager extends JFrame {
 
                 if( src == buttonDeleteTeam) // on pressing button
                 {
+                
                     if((teamIndex-1) >= 0) {
                         teams.remove(teamIndex);
                         teamIndex--;
@@ -690,25 +718,7 @@ public class JPanelManager extends JFrame {
                 }
             }
         });
-          buttonDeleteTeam.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Object src = e.getSource();
 
- 
-              if( src == buttonDeleteTeam) // on pressing button
-                {
-                    if((teamIndex-1) >= 0) {
-                        teams.remove(teamIndex);
-                        teamIndex--;
-                        labelMenuTeamName.setText("Name: " + teams.get(teamIndex).getName());
-
-                        labelMenuTeamMembers.setText("Members: " + teams.get(teamIndex).getMemberNames());
-                        // moves onto the next menu
-                    }
-                }
-            }
-        });
         //menu View Tasks Buttons
 
         buttonCreateTask.addActionListener(new ActionListener() {
@@ -912,7 +922,26 @@ public class JPanelManager extends JFrame {
                 }
             }
         });
+        buttonDeleteCategory.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Object src = e.getSource();
 
+                if (src == buttonDeleteCategory) // on pressing button
+                {
+                    if ((categoryIndex - 1) >= 0) {
+                    categories.remove(categoryIndex);
+                        categoryIndex--;
+                        labelViewCategoryName.setText("Name: " + categories.get(categoryIndex).getName());
+                       // labelViewCategoryDescription.setText("Description: " + categories.get(categoryIndex).getDescription());
+                        //labelViewCategoryCreatedBy.setText("Created By: " + categories.get(categoryIndex).getCreated_by());
+                        //labelViewCategoryCreatedOn.setText("Created On: " + categories.get(categoryIndex).getCreated_on());
+                        labelViewCategoryTaskList.setText("Tasks: " + categories.get(categoryIndex).getTaskNames());
+                    }
+
+                }
+            }
+        });
         //Menu Create Tasks Buttons
 
 
@@ -946,37 +975,7 @@ public class JPanelManager extends JFrame {
                 }
             }
         });
-           buttonDeleteTask.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Object src = e.getSource();
 
-                 if( src == buttonDeleteTask) // on pressing button
-                {
-                    if((taskIndex-1) >= 0) {
-                    tasks.remove(taskIndex);
-                        taskIndex--;
-                        labelMenuTaskName.setText("Name: " + tasks.get(taskIndex).getName());
-                        if(tasks.get(taskIndex).getTextColor()== "White") { // Color
-                            labelMenuTaskName.setForeground(Color.WHITE);
-                        }
-                        else if(tasks.get(taskIndex).getTextColor()== "Black")
-                            labelMenuTaskName.setForeground(Color.BLACK);
-                        else if(tasks.get(taskIndex).getTextColor()== "Red")
-                            labelMenuTaskName.setForeground(Color.RED);
-                        else if(tasks.get(taskIndex).getTextColor()== "Green")
-                            labelMenuTaskName.setForeground(Color.GREEN);
-                        labelMenuTaskDescription.setText("Description: " + tasks.get(taskIndex).getDescription());
-                        labelMenuTaskDueDate.setText("Due Date: " + tasks.get(taskIndex).getDue_date());
-                        labelMenuTaskCreatedOn.setText("Created On: " + tasks.get(taskIndex).getCreated_on());
-                        labelMenuTaskStatus.setText("Status: " + tasks.get(taskIndex).getStatus());
-                        labelMenuTaskCreatedBy.setText("Created By: " + tasks.get(taskIndex).getCreated_by().getUsername());
-                        labelMenuTaskAssignedTo.setText("Assigned To: " + tasks.get(taskIndex).getAssigned_to().getUsername());
-                        labelMenuTaskSubtasks.setText("Subtasks: " + tasks.get(taskIndex).getSubtasks());
-                    }
-                }
-            }
-        });
         //Menu Create Teams Buttons
 
         buttonTeamCreate.addActionListener(new ActionListener() {
@@ -1062,6 +1061,22 @@ public class JPanelManager extends JFrame {
                 }
             }
         });
+        buttonMemberEdit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Object src = e.getSource();
+                if( src == buttonMemberEdit ) // on pressing button
+                {
+
+
+                    menuCreateMemberVis(false);
+                    // UserName, Pass
+                    members.get(memberIndex).changeUsername(textMemberUsername.getText());
+                    members.get(memberIndex).changePassword(textMemberPassword.getText());
+                    menuMembers(); // moves onto the next menu
+                }
+            }
+        });
         buttonMemberReturn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -1102,6 +1117,8 @@ public class JPanelManager extends JFrame {
     private JButton buttonCreateMember = new JButton("Create New Member");
     private JButton buttonReturn = new JButton("Main Menu");
     private JButton buttonDeleteMember = new JButton("Delete Member");
+    private JButton buttonEditMember = new JButton("Edit Member");
+    
     int memberIndex = 0;
     public void menuMembersVis(Boolean a)
     {
@@ -1113,6 +1130,7 @@ public class JPanelManager extends JFrame {
         labelMenuUsername.setVisible(a);
         labelMenuPassword.setVisible(a);
         buttonDeleteMember.setVisible(a);
+        buttonEditMember.setVisible(a);
     }
     public void menuMembers()
     {
@@ -1132,6 +1150,7 @@ public class JPanelManager extends JFrame {
     private JButton buttonNextTeam = new JButton("Next");
     private JButton buttonPreviousTeam = new JButton("Previous");
     private JButton buttonDeleteTeam = new JButton("Delete Team");
+    private JButton buttonEditTeam = new JButton("Edit Team");
     public void menuTeamsVis(Boolean a)
     {
         labelMenuTeams.setVisible(a);
@@ -1145,6 +1164,7 @@ public class JPanelManager extends JFrame {
         buttonTeamAddMember.setVisible(a);
         textMenuTeamaddMember.setVisible(a);
         buttonDeleteTeam.setVisible(a);
+        buttonEditTeam.setVisible(a);
     }
 
     private int teamIndex = 0;
@@ -1168,6 +1188,7 @@ public class JPanelManager extends JFrame {
     private JButton buttonTaskReturn = new JButton ("Back");
     private JButton buttonCreateTask = new JButton("Create New Task");
     private JButton buttonDeleteTask = new JButton("Delete Task");
+    private JButton buttonEditTask = new JButton("Edit Task");
 
     private JButton buttonNextTask = new JButton ("Next");
     private JButton buttonPreviousTask = new JButton ("Previous");
@@ -1188,6 +1209,7 @@ public class JPanelManager extends JFrame {
         buttonTaskReturn.setVisible(a);
         buttonPreviousTask.setVisible(a);
         buttonDeleteTask.setVisible(a);
+        buttonEditTask.setVisible(a);
     }
     public void menuTasks()
     {
@@ -1227,6 +1249,9 @@ public class JPanelManager extends JFrame {
    // private JLabel labelViewCategoryCreatedOn = new JLabel("Created On: ");
   //  private JLabel labelViewCategoryCreatedBy = new JLabel("Created By: ");
     private JButton buttonCreateCategory = new JButton("Create New Category");
+    private JButton buttonDeleteCategory = new JButton("Delete Category");
+    private JButton buttonEditCategory = new JButton("Edit Category");
+    
     int categoryIndex = 0;
     public void menuCategoryVis(Boolean a)
     {
@@ -1239,6 +1264,8 @@ public class JPanelManager extends JFrame {
         labelViewCategoryTaskList.setVisible(a);
         buttonCategoryAddTask.setVisible(a);
         buttonReturn.setVisible(a);
+        buttonDeleteCategory.setVisible(a);
+        buttonEditCategory.setVisible(a);
     }
     public void menuCategories() {
 
@@ -1341,6 +1368,7 @@ public class JPanelManager extends JFrame {
     }
 
     private JButton buttonMemberCreate = new JButton("Create");
+    private JButton buttonMemberEdit = new JButton("Edit");
     private JButton buttonMemberReturn = new JButton("Back");
     private JLabel labelMemberUsername = new JLabel("Username: ");
     private JLabel labelMemberPassword = new JLabel("Password: ");
@@ -1354,11 +1382,21 @@ public class JPanelManager extends JFrame {
         buttonMemberCreate.setVisible(a);
         textMemberUsername.setVisible(a);
         textMemberPassword.setVisible(a);
+        buttonMemberEdit.setVisible(a);
     }
 
-    public void menuCreateMember()
+public void menuCreateMember(boolean edit)
     {
+
         menuCreateMemberVis(true);
+        if(edit)
+            buttonMemberCreate.setVisible(false);
+        else
+        {
+
+            buttonMemberEdit.setVisible(false);
+        }
+
     }
     //instantiate text field
 
