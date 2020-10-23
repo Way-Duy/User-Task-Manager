@@ -4,8 +4,9 @@ import java.util.List;
 public class TaskCategory 
 {
     String name, description, created_on;
+    String taskNames = "";
     Member created_by;
-    List<Task> task_category = new ArrayList<>();
+    List<Task> task_category_list = new ArrayList<>();
     TaskCategory(String name, String description, String created_on, Member created_by)
     {
         this.name = name;
@@ -15,12 +16,43 @@ public class TaskCategory
     }
     public void addTask(Task task)
     {
-        task_category.add(task);
+        task_category_list.add(task);
+    }
+
+    public String getTaskNames() {
+        return taskNames;
+    }
+
+    public void addTaskString(String taskName)
+    {
+        //team.add(member);
+        taskNames = taskNames + ",  " + taskName;
     }
     public void deleteTask(Task task)
     {
-        task_category.remove(task);
+        task_category_list.remove(task);
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getCreated_on() {
+        return created_on;
+    }
+
+    public Member getCreated_by() {
+        return created_by;
+    }
+
+    public List<Task> getTask_category_list() {
+        return task_category_list;
+    }
+
     public String getInfo()
     {
         String info = "Name: " + name + "\nDescription" + description +
