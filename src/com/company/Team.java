@@ -32,4 +32,8 @@ public class Team
     {
         team.remove(member);
     }
+    public void Edit(String name)
+    {
+        this.name =name;
+    }
 }
