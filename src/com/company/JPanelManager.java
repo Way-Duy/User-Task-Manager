@@ -61,7 +61,7 @@ public class JPanelManager extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 Object src = e.getSource();
 
-                if (src == buttonLogin) // on pressing login button
+                if ((src == buttonLogin) && (textUsername.getText().equals("Admin")) && (fieldPassword.getText().equals("123"))) // on pressing login button
                 {
                     loginPanel.removeAll(); // removes all loginPanel components
                     instantiateMenu(); // moves onto the next menu
