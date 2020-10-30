@@ -1,5 +1,5 @@
 package com.company;
-public class Member 
+public class Member
 {
     private String username, password; //immutable
     Member(String username, String password)
@@ -8,7 +8,7 @@ public class Member
         this.password = password;
     }
 
-    public String getUsername() 
+    public String getUsername()
     {
         return username;
     }
@@ -25,12 +25,12 @@ public class Member
     public void changeUsername(String username)
     {
 
-      this.username = username;
+        this.username = username;
     }
-    public void changePassword(String Password)
+    public void changePassword(String password)
     {
 
-      this.password = password;
-      
-      }    
+        this.password = password;
+
+    }
 }
