@@ -27,7 +27,7 @@ public class Member
 
       this.username = username;
     }
-    public void changePassword(String Password)
+    public void changePassword(String password)
     {
 
       this.password = password;
