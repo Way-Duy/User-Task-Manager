@@ -17,13 +17,16 @@ public class Task
         this. assigned_to = assigned_to;
         this.subtasks = subtasks;
     }
-    Task(String name,String description,String due_date,String created_on,String status,Member created_by,Member assigned_to)
+    Task(String name,String description,String due_date,String created_on,boolean status,Member created_by,Member assigned_to)
     {
         this.name = name;
         this.description = description;
         this.due_date = due_date;
         this.created_on = created_on;
-        this.status = status;
+        if (status)
+            this.status = "Completed";
+        else
+            this.status = "In Progress";
         this.created_by = created_by;
         this. assigned_to = assigned_to;
         subtasks = null; //subtasks not necessary
@@ -77,13 +80,16 @@ public class Task
                 "\nCreated On" + created_on +"\nCreated By: " + created_by.getUsername() + "\nStatus: " + status + "\nSubtasks: " +subtasks.getName();
         return info;
     }
-    public void Edit(String name,String description,String due_date,String created_on,String status,Member created_by,Member assigned_to)
+    public void Edit(String name,String description,String due_date,String created_on,boolean status,Member created_by,Member assigned_to)
     {
         this.name = name;
         this.description = description;
         this.due_date = due_date;
         this.created_on = created_on;
-        this.status = status;
+        if (status)
+            this.status = "Completed";
+        else
+            this.status = "In Progress";
         this.created_by = created_by;
         this. assigned_to = assigned_to;
         subtasks = null; //subtasks not necessary

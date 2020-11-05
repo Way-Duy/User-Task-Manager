@@ -1,13 +1,34 @@
 package com.company;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Member
 {
     private String username, password; //immutable
+
+    List<Task> task_assigned_list = new ArrayList<>();
     Member(String username, String password)
     {
         this.username = username;
         this.password = password;
     }
-
+    public String getTasks()
+    {
+        String task_names = "";
+        for(Task task:task_assigned_list) {
+            task_names+= task.getName();
+        }
+        return task_names;
+    }
+    public void assignTask(Task task)
+    {
+        task_assigned_list.add(task);
+    }
+    public void deleteTask(Task task)
+    {
+        task_assigned_list.remove(task);
+    }
     public String getUsername()
     {
         return username;

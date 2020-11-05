@@ -131,7 +131,7 @@ public class JPanelManager extends JFrame {
         MemberConstraints.gridy = 1;
         userPanel.add(labelMenuUsername, MemberConstraints);
         MemberConstraints.gridy = 2;
-        userPanel.add(labelMenuPassword, MemberConstraints);
+        userPanel.add(labelMenuMemberTasks, MemberConstraints);
 
         MemberConstraints.gridx = 0;
         MemberConstraints.gridy = 3;
@@ -329,7 +329,7 @@ public class JPanelManager extends JFrame {
         TaskCon.gridy = 3;
         userPanel.add(labelTaskCreatedOn, TaskCon);
         TaskCon.gridy = 4;
-        userPanel.add(labelTaskStatus, TaskCon);
+        userPanel.add(labelTaskStatusCheckbox, TaskCon);
         TaskCon.gridy = 5;
         userPanel.add(labelTaskCreatedBy, TaskCon);
         TaskCon.gridy = 6;
@@ -348,7 +348,6 @@ public class JPanelManager extends JFrame {
         TaskCon.gridy = 3;
         userPanel.add(textTaskCreatedOn, TaskCon);
         TaskCon.gridy = 4;
-        userPanel.add(textTaskStatus, TaskCon);
         TaskCon.gridy = 5;
         userPanel.add(textTaskCreatedBy, TaskCon);
         TaskCon.gridy = 6;
@@ -565,7 +564,7 @@ public class JPanelManager extends JFrame {
                     if ((memberIndex + 1) < members.size()) {
                         memberIndex++;
                         labelMenuUsername.setText("Username: " + members.get(memberIndex).getUsername());
-                        labelMenuPassword.setText("Password: " + members.get(memberIndex).getPassword());
+                        labelMenuMemberTasks.setText("Tasks: " + members.get(memberIndex).getTasks());
                     }
 
                 }
@@ -582,7 +581,7 @@ public class JPanelManager extends JFrame {
                     if ((memberIndex - 1) >= 0) {
                         memberIndex--;
                         labelMenuUsername.setText("Username: " + members.get(memberIndex).getUsername());
-                        labelMenuPassword.setText("Password: " + members.get(memberIndex).getPassword());
+                        labelMenuMemberTasks.setText("Tasks: " + members.get(memberIndex).getTasks());
                     }
 
                 }
@@ -611,7 +610,7 @@ public class JPanelManager extends JFrame {
                         members.remove(memberIndex);
                         memberIndex--;
                         labelMenuUsername.setText("Username: " + members.get(memberIndex).getUsername());
-                        labelMenuPassword.setText("Password: " + members.get(memberIndex).getPassword());
+                        labelMenuMemberTasks.setText("Tasks: " + members.get(memberIndex).getTasks());
 
                         // moves onto the next menu
                     }
@@ -849,6 +848,8 @@ public class JPanelManager extends JFrame {
                 if (src == buttonDeleteTask) // on pressing button
                 {
                     if ((taskIndex - 1) >= 0) {
+
+                        tasks.get(taskIndex).getAssigned_to().deleteTask(tasks.get(taskIndex));// this removes the task from the old member it was assigned to
                         tasks.remove(taskIndex);
                         taskIndex--;
                         labelMenuTaskName.setText("Name: " + tasks.get(taskIndex).getName());
@@ -1007,8 +1008,11 @@ public class JPanelManager extends JFrame {
                 {
                     menuCreateTaskVis(false);
                     // name, description, due date, created on, status, created by, assigned to
+                    int createMemberIndex = memberSearch(textTaskCreatedBy.getText());
+                    int assignedMemberIndex = memberSearch(textTaskAssignedTo.getText());
                     Task task = new Task(textTaskName.getText(), textTaskDescription.getText(), textTaskDueDate.getText(), textTaskCreatedOn.getText(),
-                            textTaskStatus.getText(), nobody, nobody);
+                            labelTaskStatusCheckbox.isSelected(), members.get(createMemberIndex), members.get(assignedMemberIndex));
+                    members.get(assignedMemberIndex).assignTask(task);// this assigns the task to the member from the member's point of view as well ie, you can see it in member view
                     task.assignColor((String) comboColorBox.getSelectedItem());
                     tasks.add(task);
                     //Task task = new Task(textTaskName.getText(), textTaskDescription.getText(), textTaskDueDate.getText(), textTaskCreatedOn.getText(),
@@ -1026,8 +1030,12 @@ public class JPanelManager extends JFrame {
                 {
                     menuCreateTaskVis(false);
                     // name, description, due date, created on, status, created by, assigned to
+                    int createMemberIndex = memberSearch(textTaskCreatedBy.getText());
+                    int assignedMemberIndex = memberSearch(textTaskAssignedTo.getText());
+                    tasks.get(taskIndex).getAssigned_to().deleteTask(tasks.get(taskIndex));// this removes the task from the old member it was assigned to
                     tasks.get(taskIndex).Edit(textTaskName.getText(), textTaskDescription.getText(), textTaskDueDate.getText(), textTaskCreatedOn.getText(),
-                            textTaskStatus.getText(), nobody, nobody);
+                            labelTaskStatusCheckbox.isSelected(), members.get(createMemberIndex), members.get(assignedMemberIndex));
+                    members.get(assignedMemberIndex).assignTask(tasks.get(taskIndex)); // this assigns the task to the member from the member's point of view as well ie, you can see it in member view
                     tasks.get(taskIndex).assignColor((String) comboColorBox.getSelectedItem());
 
                     //Task task = new Task(textTaskName.getText(), textTaskDescription.getText(), textTaskDueDate.getText(), textTaskCreatedOn.getText(),
@@ -1220,7 +1228,7 @@ public class JPanelManager extends JFrame {
 
     private JLabel labelMenuMembers = new JLabel("Current Member(s)");
     private JLabel labelMenuUsername = new JLabel("Username: ");
-    private JLabel labelMenuPassword = new JLabel("Password: ");
+    private JLabel labelMenuMemberTasks = new JLabel("Tasks: ");
     private JButton buttonPreviousMember = new JButton("Previous Member");
     private JButton buttonNextMember = new JButton("Next Member");
     private JButton buttonCreateMember = new JButton("Create New Member");
@@ -1237,7 +1245,7 @@ public class JPanelManager extends JFrame {
         buttonNextMember.setVisible(a);
         buttonPreviousMember.setVisible(a);
         labelMenuUsername.setVisible(a);
-        labelMenuPassword.setVisible(a);
+        labelMenuMemberTasks.setVisible(a);
         buttonDeleteMember.setVisible(a);
         buttonEditMember.setVisible(a);
     }
@@ -1245,7 +1253,7 @@ public class JPanelManager extends JFrame {
     public void menuMembers() {
 
         labelMenuUsername.setText("Username: " + members.get(memberIndex).getUsername());
-        labelMenuPassword.setText("Password: " + members.get(memberIndex).getPassword());
+        labelMenuMemberTasks.setText("Tasks: " + members.get(memberIndex).getTasks());
         menuMembersVis(true);
     }
 
@@ -1394,14 +1402,13 @@ public class JPanelManager extends JFrame {
     private JLabel labelTaskDescription = new JLabel("Description: ");
     private JLabel labelTaskDueDate = new JLabel("DueDate: ");
     private JLabel labelTaskCreatedOn = new JLabel("CreatedOn: ");
-    private JLabel labelTaskStatus = new JLabel("Status: ");
+    private JCheckBox labelTaskStatusCheckbox = new JCheckBox("Completed?: ");
     private JLabel labelTaskCreatedBy = new JLabel("CreatedBy: ");
     private JLabel labelTaskAssignedTo = new JLabel("AssignedTo: ");
     private JTextField textTaskName = new JTextField(20);
     private JTextField textTaskDescription = new JTextField(20);
     private JTextField textTaskDueDate = new JTextField(20);
     private JTextField textTaskCreatedOn = new JTextField(20);
-    private JTextField textTaskStatus = new JTextField(20);
     private JTextField textTaskCreatedBy = new JTextField(20);
     private JTextField textTaskAssignedTo = new JTextField(20);
     private JButton buttonReturnSecond = new JButton("Back");
@@ -1416,14 +1423,13 @@ public class JPanelManager extends JFrame {
         labelTaskDescription.setVisible(a);
         labelTaskDueDate.setVisible(a);
         labelTaskCreatedOn.setVisible(a);
-        labelTaskStatus.setVisible(a);
+        labelTaskStatusCheckbox.setVisible(a);
         labelTaskCreatedBy.setVisible(a);
         labelTaskAssignedTo.setVisible(a);
         textTaskName.setVisible(a);
         textTaskDescription.setVisible(a);
         textTaskDueDate.setVisible(a);
         textTaskCreatedOn.setVisible(a);
-        textTaskStatus.setVisible(a);
         textTaskCreatedBy.setVisible(a);
         textTaskAssignedTo.setVisible(a);
         buttonReturnSecond.setVisible(a);
@@ -1554,7 +1560,7 @@ public class JPanelManager extends JFrame {
     //instantiate text field
 
     private static Member nobody = new Member("N/A", "N/A");
-    private static Task nullTask = new Task("N/A", "N/A", "N/A", "N/A", "N/A", nobody,nobody);
+    private static Task nullTask = new Task("N/A", "N/A", "N/A", "N/A", false, nobody,nobody);
     private static TaskCategory nullCategory = new TaskCategory("N/A", "N/A",  "N/A", nobody);
     private static Team nullTeam = new Team("N/A");
 
