@@ -14,19 +14,21 @@ public class TaskCategory
         this.created_on = created_on;
         this.created_by = created_by;
     }
-    public void addTask(Task task)
-    {
-        task_category_list.add(task);
-    }
 
     public String getTaskNames() {
         return taskNames;
     }
 
-    public void addTaskString(String taskName)
+    public void addTaskString(String taskName) // deprecated
     {
         //team.add(member);
         taskNames = taskNames + ",  " + taskName;
+    }
+    public void addTask(Task task) //linking member to team
+    {
+        task_category_list.add(task);
+
+        taskNames = taskNames + ",  " + task.getName();
     }
     public void deleteTask(Task task)
     {

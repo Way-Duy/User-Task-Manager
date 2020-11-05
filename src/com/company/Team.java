@@ -23,10 +23,15 @@ public class Team
         return memberNames;
     }
 
-    public void addMemberString(String stringMember)
+    public void addMemberString(String stringMember) //deprecated
     {
         //team.add(member);
         memberNames = memberNames + ",  " + stringMember;
+    }
+    public void addMember(Member member) //linking member to team
+    {
+        team.add(member);
+        memberNames = memberNames + ",  " + member.getUsername();
     }
     public void deleteMember(Member member)
     {
