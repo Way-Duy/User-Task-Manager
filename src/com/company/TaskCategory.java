@@ -15,7 +15,11 @@ public class TaskCategory
         this.created_by = created_by;
     }
 
-    public String getTaskNames() {
+    public String getTaskNames(){
+        taskNames ="";
+        for (Task task: task_category_list)
+            taskNames = taskNames + "  " + task.getName();
+
         return taskNames;
     }
 
@@ -28,7 +32,6 @@ public class TaskCategory
     {
         task_category_list.add(task);
 
-        taskNames = taskNames + ",  " + task.getName();
     }
     public void deleteTask(Task task)
     {

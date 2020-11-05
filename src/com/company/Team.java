@@ -20,6 +20,10 @@ public class Team
     }
 
     public String getMemberNames() {
+        memberNames ="";
+        for (Member member: team)
+            memberNames = memberNames + "  " + member.getUsername();
+
         return memberNames;
     }
 
@@ -31,10 +35,10 @@ public class Team
     public void addMember(Member member) //linking member to team
     {
         team.add(member);
-        memberNames = memberNames + ",  " + member.getUsername();
     }
     public void deleteMember(Member member)
     {
+
         team.remove(member);
     }
     public void Edit(String name)

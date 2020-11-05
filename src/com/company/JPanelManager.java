@@ -607,7 +607,11 @@ public class JPanelManager extends JFrame {
                 if (src == buttonDeleteMember) // on pressing button
                 {
                     if ((memberIndex - 1) >= 0) {
-                        members.remove(memberIndex);
+                        Member currMember = members.get(memberIndex);
+                        for (Team team: teams) // deletes member from all teams
+                            team.deleteMember(currMember);
+
+                        members.remove(currMember);
                         memberIndex--;
                         labelMenuUsername.setText("Username: " + members.get(memberIndex).getUsername());
                         labelMenuMemberTasks.setText("Tasks: " + members.get(memberIndex).getTasks());
@@ -848,9 +852,12 @@ public class JPanelManager extends JFrame {
                 if (src == buttonDeleteTask) // on pressing button
                 {
                     if ((taskIndex - 1) >= 0) {
+                        Task currTask = tasks.get(taskIndex );
+                        for (TaskCategory category: categories) // deletes member from all teams
+                            category.deleteTask(currTask);
 
-                        tasks.get(taskIndex).getAssigned_to().deleteTask(tasks.get(taskIndex));// this removes the task from the old member it was assigned to
-                        tasks.remove(taskIndex);
+                        currTask.getAssigned_to().deleteTask(currTask  );// this removes the task from the old member it was assigned to
+                        tasks.remove(currTask);
                         taskIndex--;
                         labelMenuTaskName.setText("Name: " + tasks.get(taskIndex).getName());
                         if (tasks.get(taskIndex).getTextColor() == "White") { // Color
@@ -1117,7 +1124,7 @@ public class JPanelManager extends JFrame {
                     menuCreateCategoryVis(false);
                     // UserName, Pass
                     TaskCategory category = new TaskCategory(textCategoryName.getText(), textCategoryDescription.getText(),
-                            textCategoryCreatedOn.getText(), nobody);
+                            textCategoryCreatedOn.getText(), members.get(memberSearch(textCategoryCreatedBy.getText())));
                     // replace nobody with person who created it, to be replaced after login is finished
 
                     //Category category = new Category(namefield, descfield, etc..)
