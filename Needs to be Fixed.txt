@@ -1,0 +1,8 @@
+error Message on no login for Users 
+error message on not finding a member when creating task 
+Deleting Member should remove it from the team/ tasks and categories as well
+Null Objects not seeable
+Subtasks?
+Categories doesn't show all information
+Recurring Tasks: Use Date picker? Jason
+Productivity: how many tasks are done by a date (yearly/monthly) (Tasks completed/not completed)
