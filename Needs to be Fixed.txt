@@ -1,5 +1,4 @@
 Null Objects not seeable
 Subtasks?
-Categories doesn't show all information
 Recurring Tasks: Use Date picker? Jason
 Productivity: how many tasks are done by a date (yearly/monthly) (Tasks completed/not completed)

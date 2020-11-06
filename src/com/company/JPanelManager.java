@@ -137,7 +137,7 @@ public class JPanelManager extends JFrame {
         userPanel.setPreferredSize(new Dimension(600, 600));
         userPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEtchedBorder(), "User Panel"));
 
-        // MEMBER   GUI
+        //Menu View Member GUI
         GridBagConstraints MemberConstraints = new GridBagConstraints();
         MemberConstraints.anchor = GridBagConstraints.WEST;
         MemberConstraints.insets = new Insets(10, 10, 10, 10);
@@ -177,7 +177,7 @@ public class JPanelManager extends JFrame {
 
 
         menuMembersVis(false);
-        // TASKS    GUI
+        //Menu View TASKS GUI
 
         GridBagConstraints constraintsTasks = new GridBagConstraints();
         constraintsTasks.anchor = GridBagConstraints.WEST;
@@ -227,7 +227,7 @@ public class JPanelManager extends JFrame {
         constraintsTasks.anchor = GridBagConstraints.CENTER;
         menuTasksVis(false);
 
-        // Teams GUI
+        //Menu View Teams GUI
 
         GridBagConstraints constraintsTeams = new GridBagConstraints();
         constraintsTeams.anchor = GridBagConstraints.WEST;
@@ -282,7 +282,7 @@ public class JPanelManager extends JFrame {
         userPanel.add(buttonReturn, constraintsTeams);
         menuTeamsVis(false);
 
-        //CATEGORIES GUI
+        //Menu View CATEGORIES GUI
 
         GridBagConstraints categoryConstraints = new GridBagConstraints();
         categoryConstraints.anchor = GridBagConstraints.WEST;
@@ -296,17 +296,26 @@ public class JPanelManager extends JFrame {
         categoryConstraints.gridy = 1;
         userPanel.add(labelViewCategoryName, categoryConstraints);
         categoryConstraints.gridy = 2;
-        userPanel.add(labelViewCategoryTaskList, categoryConstraints);
+        userPanel.add(labelViewCategoryDescription, categoryConstraints);
 
         categoryConstraints.gridy = 3;
+        userPanel.add(labelViewCategoryCreatedBy, categoryConstraints);
 
+        categoryConstraints.gridy = 4;
+        userPanel.add(labelViewCategoryCreatedOn, categoryConstraints);
+
+        categoryConstraints.gridy = 5;
+        userPanel.add(labelViewCategoryTaskList, categoryConstraints);
+
+
+        categoryConstraints.gridy = 6;
         userPanel.add(buttonPreviousCategory, categoryConstraints);
 
         categoryConstraints.gridx = 1;
         userPanel.add(buttonNextCategory, categoryConstraints);
 
 
-        categoryConstraints.gridy = 4;
+        categoryConstraints.gridy = 7;
         categoryConstraints.gridx = 0;
         userPanel.add(textMenuCategoryaddTask, categoryConstraints);
 
@@ -429,8 +438,7 @@ public class JPanelManager extends JFrame {
         userPanel.add(labelCategoryDescription, CategoryAddConstraints);
         CategoryAddConstraints.gridy = 2;
         userPanel.add(labelCategoryCreatedOn, CategoryAddConstraints);
-        CategoryAddConstraints.gridy = 3;
-        userPanel.add(labelCategoryCreatedBy, CategoryAddConstraints);
+        //userPanel.add(labelCategoryCreatedBy, CategoryAddConstraints);
 
 
         CategoryAddConstraints.gridx = 1;
@@ -442,9 +450,8 @@ public class JPanelManager extends JFrame {
         userPanel.add(textCategoryDescription, CategoryAddConstraints);
         CategoryAddConstraints.gridy = 2;
         userPanel.add(textCategoryCreatedOn, CategoryAddConstraints);
+        //userPanel.add(textCategoryCreatedBy, CategoryAddConstraints);
         CategoryAddConstraints.gridy = 3;
-        userPanel.add(textCategoryCreatedBy, CategoryAddConstraints);
-        CategoryAddConstraints.gridy = 4;
 
         CategoryAddConstraints.anchor = GridBagConstraints.CENTER;
 
@@ -953,9 +960,9 @@ public class JPanelManager extends JFrame {
                         categoryIndex++;
                         labelViewCategoryName.setText("Name: " + categories.get(categoryIndex).getName());
                         labelViewCategoryTaskList.setText("Tasks: " + categories.get(categoryIndex).getTaskNames());
-                        //labelViewCategoryDescription.setText("Description: " + categories.get(categoryIndex).getDescription());
-                        //labelViewCategoryCreatedBy.setText("Created By: " + categories.get(categoryIndex).getCreated_by());
-                        //labelViewCategoryCreatedOn.setText("Created On: " + categories.get(categoryIndex).getCreated_on());
+                        labelViewCategoryDescription.setText("Description: " + categories.get(categoryIndex).getDescription());
+                        labelViewCategoryCreatedBy.setText("Created By: " + categories.get(categoryIndex).getCreated_by().getUsername());
+                        labelViewCategoryCreatedOn.setText("Created On: " + categories.get(categoryIndex).getCreated_on());
                     }
 
                 }
@@ -972,9 +979,9 @@ public class JPanelManager extends JFrame {
                     if ((categoryIndex - 1) >= 0) {
                         categoryIndex--;
                         labelViewCategoryName.setText("Name: " + categories.get(categoryIndex).getName());
-                        // labelViewCategoryDescription.setText("Description: " + categories.get(categoryIndex).getDescription());
-                        //labelViewCategoryCreatedBy.setText("Created By: " + categories.get(categoryIndex).getCreated_by());
-                        //labelViewCategoryCreatedOn.setText("Created On: " + categories.get(categoryIndex).getCreated_on());
+                        labelViewCategoryDescription.setText("Description: " + categories.get(categoryIndex).getDescription());
+                        labelViewCategoryCreatedBy.setText("Created By: " + categories.get(categoryIndex).getCreated_by().getUsername());
+                        labelViewCategoryCreatedOn.setText("Created On: " + categories.get(categoryIndex).getCreated_on());
                         labelViewCategoryTaskList.setText("Tasks: " + categories.get(categoryIndex).getTaskNames());
                     }
 
@@ -1029,9 +1036,9 @@ public class JPanelManager extends JFrame {
                         categories.remove(categoryIndex);
                         categoryIndex--;
                         labelViewCategoryName.setText("Name: " + categories.get(categoryIndex).getName());
-                        // labelViewCategoryDescription.setText("Description: " + categories.get(categoryIndex).getDescription());
-                        //labelViewCategoryCreatedBy.setText("Created By: " + categories.get(categoryIndex).getCreated_by());
-                        //labelViewCategoryCreatedOn.setText("Created On: " + categories.get(categoryIndex).getCreated_on());
+                        labelViewCategoryDescription.setText("Description: " + categories.get(categoryIndex).getDescription());
+                        labelViewCategoryCreatedBy.setText("Created By: " + categories.get(categoryIndex).getCreated_by().getUsername());
+                        labelViewCategoryCreatedOn.setText("Created On: " + categories.get(categoryIndex).getCreated_on());
                         labelViewCategoryTaskList.setText("Tasks: " + categories.get(categoryIndex).getTaskNames());
                     }
 
@@ -1170,10 +1177,8 @@ public class JPanelManager extends JFrame {
 
 
                     menuCreateCategoryVis(false);
-                    // UserName, Pass
                     TaskCategory category = new TaskCategory(textCategoryName.getText(), textCategoryDescription.getText(),
-                            textCategoryCreatedOn.getText(), members.get(memberSearch(textCategoryCreatedBy.getText())));
-                    // replace nobody with person who created it, to be replaced after login is finished
+                            textCategoryCreatedOn.getText(),currMember);
 
                     //Category category = new Category(namefield, descfield, etc..)
                     categories.add(category);
@@ -1414,7 +1419,6 @@ public class JPanelManager extends JFrame {
 
 
     private JLabel labelMenuCategory = new JLabel("Current Category(s)");
-
     private JLabel labelViewCategoryName = new JLabel("Name: ");
     private JButton buttonNextCategory = new JButton("Next Category");
     private JButton buttonPreviousCategory = new JButton("Previous Category");
@@ -1422,9 +1426,9 @@ public class JPanelManager extends JFrame {
     private JLabel labelViewCategoryTaskList = new JLabel("Tasks: ");
     private JLabel labelMenuCategoryAddTaskError = new JLabel("Error: Task name not found ");
     private JButton buttonCategoryAddTask = new JButton("Add");
-    // private JLabel labelViewCategoryDescription = new JLabel("Description: ");
-    // private JLabel labelViewCategoryCreatedOn = new JLabel("Created On: ");
-    //  private JLabel labelViewCategoryCreatedBy = new JLabel("Created By: ");
+    private JLabel labelViewCategoryDescription = new JLabel("Description: ");
+    private JLabel labelViewCategoryCreatedOn = new JLabel("Created On: ");
+    private JLabel labelViewCategoryCreatedBy = new JLabel("Created By: ");
     private JButton buttonCreateCategory = new JButton("Create New Category");
     private JButton buttonDeleteCategory = new JButton("Delete Category");
     private JButton buttonEditCategory = new JButton("Edit Category");
@@ -1440,6 +1444,9 @@ public class JPanelManager extends JFrame {
         buttonPreviousCategory.setVisible(a);
         textMenuCategoryaddTask.setVisible(a);
         labelViewCategoryTaskList.setVisible(a);
+        labelViewCategoryDescription.setVisible(a);
+        labelViewCategoryCreatedOn.setVisible(a);
+        labelViewCategoryCreatedBy.setVisible(a);
         buttonCategoryAddTask.setVisible(a);
         buttonReturn.setVisible(a);
         buttonDeleteCategory.setVisible(a);
@@ -1450,6 +1457,9 @@ public class JPanelManager extends JFrame {
 
         labelViewCategoryName.setText("Name: " + categories.get(categoryIndex).getName());
         labelViewCategoryTaskList.setText("Tasks: " + categories.get(categoryIndex).getTaskNames());
+        labelViewCategoryDescription.setText("Description: " + categories.get(categoryIndex).getDescription());
+        labelViewCategoryCreatedBy.setText("Created By: " + categories.get(categoryIndex).getCreated_by().getUsername());
+        labelViewCategoryCreatedOn.setText("Created On: " + categories.get(categoryIndex).getCreated_on());
         menuCategoryVis(true);
         labelMenuCategoryAddTaskError.setVisible(false);
     }
