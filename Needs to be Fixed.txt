@@ -1,5 +1,3 @@
-error Message on no login for Users 
-error message on not finding a member when creating task 
 Null Objects not seeable
 Subtasks?
 Categories doesn't show all information
