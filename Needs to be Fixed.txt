@@ -1,6 +1,5 @@
 Null Objects not seeable
-Subtasks?
-Recurring Tasks: Use Date picker? Jason
-Productivity: how many tasks are done by a date (yearly/monthly) (Tasks completed/not completed)
 can currently add multiple of the same task as a subtask and can add itself to subtask
 Same thing for Teams with Members and Categories with Tasks about adding multiple times
+Recurring Tasks: Use Date picker? Jason
+Productivity: how many tasks are done by a date (yearly/monthly) (Tasks completed/not completed)
