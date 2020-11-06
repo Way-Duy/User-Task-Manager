@@ -18,11 +18,14 @@ public class JPanelManager extends JFrame {
     private JTextField textUsername = new JTextField(20);
     private JPasswordField fieldPassword = new JPasswordField(20);
     private JButton buttonLogin = new JButton("Login");
+    private boolean instantiated = false;
+    private Member currMember;
 
+    JPanel loginPanel = new JPanel(new GridBagLayout());
     public void loginMenu() {
         // create a new panel with GridBagLayout manager
-        JPanel loginPanel = new JPanel(new GridBagLayout());
-
+        loginPanel.repaint();
+        loginPanel.revalidate();
         GridBagConstraints constraints = new GridBagConstraints();
         constraints.anchor = GridBagConstraints.WEST;
         constraints.insets = new Insets(10, 10, 10, 10);
@@ -67,9 +70,13 @@ public class JPanelManager extends JFrame {
 
                 if (src == buttonLogin) // on pressing login button
                 {
-                    if ((textUsername.getText().equals("Admin")) && (fieldPassword.getText().equals("123"))) {
+                    if((memberSearch(textUsername.getText()) == memberPasswordSearch(fieldPassword.getText()))&&memberSearch(textUsername.getText()) !=-1 ) {
+                        currMember = members.get(memberSearch(textUsername.getText()));
                         loginPanel.removeAll(); // removes all loginPanel components
-                        instantiateMenu(); // moves onto the next menu
+                        if(instantiated)
+                            selectMenu();
+                        else
+                            instantiateMenu(); // moves onto the next menu
                     }
                     else
                         labelLoginError.setVisible(true);
@@ -83,10 +90,8 @@ public class JPanelManager extends JFrame {
     private JButton buttonTeams = new JButton("View Team(s)");
     private JButton buttonTasks = new JButton("View Task(s)");
     private JButton buttonCategories = new JButton("View Categories");
-
-
+    private JButton buttonLogout = new JButton("Logout");
     private JPanel userPanel = new JPanel(new GridBagLayout());
-
     public void instantiateMenu() {
         labelUser.setOpaque(true);
         GridBagConstraints constraints = new GridBagConstraints();
@@ -121,6 +126,12 @@ public class JPanelManager extends JFrame {
         constraints.gridwidth = 2;
         constraints.anchor = GridBagConstraints.CENTER;
         userPanel.add(buttonCategories, constraints);
+
+        constraints.gridx = 0;
+        constraints.gridy = 10;
+        constraints.gridwidth = 2;
+        constraints.anchor = GridBagConstraints.CENTER;
+        userPanel.add(buttonLogout, constraints);
 
         // set border for the panel
         userPanel.setPreferredSize(new Dimension(600, 600));
@@ -339,8 +350,7 @@ public class JPanelManager extends JFrame {
         TaskCon.gridy = 4;
         userPanel.add(labelTaskStatusCheckbox, TaskCon);
         TaskCon.gridy = 5;
-        userPanel.add(labelTaskCreatedBy, TaskCon);
-        TaskCon.gridy = 6;
+       // userPanel.add(labelTaskCreatedBy, TaskCon);
         userPanel.add(labelTaskAssignedTo, TaskCon);
 
 
@@ -356,22 +366,21 @@ public class JPanelManager extends JFrame {
         TaskCon.gridy = 3;
         userPanel.add(textTaskCreatedOn, TaskCon);
         TaskCon.gridy = 4;
+       // userPanel.add(textTaskCreatedBy, TaskCon);
         TaskCon.gridy = 5;
-        userPanel.add(textTaskCreatedBy, TaskCon);
-        TaskCon.gridy = 6;
         userPanel.add(textTaskAssignedTo, TaskCon);
         TaskCon.gridx = 3;
-        TaskCon.gridy = 7;
+        TaskCon.gridy = 6;
         userPanel.add(comboColorBox, TaskCon);
         TaskCon.gridx = 0;
-        TaskCon.gridy = 8;
+        TaskCon.gridy = 7;
         TaskCon.anchor = GridBagConstraints.CENTER;
         userPanel.add(buttonReturnSecond, TaskCon);
 
         TaskCon.gridx = 1;
         userPanel.add(buttonTaskCreate, TaskCon);
         userPanel.add(buttonTaskEdit, TaskCon);
-        TaskCon.gridy = 9;
+        TaskCon.gridy = 8;
         userPanel.add(labelTaskCreatedByError, TaskCon);
         menuCreateTaskVis(false);
 
@@ -531,12 +540,26 @@ public class JPanelManager extends JFrame {
                 if (src == buttonCategories) // on pressing button
                 {
                     userPanel.setBackground(Color.YELLOW);
-                    userPanel.setBackground(Color.YELLOW);
                     invis(false);//set general stuff visibility to false
                     menuCategories(); // moves onto the next menu
                 }
             }
         });
+        buttonLogout.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Object src = e.getSource();
+
+                if (src == buttonLogout) // on pressing button
+                {
+                    invis(false);//set general stuff visibility to false
+                    currMember = null;
+                    loginMenu();
+                }
+            }
+        });
+
         // Menu View Member Buttons
 
         buttonEditMember.addActionListener(new ActionListener() {
@@ -1024,13 +1047,9 @@ public class JPanelManager extends JFrame {
                 Object src = e.getSource();
                 if (src == buttonTaskCreate) // on pressing button
                 {
-                    int createMemberIndex = memberSearch(textTaskCreatedBy.getText());
                     int assignedMemberIndex = memberSearch(textTaskAssignedTo.getText());
-                    if (createMemberIndex ==-1) {
-                        labelTaskCreatedByError.setVisible(true);
-                        labelTaskCreatedByError.setText("Member Created By not Found");
-                    }
-                    else if (assignedMemberIndex ==-1)
+
+                    if (assignedMemberIndex ==-1)
                     {
                         labelTaskCreatedByError.setVisible(true);
                         labelTaskCreatedByError.setText("Member Assigned To not Found");
@@ -1039,7 +1058,7 @@ public class JPanelManager extends JFrame {
                         menuCreateTaskVis(false);
                         // name, description, due date, created on, status, created by, assigned to
                         Task task = new Task(textTaskName.getText(), textTaskDescription.getText(), textTaskDueDate.getText(), textTaskCreatedOn.getText(),
-                                labelTaskStatusCheckbox.isSelected(), members.get(createMemberIndex), members.get(assignedMemberIndex));
+                                labelTaskStatusCheckbox.isSelected(), currMember, members.get(assignedMemberIndex));
                         members.get(assignedMemberIndex).assignTask(task);// this assigns the task to the member from the member's point of view as well ie, you can see it in member view
                         task.assignColor((String) comboColorBox.getSelectedItem());
                         tasks.add(task);
@@ -1057,19 +1076,26 @@ public class JPanelManager extends JFrame {
                 Object src = e.getSource();
                 if (src == buttonTaskEdit) // on pressing button
                 {
-                    menuCreateTaskVis(false);
-                    // name, description, due date, created on, status, created by, assigned to
-                    int createMemberIndex = memberSearch(textTaskCreatedBy.getText());
                     int assignedMemberIndex = memberSearch(textTaskAssignedTo.getText());
-                    tasks.get(taskIndex).getAssigned_to().deleteTask(tasks.get(taskIndex));// this removes the task from the old member it was assigned to
-                    tasks.get(taskIndex).Edit(textTaskName.getText(), textTaskDescription.getText(), textTaskDueDate.getText(), textTaskCreatedOn.getText(),
-                            labelTaskStatusCheckbox.isSelected(), members.get(createMemberIndex), members.get(assignedMemberIndex));
-                    members.get(assignedMemberIndex).assignTask(tasks.get(taskIndex)); // this assigns the task to the member from the member's point of view as well ie, you can see it in member view
-                    tasks.get(taskIndex).assignColor((String) comboColorBox.getSelectedItem());
 
-                    //Task task = new Task(textTaskName.getText(), textTaskDescription.getText(), textTaskDueDate.getText(), textTaskCreatedOn.getText(),
-                    //textTaskStatus.getText(), textTaskCreatedBy.getText(), textTaskAssignedTo.getText());
-                    menuTasks(); // moves onto the next menu
+                    if (assignedMemberIndex ==-1)
+                    {
+                        labelTaskCreatedByError.setVisible(true);
+                        labelTaskCreatedByError.setText("Member Assigned To not Found");
+                    }
+                    else {
+                        menuCreateTaskVis(false);
+                        // name, description, due date, created on, status, created by, assigned to
+                        tasks.get(taskIndex).getAssigned_to().deleteTask(tasks.get(taskIndex));// this removes the task from the old member it was assigned to
+                        tasks.get(taskIndex).Edit(textTaskName.getText(), textTaskDescription.getText(), textTaskDueDate.getText(), textTaskCreatedOn.getText(),
+                                labelTaskStatusCheckbox.isSelected(), currMember, members.get(assignedMemberIndex));
+                        members.get(assignedMemberIndex).assignTask(tasks.get(taskIndex)); // this assigns the task to the member from the member's point of view as well ie, you can see it in member view
+                        tasks.get(taskIndex).assignColor((String) comboColorBox.getSelectedItem());
+
+                        //Task task = new Task(textTaskName.getText(), textTaskDescription.getText(), textTaskDueDate.getText(), textTaskCreatedOn.getText(),
+                        //textTaskStatus.getText(), textTaskCreatedBy.getText(), textTaskAssignedTo.getText());
+                        menuTasks(); // moves onto the next menu
+                    }
                 }
             }
         });
@@ -1234,7 +1260,7 @@ public class JPanelManager extends JFrame {
                 }
             }
         });
-
+        instantiated = true;
         // add the panel to this frame
         selectMenu();
 
@@ -1247,12 +1273,14 @@ public class JPanelManager extends JFrame {
         buttonTasks.setVisible(a);
         buttonCategories.setVisible(a);
         labelUser.setVisible(a);
+        buttonLogout.setVisible(a);
     }
 
     public void selectMenu() {
-        //repaint();
-        userPanel.setBackground(Color.WHITE);
         invis(true);
+        userPanel.repaint();
+        userPanel.revalidate();
+        userPanel.setBackground(Color.WHITE);
     }
 
     private JLabel labelMenuMembers = new JLabel("Current Member(s)");
@@ -1578,7 +1606,15 @@ public class JPanelManager extends JFrame {
         }
         return index;
 }
-
+    public int memberPasswordSearch(String password) { // if index returns -1 then there is no matching password Found
+        int index = -1;
+        for (int i = 0; i < members.size(); i++) {
+            if (password.equals(members.get(i).getPassword())) {
+                index = i;
+            }
+        }
+        return index;
+    }
     public int taskSearch(String taskname){ // if index returns -1 then no matching Task found
         int index = -1;
         for(int i = 0; i < tasks.size(); i++) {
@@ -1589,6 +1625,7 @@ public class JPanelManager extends JFrame {
     }
     //instantiate text field
 
+    private static Member Admin = new Member("Admin", "123");// Use this to login
     private static Member nobody = new Member("N/A", "N/A");
     private static Task nullTask = new Task("N/A", "N/A", "N/A", "N/A", false, nobody,nobody);
     private static TaskCategory nullCategory = new TaskCategory("N/A", "N/A",  "N/A", nobody);
@@ -1606,6 +1643,7 @@ public class JPanelManager extends JFrame {
             ex.printStackTrace();
         }
         members.add(nobody);
+        members.add(Admin);
         tasks.add(nullTask);
         teams.add(nullTeam);
         categories.add(nullCategory);
