@@ -211,6 +211,15 @@ public class JPanelManager extends JFrame {
         constraintsTasks.gridx = 1;
         constraintsTasks.gridy = 10;
         userPanel.add(buttonCreateTask, constraintsTasks);
+
+        constraintsTasks.gridy = 11;
+        constraintsTasks.gridx = 0;
+        userPanel.add(textFieldSubTaskName, constraintsTasks);
+        constraintsTasks.gridx = 1;
+        userPanel.add(buttonSubTaskAdd, constraintsTasks);
+        constraintsTasks.gridx = 2;
+        userPanel.add(labelSubTaskAddError, constraintsTasks);
+
         constraintsTasks.gridx = 1;
         constraintsTasks.gridy = 12;
         userPanel.add(buttonDeleteTask, constraintsTasks);
@@ -836,7 +845,7 @@ public class JPanelManager extends JFrame {
                         labelMenuTaskStatus.setText("Status: " + tasks.get(taskIndex).getStatus());
                         labelMenuTaskCreatedBy.setText("Created By: " + tasks.get(taskIndex).getCreated_by().getUsername());
                         labelMenuTaskAssignedTo.setText("Assigned To: " + tasks.get(taskIndex).getAssigned_to().getUsername());
-                        labelMenuTaskSubtasks.setText("Subtasks: " + tasks.get(taskIndex).getSubtasks());
+                        labelMenuTaskSubtasks.setText("Subtasks: " + tasks.get(taskIndex).getSubtaskNames());
                     }
 
                 }
@@ -867,7 +876,7 @@ public class JPanelManager extends JFrame {
                         labelMenuTaskStatus.setText("Status: " + tasks.get(taskIndex).getStatus());
                         labelMenuTaskCreatedBy.setText("Created By: " + tasks.get(taskIndex).getCreated_by().getUsername());
                         labelMenuTaskAssignedTo.setText("Assigned To: " + tasks.get(taskIndex).getAssigned_to().getUsername());
-                        labelMenuTaskSubtasks.setText("Subtasks: " + tasks.get(taskIndex).getSubtasks());
+                        labelMenuTaskSubtasks.setText("Subtasks: " + tasks.get(taskIndex).getSubtaskNames());
                     }
 
                 }
@@ -884,7 +893,30 @@ public class JPanelManager extends JFrame {
                 }
             }
         });
+        buttonSubTaskAdd.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Object src = e.getSource();
 
+                if (src == buttonSubTaskAdd) // on pressing button
+                {
+
+                    int index= taskSearch(textFieldSubTaskName.getText());
+
+                    if(index< 1)// no match and display error text
+                    {
+                        labelSubTaskAddError.setVisible(true);
+                    }
+                    else // match and add subtask to Current Task
+                    {
+
+                        labelSubTaskAddError.setVisible(false);
+                        tasks.get(taskIndex).addSubtask(tasks.get(index));
+                        labelMenuTaskSubtasks.setText("Subtasks: " + tasks.get(taskIndex).getSubtaskNames());
+                    }
+                }
+            }
+        });
         buttonDeleteTask.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -915,7 +947,7 @@ public class JPanelManager extends JFrame {
                         labelMenuTaskStatus.setText("Status: " + tasks.get(taskIndex).getStatus());
                         labelMenuTaskCreatedBy.setText("Created By: " + tasks.get(taskIndex).getCreated_by().getUsername());
                         labelMenuTaskAssignedTo.setText("Assigned To: " + tasks.get(taskIndex).getAssigned_to().getUsername());
-                        labelMenuTaskSubtasks.setText("Subtasks: " + tasks.get(taskIndex).getSubtasks());
+                        labelMenuTaskSubtasks.setText("Subtasks: " + tasks.get(taskIndex).getSubtaskNames());
                     }
                 }
             }
@@ -1367,6 +1399,10 @@ public class JPanelManager extends JFrame {
     private JLabel labelMenuTaskCreatedBy = new JLabel();
     private JLabel labelMenuTaskAssignedTo = new JLabel();
     private JLabel labelMenuTaskSubtasks = new JLabel();
+
+    private JLabel labelSubTaskAddError= new JLabel("Error: Subtask Not Found");
+    private JButton buttonSubTaskAdd = new JButton("Add Subtask");
+    private JTextField textFieldSubTaskName = new JTextField(20);
     private JButton buttonTaskReturn = new JButton("Back");
     private JButton buttonCreateTask = new JButton("Create New Task");
     private JButton buttonDeleteTask = new JButton("Delete Task");
@@ -1377,6 +1413,9 @@ public class JPanelManager extends JFrame {
     private int taskIndex = 0;
 
     public void menuTasksVis(Boolean a) {
+        labelSubTaskAddError.setVisible(a);
+        buttonSubTaskAdd.setVisible(a);
+        textFieldSubTaskName.setVisible(a);
         labelMenuTasks.setVisible(a);
         labelMenuTaskDescription.setVisible(a);
         labelMenuTaskDueDate.setVisible(a);
@@ -1395,6 +1434,7 @@ public class JPanelManager extends JFrame {
     }
 
     public void menuTasks() {
+
         labelMenuTaskName.setText("Name: " + tasks.get(taskIndex).getName());
         if (tasks.get(taskIndex).getTextColor() == "White") {
             labelMenuTaskName.setForeground(Color.WHITE);
@@ -1411,9 +1451,11 @@ public class JPanelManager extends JFrame {
         labelMenuTaskStatus.setText("Status: " + tasks.get(taskIndex).getStatus());
         labelMenuTaskCreatedBy.setText("Created By: " + tasks.get(taskIndex).getCreated_by().getUsername());
         labelMenuTaskAssignedTo.setText("Assigned To: " + tasks.get(taskIndex).getAssigned_to().getUsername());
-        labelMenuTaskSubtasks.setText("Subtasks: " + tasks.get(taskIndex).getSubtasks());
+        labelMenuTaskSubtasks.setText("Subtasks: " + tasks.get(taskIndex).getSubtaskNames());
 
         menuTasksVis(true);
+
+        labelSubTaskAddError.setVisible(false);
         // add the panel to this frame
     }
 
