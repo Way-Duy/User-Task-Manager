@@ -903,8 +903,8 @@ public class JPanelManager extends JFrame {
 
                     int index= taskSearch(textFieldSubTaskName.getText());
 
-                    if(index< 1)// no match and display error text
-                    {
+                    if((index< 1) || tasks.get(taskIndex).getName().equals(textFieldSubTaskName.getText()))// no match and display error text
+                    {//make sure to check that you arent setting the current task as subtask
                         labelSubTaskAddError.setVisible(true);
                     }
                     else // match and add subtask to Current Task
