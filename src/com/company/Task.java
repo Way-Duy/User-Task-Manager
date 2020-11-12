@@ -2,29 +2,39 @@ package com.company;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Calendar; 
+import java.util.Date;  
+import java.text.DateFormat;  
+import java.text.SimpleDateFormat;  
 public class Task {
-    String name, description, due_date, created_on, status;
+    String name, description, status;
     Member created_by, assigned_to;
     List<Task> subtasks =  new ArrayList<>();
     String textColor = "White";
-
-    Task(String name, String description, String due_date, String created_on, String status, Member created_by, Member assigned_to, List<Task> subtasks) {
+    int day, month;
+    Calendar created_on = Calendar.getInstance(); 
+    Calendar due_date = Calendar.getInstance();
+    Task(String name, String description, String duemonth, String dueday, String status, Member created_by, Member assigned_to, List<Task> subtasks) {
         this.name = name;
         this.description = description;
-        this.due_date = due_date;
-        this.created_on = created_on;
+        day = Integer.parseInt(dueday);
+        month = Integer.parseInt(duemonth);
+        due_date.set(Calendar.MONTH, month);
+        due_date.set(Calendar.DATE, day);
         this.status = status;
         this.created_by = created_by;
         this.assigned_to = assigned_to;
         this.subtasks = subtasks;
+
     }
 
-    Task(String name, String description, String due_date, String created_on, boolean status, Member created_by, Member assigned_to) {
+    Task(String name, String description, String duemonth, String dueday, boolean status, Member created_by, Member assigned_to) {
         this.name = name;
         this.description = description;
-        this.due_date = due_date;
-        this.created_on = created_on;
+        day = Integer.parseInt(dueday);
+        month = Integer.parseInt(duemonth);
+        due_date.set(Calendar.MONTH, month);
+        due_date.set(Calendar.DATE, day);
         if (status)
             this.status = "Completed";
         else
@@ -39,12 +49,13 @@ public class Task {
     }
     public String getSubtaskNames()
     {
-        String subTaskNames = "";
-        if(subtasks.isEmpty())
-            return subTaskNames;
-        for(Task task: subtasks)
-            subTaskNames += task.getName()+ " ";
-        return subTaskNames;
+        //String subTaskNames = "";
+       // if(subtasks.isEmpty())
+           // return subTaskNames;
+        //for(Task task: subtasks)
+         //   subTaskNames += task.getName()+ " ";
+         String hi = "hip";
+        return hi;//subTaskNames;
 
     }
 
@@ -66,8 +77,12 @@ public class Task {
     }
 
     public String getCreated_on() {
-        return created_on;
-    }
+    Date date = created_on.getTime();  
+    DateFormat dateFormat = new SimpleDateFormat("MM.dd");  
+    String strDate = dateFormat.format(date);
+
+        return  strDate;
+           }
 
     public String getDescription() {
         return description;
@@ -82,7 +97,11 @@ public class Task {
     }
 
     public String getDue_date() {
-        return due_date;
+    due_date.add(Calendar.MONTH, -1);
+    Date date = due_date.getTime();  
+    DateFormat dateFormat = new SimpleDateFormat("MM.dd");  
+    String strDate = dateFormat.format(date);
+    return strDate;
     }
 
     public void assignColor(String textColor)
@@ -97,12 +116,15 @@ public class Task {
         return info;
     }
     */
-    public void Edit(String name,String description,String due_date,String created_on,boolean status,Member created_by,Member assigned_to)
+    public void Edit(String name,String description,String duemonth, String dueday,boolean status,Member created_by,Member assigned_to)
     {
+    System.out.print("here");
         this.name = name;
         this.description = description;
-        this.due_date = due_date;
-        this.created_on = created_on;
+        day = Integer.parseInt(dueday);
+        month = Integer.parseInt(duemonth);
+        due_date.set(Calendar.MONTH, month);
+        due_date.set(Calendar.DATE, day);
         if (status)
             this.status = "Completed";
         else
