@@ -15,9 +15,9 @@ public class Member
     }
     public String getTasks()
     {
-        String task_names = "";
+        String task_names = "| ";
         for(Task task:task_assigned_list) {
-            task_names+= task.getName();
+            task_names+= task.getName() + " | ";
         }
         return task_names;
     }
