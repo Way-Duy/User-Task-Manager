@@ -192,9 +192,9 @@ public class JPanelManager extends JFrame {
         constraintsTasks.gridy = 2;
         userPanel.add(labelMenuTaskDescription, constraintsTasks);
         constraintsTasks.gridy = 3;
-        userPanel.add(labelMenuTaskDueDate, constraintsTasks);
+        userPanel.add(labelMenuTaskDueMonth, constraintsTasks);
         constraintsTasks.gridy = 4;
-        userPanel.add(labelMenuTaskCreatedOn, constraintsTasks);
+        userPanel.add(labelMenuTaskDueDay, constraintsTasks);
         constraintsTasks.gridy = 5;
         userPanel.add(labelMenuTaskStatus, constraintsTasks);
         constraintsTasks.gridy = 6;
@@ -362,9 +362,9 @@ public class JPanelManager extends JFrame {
         TaskCon.gridy = 1;
         userPanel.add(labelTaskDescription, TaskCon);
         TaskCon.gridy = 2;
-        userPanel.add(labelTaskDueDate, TaskCon);
+        userPanel.add(labelTaskDueMonth, TaskCon);
         TaskCon.gridy = 3;
-        userPanel.add(labelTaskCreatedOn, TaskCon);
+        userPanel.add(labelTaskDueDay, TaskCon);
         TaskCon.gridy = 4;
         userPanel.add(labelTaskStatusCheckbox, TaskCon);
         TaskCon.gridy = 5;
@@ -840,8 +840,8 @@ public class JPanelManager extends JFrame {
                         else if (tasks.get(taskIndex).getTextColor() == "Green")
                             labelMenuTaskName.setForeground(Color.GREEN);
                         labelMenuTaskDescription.setText("Description: " + tasks.get(taskIndex).getDescription());
-                        labelMenuTaskDueDate.setText("Due Date: " + tasks.get(taskIndex).getDue_date());
-                        labelMenuTaskCreatedOn.setText("Created On: " + tasks.get(taskIndex).getCreated_on());
+                        labelMenuTaskDueMonth.setText("Month Due1: " + tasks.get(taskIndex).getDue_date());
+                        labelMenuTaskDueDay.setText("Day Due: " + tasks.get(taskIndex).getCreated_on());
                         labelMenuTaskStatus.setText("Status: " + tasks.get(taskIndex).getStatus());
                         labelMenuTaskCreatedBy.setText("Created By: " + tasks.get(taskIndex).getCreated_by().getUsername());
                         labelMenuTaskAssignedTo.setText("Assigned To: " + tasks.get(taskIndex).getAssigned_to().getUsername());
@@ -871,8 +871,8 @@ public class JPanelManager extends JFrame {
                         else if (tasks.get(taskIndex).getTextColor() == "Green")
                             labelMenuTaskName.setForeground(Color.GREEN);
                         labelMenuTaskDescription.setText("Description: " + tasks.get(taskIndex).getDescription());
-                        labelMenuTaskDueDate.setText("Due Date: " + tasks.get(taskIndex).getDue_date());
-                        labelMenuTaskCreatedOn.setText("Created On: " + tasks.get(taskIndex).getCreated_on());
+                        labelMenuTaskDueMonth.setText("Day Due: " + tasks.get(taskIndex).getDue_date());
+                        labelMenuTaskDueMonth.setText("Month Due2: " + tasks.get(taskIndex).getCreated_on());
                         labelMenuTaskStatus.setText("Status: " + tasks.get(taskIndex).getStatus());
                         labelMenuTaskCreatedBy.setText("Created By: " + tasks.get(taskIndex).getCreated_by().getUsername());
                         labelMenuTaskAssignedTo.setText("Assigned To: " + tasks.get(taskIndex).getAssigned_to().getUsername());
@@ -903,8 +903,8 @@ public class JPanelManager extends JFrame {
 
                     int index= taskSearch(textFieldSubTaskName.getText());
 
-                    if((index< 1) || tasks.get(taskIndex).getName().equals(textFieldSubTaskName.getText()))// no match and display error text
-                    {//make sure to check that you arent setting the current task as subtask
+                    if(index< 1)// no match and display error text
+                    {
                         labelSubTaskAddError.setVisible(true);
                     }
                     else // match and add subtask to Current Task
@@ -942,8 +942,8 @@ public class JPanelManager extends JFrame {
                         else if (tasks.get(taskIndex).getTextColor() == "Green")
                             labelMenuTaskName.setForeground(Color.GREEN);
                         labelMenuTaskDescription.setText("Description: " + tasks.get(taskIndex).getDescription());
-                        labelMenuTaskDueDate.setText("Due Date: " + tasks.get(taskIndex).getDue_date());
-                        labelMenuTaskCreatedOn.setText("Created On: " + tasks.get(taskIndex).getCreated_on());
+                        labelMenuTaskDueDay.setText("Day Due: " + tasks.get(taskIndex).getDue_date());
+                        labelMenuTaskDueMonth.setText("Month Due3: " + tasks.get(taskIndex).getCreated_on());
                         labelMenuTaskStatus.setText("Status: " + tasks.get(taskIndex).getStatus());
                         labelMenuTaskCreatedBy.setText("Created By: " + tasks.get(taskIndex).getCreated_by().getUsername());
                         labelMenuTaskAssignedTo.setText("Assigned To: " + tasks.get(taskIndex).getAssigned_to().getUsername());
@@ -1393,8 +1393,8 @@ public class JPanelManager extends JFrame {
     private JLabel labelMenuTasks = new JLabel("Current Task(s)");
     private JLabel labelMenuTaskName = new JLabel();
     private JLabel labelMenuTaskDescription = new JLabel();
-    private JLabel labelMenuTaskDueDate = new JLabel();
-    private JLabel labelMenuTaskCreatedOn = new JLabel();
+    private JLabel labelMenuTaskDueMonth = new JLabel();
+    private JLabel labelMenuTaskDueDay = new JLabel();
     private JLabel labelMenuTaskStatus = new JLabel();
     private JLabel labelMenuTaskCreatedBy = new JLabel();
     private JLabel labelMenuTaskAssignedTo = new JLabel();
@@ -1418,8 +1418,8 @@ public class JPanelManager extends JFrame {
         textFieldSubTaskName.setVisible(a);
         labelMenuTasks.setVisible(a);
         labelMenuTaskDescription.setVisible(a);
-        labelMenuTaskDueDate.setVisible(a);
-        labelMenuTaskCreatedOn.setVisible(a);
+        labelMenuTaskDueMonth.setVisible(a);
+        labelMenuTaskDueDay.setVisible(a);
         labelMenuTaskStatus.setVisible(a);
         labelMenuTaskCreatedBy.setVisible(a);
         labelMenuTaskAssignedTo.setVisible(a);
@@ -1446,8 +1446,8 @@ public class JPanelManager extends JFrame {
             labelMenuTaskName.setForeground(Color.GREEN);
 
         labelMenuTaskDescription.setText("Description: " + tasks.get(taskIndex).getDescription());
-        labelMenuTaskDueDate.setText("Due Date: " + tasks.get(taskIndex).getDue_date());
-        labelMenuTaskCreatedOn.setText("Created On: " + tasks.get(taskIndex).getCreated_on());
+        labelMenuTaskDueMonth.setText("Due Date: " + tasks.get(taskIndex).getDue_date());
+        labelMenuTaskDueDay.setText("Created On: " + tasks.get(taskIndex).getCreated_on());
         labelMenuTaskStatus.setText("Status: " + tasks.get(taskIndex).getStatus());
         labelMenuTaskCreatedBy.setText("Created By: " + tasks.get(taskIndex).getCreated_by().getUsername());
         labelMenuTaskAssignedTo.setText("Assigned To: " + tasks.get(taskIndex).getAssigned_to().getUsername());
@@ -1508,8 +1508,8 @@ public class JPanelManager extends JFrame {
 
     private JLabel labelTaskName = new JLabel("Name: ");
     private JLabel labelTaskDescription = new JLabel("Description: ");
-    private JLabel labelTaskDueDate = new JLabel("DueDate: ");
-    private JLabel labelTaskCreatedOn = new JLabel("CreatedOn: ");
+    private JLabel labelTaskDueMonth = new JLabel("Due Month: ");
+    private JLabel labelTaskDueDay = new JLabel("Day Due: ");
     private JCheckBox labelTaskStatusCheckbox = new JCheckBox("Completed?: ");
     private JLabel labelTaskCreatedBy = new JLabel("CreatedBy: ");
     private JLabel labelTaskAssignedTo = new JLabel("AssignedTo: ");
@@ -1530,8 +1530,8 @@ public class JPanelManager extends JFrame {
         labelTaskCreatedByError.setVisible(a);
         labelTaskName.setVisible(a);
         labelTaskDescription.setVisible(a);
-        labelTaskDueDate.setVisible(a);
-        labelTaskCreatedOn.setVisible(a);
+        labelTaskDueMonth.setVisible(a);
+        labelTaskDueDay.setVisible(a);
         labelTaskStatusCheckbox.setVisible(a);
         labelTaskCreatedBy.setVisible(a);
         labelTaskAssignedTo.setVisible(a);
@@ -1679,7 +1679,7 @@ public class JPanelManager extends JFrame {
 
     private static Member Admin = new Member("Admin", "123");// Use this to login
     private static Member nobody = new Member("N/A", "N/A");
-    private static Task nullTask = new Task("N/A", "N/A", "N/A", "N/A", false, nobody,nobody);
+    private static Task nullTask = new Task("N/A", "N/A", "1", "1", false, nobody,nobody);
     private static TaskCategory nullCategory = new TaskCategory("N/A", "N/A",  "N/A", nobody);
     private static Team nullTeam = new Team("N/A");
 
