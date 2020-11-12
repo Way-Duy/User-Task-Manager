@@ -49,13 +49,14 @@ public class Task {
     }
     public String getSubtaskNames()
     {
-        //String subTaskNames = "";
-       // if(subtasks.isEmpty())
-           // return subTaskNames;
-        //for(Task task: subtasks)
-         //   subTaskNames += task.getName()+ " ";
-         String hi = "hip";
-        return hi;//subTaskNames;
+        String subTaskNames = "| ";
+        if(subtasks.isEmpty())
+            return subTaskNames;
+        for(Task task: subtasks)
+            subTaskNames += task.getName() + " | ";
+        return subTaskNames;
+         //String hi = "hip";
+        //return hi;//subTaskNames;
 
     }
 
