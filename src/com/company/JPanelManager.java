@@ -926,8 +926,10 @@ public class JPanelManager extends JFrame {
                 {
                     if ((taskIndex - 1) >= 0) {
                         Task currTask = tasks.get(taskIndex );
-                        for (TaskCategory category: categories) // deletes member from all teams
+                        for (TaskCategory category: categories) // deletes Tasks from all Categories
                             category.deleteTask(currTask);
+                        for(Task task: tasks) // removes task from Subtask List
+                            task.deleteSubtask(tasks.get(taskIndex));
 
                         currTask.getAssigned_to().deleteTask(currTask  );// this removes the task from the old member it was assigned to
                         tasks.remove(currTask);

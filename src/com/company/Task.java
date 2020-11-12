@@ -59,6 +59,10 @@ public class Task {
         //return hi;//subTaskNames;
 
     }
+    public void deleteSubtask(Task subtask)
+    {
+        subtasks.remove(subtask);
+    }
 
     public String getName()
     {
