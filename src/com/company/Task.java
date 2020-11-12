@@ -47,16 +47,18 @@ public class Task {
         subtasks.add(subtask);
 
     }
+    public Boolean hasSubtask(Task subtask)
+    {
+        return subtasks.contains(subtask);
+    }
     public String getSubtaskNames()
     {
-        /*String subTaskNames = "| ";
+        String subTaskNames = "| ";
         if(subtasks.isEmpty())
             return subTaskNames;
         for(Task task: subtasks)
             subTaskNames += task.getName() + " | ";
-        return subTaskNames;*/
-         String hi = "hip";
-        return hi;//subTaskNames;
+        return subTaskNames;
 
     }
     public void deleteSubtask(Task subtask)
@@ -136,6 +138,5 @@ public class Task {
             this.status = "In Progress";
         this.created_by = created_by;
         this. assigned_to = assigned_to;
-        subtasks = null; //subtasks not necessary
     }
 }

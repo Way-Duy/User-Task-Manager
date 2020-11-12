@@ -380,9 +380,9 @@ public class JPanelManager extends JFrame {
         TaskCon.gridy = 1;
         userPanel.add(textTaskDescription, TaskCon);
         TaskCon.gridy = 2;
-        userPanel.add(textTaskDueDate, TaskCon);
+        userPanel.add(textTaskDueMonth, TaskCon);
         TaskCon.gridy = 3;
-        userPanel.add(textTaskCreatedOn, TaskCon);
+        userPanel.add(textTaskDueDay, TaskCon);
         TaskCon.gridy = 4;
        // userPanel.add(textTaskCreatedBy, TaskCon);
         TaskCon.gridy = 5;
@@ -905,6 +905,18 @@ public class JPanelManager extends JFrame {
 
                     if(index< 1)// no match and display error text
                     {
+                        labelSubTaskAddError.setText("Subtask Not Found");
+                        labelSubTaskAddError.setVisible(true);
+                    }
+                    else if(index ==taskIndex ) {
+
+                        labelSubTaskAddError.setText("Subtask Cannot be a Subtask of itself");
+                        labelSubTaskAddError.setVisible(true);
+                    }
+                    else if(tasks.get(taskIndex).hasSubtask(tasks.get(index)))
+                    {
+
+                        labelSubTaskAddError.setText("Subtask Already Exists");
                         labelSubTaskAddError.setVisible(true);
                     }
                     else // match and add subtask to Current Task
@@ -1090,22 +1102,49 @@ public class JPanelManager extends JFrame {
                 {
                     int assignedMemberIndex = memberSearch(textTaskAssignedTo.getText());
 
-                    if (assignedMemberIndex ==-1)
+                    Boolean dateIsNumber = true;
+                    for (int i = 0; i < textTaskDueMonth.getText().length(); i++)
+                    {
+                        if (!Character.isDigit(textTaskDueMonth.getText().charAt(i)))
+                            dateIsNumber = false;
+                    }
+                    for (int i = 0; i < textTaskDueDay.getText().length(); i++)
+                    {
+                        if (!Character.isDigit(textTaskDueDay.getText().charAt(i)))
+                            dateIsNumber = false;
+                    }
+
+                    if (assignedMemberIndex ==-1) //Assigned member error handling
                     {
                         labelTaskCreatedByError.setVisible(true);
                         labelTaskCreatedByError.setText("Member Assigned To not Found");
                     }
+                    else if(!dateIsNumber) { //Date error handling
+
+                        labelTaskCreatedByError.setVisible(true);
+                        labelTaskCreatedByError.setText("Dates Can only be Numbers");
+                        }
+                    else if(taskSearch(textTaskName.getText()) !=-1) // Task Name cannot be duplicate
+                    {
+
+                        labelTaskCreatedByError.setVisible(true);
+                        labelTaskCreatedByError.setText("Duplicate Task Name Found");
+                    }
                     else {
+
                         menuCreateTaskVis(false);
                         // name, description, due date, created on, status, created by, assigned to
-                        Task task = new Task(textTaskName.getText(), textTaskDescription.getText(), textTaskDueDate.getText(), textTaskCreatedOn.getText(),
+
+                        Task task = new Task(textTaskName.getText(), textTaskDescription.getText(), textTaskDueMonth.getText(), textTaskDueDay.getText(),
                                 labelTaskStatusCheckbox.isSelected(), currMember, members.get(assignedMemberIndex));
                         members.get(assignedMemberIndex).assignTask(task);// this assigns the task to the member from the member's point of view as well ie, you can see it in member view
                         task.assignColor((String) comboColorBox.getSelectedItem());
                         tasks.add(task);
-                        //Task task = new Task(textTaskName.getText(), textTaskDescription.getText(), textTaskDueDate.getText(), textTaskCreatedOn.getText(),
+                        //Task task = new Task(textTaskName.getText(), textTaskDescription.getText(), textTaskDueMonth.getText(), textTaskDueDay.getText(),
                         //textTaskStatus.getText(), textTaskCreatedBy.getText(), textTaskAssignedTo.getText());
                         menuTasks(); // moves onto the next menu
+
+
                     }
                 }
             }
@@ -1119,21 +1158,44 @@ public class JPanelManager extends JFrame {
                 {
                     int assignedMemberIndex = memberSearch(textTaskAssignedTo.getText());
 
+                    Boolean dateIsNumber = true;
+                    for (int i = 0; i < textTaskDueMonth.getText().length(); i++)
+                    {
+                        if (!Character.isDigit(textTaskDueMonth.getText().charAt(i)))
+                            dateIsNumber = false;
+                    }
+                    for (int i = 0; i < textTaskDueDay.getText().length(); i++)
+                    {
+                        if (!Character.isDigit(textTaskDueDay.getText().charAt(i)))
+                            dateIsNumber = false;
+                    }
                     if (assignedMemberIndex ==-1)
                     {
                         labelTaskCreatedByError.setVisible(true);
                         labelTaskCreatedByError.setText("Member Assigned To not Found");
                     }
+                    else if(!dateIsNumber) { //more error handling
+
+                        labelTaskCreatedByError.setVisible(true);
+                        labelTaskCreatedByError.setText("Dates Can only be Numbers");
+                    }
+
+                    else if(taskSearch(textTaskName.getText()) !=-1 && taskSearch(textTaskName.getText())!= taskSearch(tasks.get(taskIndex).getName())) // Task Name cannot be duplicate
+                    {
+
+                        labelTaskCreatedByError.setVisible(true);
+                        labelTaskCreatedByError.setText("Duplicate Task Name Found");
+                    }
                     else {
                         menuCreateTaskVis(false);
                         // name, description, due date, created on, status, created by, assigned to
                         tasks.get(taskIndex).getAssigned_to().deleteTask(tasks.get(taskIndex));// this removes the task from the old member it was assigned to
-                        tasks.get(taskIndex).Edit(textTaskName.getText(), textTaskDescription.getText(), textTaskDueDate.getText(), textTaskCreatedOn.getText(),
+                        tasks.get(taskIndex).Edit(textTaskName.getText(), textTaskDescription.getText(), textTaskDueMonth.getText(), textTaskDueDay.getText(),
                                 labelTaskStatusCheckbox.isSelected(), currMember, members.get(assignedMemberIndex));
                         members.get(assignedMemberIndex).assignTask(tasks.get(taskIndex)); // this assigns the task to the member from the member's point of view as well ie, you can see it in member view
                         tasks.get(taskIndex).assignColor((String) comboColorBox.getSelectedItem());
 
-                        //Task task = new Task(textTaskName.getText(), textTaskDescription.getText(), textTaskDueDate.getText(), textTaskCreatedOn.getText(),
+                        //Task task = new Task(textTaskName.getText(), textTaskDescription.getText(), textTaskDueMonth.getText(), textTaskDueDay.getText(),
                         //textTaskStatus.getText(), textTaskCreatedBy.getText(), textTaskAssignedTo.getText());
                         menuTasks(); // moves onto the next menu
                     }
@@ -1518,8 +1580,8 @@ public class JPanelManager extends JFrame {
     private JLabel labelTaskCreatedByError = new JLabel("");
     private JTextField textTaskName = new JTextField(20);
     private JTextField textTaskDescription = new JTextField(20);
-    private JTextField textTaskDueDate = new JTextField(20);
-    private JTextField textTaskCreatedOn = new JTextField(20);
+    private JTextField textTaskDueMonth = new JTextField(20);
+    private JTextField textTaskDueDay = new JTextField(20);
     private JTextField textTaskCreatedBy = new JTextField(20);
     private JTextField textTaskAssignedTo = new JTextField(20);
     private JButton buttonReturnSecond = new JButton("Back");
@@ -1539,8 +1601,8 @@ public class JPanelManager extends JFrame {
         labelTaskAssignedTo.setVisible(a);
         textTaskName.setVisible(a);
         textTaskDescription.setVisible(a);
-        textTaskDueDate.setVisible(a);
-        textTaskCreatedOn.setVisible(a);
+        textTaskDueMonth.setVisible(a);
+        textTaskDueDay.setVisible(a);
         textTaskCreatedBy.setVisible(a);
         textTaskAssignedTo.setVisible(a);
         buttonReturnSecond.setVisible(a);
