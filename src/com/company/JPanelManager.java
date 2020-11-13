@@ -710,6 +710,11 @@ public class JPanelManager extends JFrame {
                     if(index< 1)// no match and display error text
                     {
                         labelMenuTeamAddMemberError.setVisible(true);
+                    }                    
+                    else if(memberSearch(textMenuTeamaddMember.getText()) !=-1 && memberSearch(textMenuTeamaddMember.getText())!= memberSearch(teams.get(teamIndex).getMemberNames()))//replace memberSearch(teams.get(teamIndex).getMemberNames() with your member find in team code.
+                    {
+                    labelMenuTeamAddMemberError.setVisible(true);
+                    labelMenuTeamAddMemberError.setText("no duplicate members");
                     }
                     else // match and add to team
                     {
@@ -903,7 +908,7 @@ public class JPanelManager extends JFrame {
 
                     int index= taskSearch(textFieldSubTaskName.getText());
 
-                    if(index< 1)// no match and display error text
+                    if(index< 1)// no match and display error text1
                     {
                         labelSubTaskAddError.setText("Subtask Not Found");
                         labelSubTaskAddError.setVisible(true);
@@ -980,6 +985,11 @@ public class JPanelManager extends JFrame {
                     if(index< 1)// no match and display error text
                     {
                         labelMenuCategoryAddTaskError.setVisible(true);
+                    }
+                    else if (1==2)// replace with code that checks if the task in textMenuCategoryaddTask.getText() is already in this category
+                    {
+                    labelMenuCategoryAddTaskError.setVisible(true);
+                    labelViewCategoryTaskList.setText("no duplicate tasks");
                     }
                     else // match and add to Category
                     {
@@ -1240,7 +1250,7 @@ public class JPanelManager extends JFrame {
                 Object src = e.getSource();
                 if (src == buttonTeamEdit) // on pressing button
                 {
-
+            
 
                     menuCreateTeamVis(false);
                     teams.get(teamIndex).Edit(textTeamName.getText());
@@ -1322,14 +1332,19 @@ public class JPanelManager extends JFrame {
                 Object src = e.getSource();
                 if (src == buttonMemberCreate) // on pressing button
                 {
-
-
+                if(memberSearch(textMemberUsername.getText()) !=-1 && memberSearch(textMemberUsername.getText())!= memberSearch(members.get(memberIndex).getUsername()))
+                {
+                
+                //insert member category error here
+                }
+                else
+                {
                     menuCreateMemberVis(false);
                     // UserName, Pass
                     Member member = new Member(textMemberUsername.getText(), textMemberPassword.getText());
                     members.add(member);
                     menuMembers(); // moves onto the next menu
-                }
+                }}
             }
         });
         buttonMemberEdit.addActionListener(new ActionListener() {
@@ -1338,14 +1353,19 @@ public class JPanelManager extends JFrame {
                 Object src = e.getSource();
                 if (src == buttonMemberEdit) // on pressing button
                 {
-
-
+                if(memberSearch(textMemberUsername.getText()) !=-1 && memberSearch(textMemberUsername.getText())!= memberSearch(members.get(memberIndex).getUsername()))
+                {
+                
+                //insert member category error here
+                }
+                else
+                {
                     menuCreateMemberVis(false);
                     // UserName, Pass
                     members.get(memberIndex).changeUsername(textMemberUsername.getText());
                     members.get(memberIndex).changePassword(textMemberPassword.getText());
                     menuMembers(); // moves onto the next menu
-                }
+                }}
             }
         });
         buttonMemberReturn.addActionListener(new ActionListener() {
