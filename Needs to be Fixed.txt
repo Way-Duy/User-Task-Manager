@@ -1,5 +1,4 @@
 Null Objects not seeable
-Error handling for Teams with Members and Categories with Tasks about adding the same object multiple times
 Delete subtasks option?
 task can be done even when the subtasks are not completed
 Recurring Tasks: Use Date picker? Jason
