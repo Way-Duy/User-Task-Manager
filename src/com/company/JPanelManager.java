@@ -1,5 +1,7 @@
 package com.company;
 
+import jdk.jfr.Category;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -424,8 +426,9 @@ public class JPanelManager extends JFrame {
         userPanel.add(textMemberPassword, MemberAddConstraints);
         MemberAddConstraints.gridy = 2;
 
+        userPanel.add(labelMemberCreateError, MemberAddConstraints);
+        MemberAddConstraints.gridy = 3;
         MemberAddConstraints.anchor = GridBagConstraints.CENTER;
-
         MemberAddConstraints.gridx = 0;
         userPanel.add(buttonMemberReturn, MemberAddConstraints);
         MemberAddConstraints.gridx = 1;
@@ -461,7 +464,8 @@ public class JPanelManager extends JFrame {
         userPanel.add(textCategoryCreatedOn, CategoryAddConstraints);
         //userPanel.add(textCategoryCreatedBy, CategoryAddConstraints);
         CategoryAddConstraints.gridy = 3;
-
+        userPanel.add(labelCategoryCreateError, CategoryAddConstraints);
+        CategoryAddConstraints.gridy = 4;
         CategoryAddConstraints.anchor = GridBagConstraints.CENTER;
 
         CategoryAddConstraints.gridx = 0;
@@ -715,6 +719,14 @@ public class JPanelManager extends JFrame {
                     {
                     labelMenuTeamAddMemberError.setVisible(true);
                     labelMenuTeamAddMemberError.setText("no duplicate members");
+                    }
+                    else if(true) // members cannot be assigned to multiple teams check
+                    {
+                        for(Member member: teams.get(teamIndex).getTeam())
+                            if (textMenuTeamaddMember.getText()==member.getUsername()) {
+                                labelMenuTeamAddMemberError.setVisible(true);
+                                labelMenuTeamAddMemberError.setText("Member already assigned to a team");
+                            }
                     }
                     else // match and add to team
                     {
@@ -1281,14 +1293,21 @@ public class JPanelManager extends JFrame {
                 if (src == buttonCategoryCreate) // on pressing button
                 {
 
+                    if(categorySearch(textCategoryName.getText()) !=-1 && categorySearch(textCategoryName.getText())!= categorySearch(categories.get(categoryIndex).getName()))
+                    {
+                        labelCategoryCreateError.setText("No Duplicate Category Names allowed");
+                        labelCategoryCreateError.setVisible(true);
+                        //insert member category error here
+                    }
+                    else {
+                        menuCreateCategoryVis(false);
+                        TaskCategory category = new TaskCategory(textCategoryName.getText(), textCategoryDescription.getText(),
+                                textCategoryCreatedOn.getText(), currMember);
 
-                    menuCreateCategoryVis(false);
-                    TaskCategory category = new TaskCategory(textCategoryName.getText(), textCategoryDescription.getText(),
-                            textCategoryCreatedOn.getText(),currMember);
-
-                    //Category category = new Category(namefield, descfield, etc..)
-                    categories.add(category);
-                    menuCategories(); // moves onto the next menu
+                        //Category category = new Category(namefield, descfield, etc..)
+                        categories.add(category);
+                        menuCategories(); // moves onto the next menu
+                    }
                 }
             }
         });
@@ -1334,7 +1353,8 @@ public class JPanelManager extends JFrame {
                 {
                 if(memberSearch(textMemberUsername.getText()) !=-1 && memberSearch(textMemberUsername.getText())!= memberSearch(members.get(memberIndex).getUsername()))
                 {
-                
+                    labelMemberCreateError.setText("No Duplicate Usernames allowed");
+                    labelMemberCreateError.setVisible(true);
                 //insert member category error here
                 }
                 else
@@ -1374,8 +1394,6 @@ public class JPanelManager extends JFrame {
                 Object src = e.getSource();
                 if (src == buttonMemberReturn) // on pressing button
                 {
-
-
                     menuCreateMemberVis(false);
                     menuMembers(); // moves onto the next menu
                 }
@@ -1679,12 +1697,14 @@ public class JPanelManager extends JFrame {
         textCategoryCreatedOn.setVisible(a);
         textCategoryCreatedBy.setVisible(a);
         buttonCategoryEdit.setVisible(a);
+        labelCategoryCreateError.setVisible(a);
     }
 
     private JButton buttonCategoryCreate = new JButton("Create");
     private JButton buttonCategoryEdit = new JButton("Edit");
     private JButton buttonCategoryReturn = new JButton("Back");
     private JLabel labelCategoryName = new JLabel("Name: ");
+    private JLabel labelCategoryCreateError = new JLabel();
     private JLabel labelCategoryDescription = new JLabel("Description: ");
     private JLabel labelCategoryCreatedOn = new JLabel("Created On: ");
     private JLabel labelCategoryCreatedBy = new JLabel("Created By: ");
@@ -1695,10 +1715,13 @@ public class JPanelManager extends JFrame {
 
     public void menuCreateCategory(boolean edit) {
         menuCreateCategoryVis(true);
+        labelCategoryCreateError.setVisible(false);
         if (edit)
             buttonCategoryCreate.setVisible(false);
         else
             buttonCategoryEdit.setVisible(false);
+
+
 
     }
 
@@ -1707,6 +1730,7 @@ public class JPanelManager extends JFrame {
     private JButton buttonMemberReturn = new JButton("Back");
     private JLabel labelMemberUsername = new JLabel("Username: ");
     private JLabel labelMemberPassword = new JLabel("Password: ");
+    private JLabel labelMemberCreateError = new JLabel("No Duplicate Usernames allowed");
     private JTextField textMemberUsername = new JTextField(20);
     private JTextField textMemberPassword = new JTextField(20);
 
@@ -1718,11 +1742,12 @@ public class JPanelManager extends JFrame {
         textMemberUsername.setVisible(a);
         textMemberPassword.setVisible(a);
         buttonMemberEdit.setVisible(a);
+        labelMemberCreateError.setVisible(a);
     }
 
     public void menuCreateMember(boolean edit) {
-
         menuCreateMemberVis(true);
+        labelMemberCreateError.setVisible(false);
         if (edit)
             buttonMemberCreate.setVisible(false);
         else {
@@ -1742,6 +1767,16 @@ public class JPanelManager extends JFrame {
         }
         return index;
 }
+    public int categorySearch(String name){ // if index returns -1 then there is no matching Category Found
+        int index = -1;
+        for(int i = 0; i < categories.size(); i++) {
+            if (name.equals(categories.get(i).getName()))
+            {
+                index = i;
+            }
+        }
+        return index;
+    }
     public int memberPasswordSearch(String password) { // if index returns -1 then there is no matching password Found
         int index = -1;
         for (int i = 0; i < members.size(); i++) {
