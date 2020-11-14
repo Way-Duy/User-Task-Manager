@@ -711,22 +711,20 @@ public class JPanelManager extends JFrame {
                 {
                     int index= memberSearch(textMenuTeamaddMember.getText());
 
-                    if(index< 1)// no match and display error text
+                    Boolean flagMemberOnTeam = false;
+                    for(Member member: teams.get(teamIndex).getTeam())
+                        if (textMenuTeamaddMember.getText().equals(member.getUsername())) {
+                            flagMemberOnTeam= true;
+                        }
+                    if(index< 1)// no member found with that name
+                    {
+                        labelMenuTeamAddMemberError.setText("Member Username not found");
+                        labelMenuTeamAddMemberError.setVisible(true);
+                    }
+                    else if(flagMemberOnTeam) // members cannot be assigned to multiple teams check
                     {
                         labelMenuTeamAddMemberError.setVisible(true);
-                    }                    
-                    else if(memberSearch(textMenuTeamaddMember.getText()) !=-1 && memberSearch(textMenuTeamaddMember.getText())!= memberSearch(teams.get(teamIndex).getMemberNames()))//replace memberSearch(teams.get(teamIndex).getMemberNames() with your member find in team code.
-                    {
-                    labelMenuTeamAddMemberError.setVisible(true);
-                    labelMenuTeamAddMemberError.setText("no duplicate members");
-                    }
-                    else if(true) // members cannot be assigned to multiple teams check
-                    {
-                        for(Member member: teams.get(teamIndex).getTeam())
-                            if (textMenuTeamaddMember.getText()==member.getUsername()) {
-                                labelMenuTeamAddMemberError.setVisible(true);
-                                labelMenuTeamAddMemberError.setText("Member already assigned to a team");
-                            }
+                        labelMenuTeamAddMemberError.setText("Member is already on selected Team");
                     }
                     else // match and add to team
                     {
@@ -994,14 +992,21 @@ public class JPanelManager extends JFrame {
 
                     int index= taskSearch(textMenuCategoryaddTask.getText());
 
+                    Boolean flagMemberOnTeam = false;
+                    for(Task task: categories.get(categoryIndex).getTask_category_list())
+                        if (textMenuCategoryaddTask.getText().equals(task.getName())) {
+                            flagMemberOnTeam= true;
+                        }
                     if(index< 1)// no match and display error text
                     {
+                        labelMenuCategoryAddTaskError.setText("Task name not found");
                         labelMenuCategoryAddTaskError.setVisible(true);
                     }
-                    else if (1==2)// replace with code that checks if the task in textMenuCategoryaddTask.getText() is already in this category
+                    else if(flagMemberOnTeam)// checks if the task already exists in the team
                     {
-                    labelMenuCategoryAddTaskError.setVisible(true);
-                    labelViewCategoryTaskList.setText("no duplicate tasks");
+
+                        labelMenuCategoryAddTaskError.setText("no duplicate tasks");
+                        labelMenuCategoryAddTaskError.setVisible(true);
                     }
                     else // match and add to Category
                     {
