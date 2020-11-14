@@ -1324,7 +1324,7 @@ public class JPanelManager extends JFrame {
                     menuCreateCategoryVis(false);
                     // UserName, Pass
                     categories.get(categoryIndex).Edit(textCategoryName.getText(), textCategoryDescription.getText(),
-                            textCategoryCreatedOn.getText(), nobody);
+                            textCategoryCreatedOn.getText(), currMember);
                     menuCategories(); // moves onto the next menu
                 }
             }
@@ -1801,6 +1801,7 @@ public class JPanelManager extends JFrame {
     private static Task nullTask = new Task("N/A", "N/A", "1", "1", false, nobody,nobody);
     private static TaskCategory nullCategory = new TaskCategory("N/A", "N/A",  "N/A", nobody);
     private static Team nullTeam = new Team("N/A");
+
 
     private static  ArrayList<Member> members = new ArrayList<Member>();
     private static ArrayList<Task> tasks = new ArrayList<Task>();
