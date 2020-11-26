@@ -194,9 +194,9 @@ public class JPanelManager extends JFrame {
         constraintsTasks.gridy = 2;
         userPanel.add(labelMenuTaskDescription, constraintsTasks);
         constraintsTasks.gridy = 3;
-        userPanel.add(labelMenuTaskDueMonth, constraintsTasks);
+        userPanel.add(labelMenuTaskDateDue, constraintsTasks);
         constraintsTasks.gridy = 4;
-        userPanel.add(labelMenuTaskDueDay, constraintsTasks);
+        userPanel.add(labelMenuTaskDateMade, constraintsTasks);
         constraintsTasks.gridy = 5;
         userPanel.add(labelMenuTaskStatus, constraintsTasks);
         constraintsTasks.gridy = 6;
@@ -205,16 +205,18 @@ public class JPanelManager extends JFrame {
         userPanel.add(labelMenuTaskAssignedTo, constraintsTasks);
         constraintsTasks.gridy = 8;
         userPanel.add(labelMenuTaskSubtasks, constraintsTasks);
-
         constraintsTasks.gridy = 9;
+        userPanel.add(labelMenuTaskReoccuringValue, constraintsTasks);
+
+        constraintsTasks.gridy = 10;
         userPanel.add(buttonPreviousTask, constraintsTasks);
         constraintsTasks.gridx = 1;
         userPanel.add(buttonNextTask, constraintsTasks);
         constraintsTasks.gridx = 1;
-        constraintsTasks.gridy = 10;
+        constraintsTasks.gridy = 11;
         userPanel.add(buttonCreateTask, constraintsTasks);
 
-        constraintsTasks.gridy = 11;
+        constraintsTasks.gridy = 12;
         constraintsTasks.gridx = 0;
         userPanel.add(textFieldSubTaskName, constraintsTasks);
         constraintsTasks.gridx = 1;
@@ -223,14 +225,14 @@ public class JPanelManager extends JFrame {
         userPanel.add(labelSubTaskAddError, constraintsTasks);
 
         constraintsTasks.gridx = 1;
-        constraintsTasks.gridy = 12;
+        constraintsTasks.gridy = 13;
         userPanel.add(buttonDeleteTask, constraintsTasks);
         constraintsTasks.gridx = 0;
-        constraintsTasks.gridy = 12;
+        constraintsTasks.gridy = 13;
         userPanel.add(buttonEditTask, constraintsTasks);
 
         constraintsTasks.gridx = 0;
-        constraintsTasks.gridy = 10;
+        constraintsTasks.gridy = 11;
 
         userPanel.add(buttonTaskReturn, constraintsTasks);
 
@@ -372,6 +374,9 @@ public class JPanelManager extends JFrame {
         TaskCon.gridy = 5;
        // userPanel.add(labelTaskCreatedBy, TaskCon);
         userPanel.add(labelTaskAssignedTo, TaskCon);
+        TaskCon.gridy = 4;
+        TaskCon.gridx = 4;
+        userPanel.add(reoccuringTaskComboBox, TaskCon);
 
 
         TaskCon.gridx = 1;
@@ -855,12 +860,13 @@ public class JPanelManager extends JFrame {
                         else if (tasks.get(taskIndex).getTextColor() == "Green")
                             labelMenuTaskName.setForeground(Color.GREEN);
                         labelMenuTaskDescription.setText("Description: " + tasks.get(taskIndex).getDescription());
-                        labelMenuTaskDueMonth.setText("Month Due1: " + tasks.get(taskIndex).getDue_date());
-                        labelMenuTaskDueDay.setText("Day Due: " + tasks.get(taskIndex).getCreated_on());
+                        labelMenuTaskDateDue.setText("Date due: " + tasks.get(taskIndex).getDue_date());
+                        labelMenuTaskDateMade.setText("Date Created: " + tasks.get(taskIndex).getCreated_on());
                         labelMenuTaskStatus.setText("Status: " + tasks.get(taskIndex).getStatus());
                         labelMenuTaskCreatedBy.setText("Created By: " + tasks.get(taskIndex).getCreated_by().getUsername());
                         labelMenuTaskAssignedTo.setText("Assigned To: " + tasks.get(taskIndex).getAssigned_to().getUsername());
                         labelMenuTaskSubtasks.setText("Subtasks: " + tasks.get(taskIndex).getSubtaskNames());
+                        labelMenuTaskReoccuringValue.setText("Occurs: " + tasks.get(taskIndex).getReoccuringValue());
                     }
 
                 }
@@ -886,12 +892,13 @@ public class JPanelManager extends JFrame {
                         else if (tasks.get(taskIndex).getTextColor() == "Green")
                             labelMenuTaskName.setForeground(Color.GREEN);
                         labelMenuTaskDescription.setText("Description: " + tasks.get(taskIndex).getDescription());
-                        labelMenuTaskDueMonth.setText("Day Due: " + tasks.get(taskIndex).getDue_date());
-                        labelMenuTaskDueMonth.setText("Month Due2: " + tasks.get(taskIndex).getCreated_on());
+                        labelMenuTaskDateDue.setText("Date due: " + tasks.get(taskIndex).getDue_date());
+                        labelMenuTaskDateMade.setText("Date Created: " + tasks.get(taskIndex).getCreated_on());
                         labelMenuTaskStatus.setText("Status: " + tasks.get(taskIndex).getStatus());
                         labelMenuTaskCreatedBy.setText("Created By: " + tasks.get(taskIndex).getCreated_by().getUsername());
                         labelMenuTaskAssignedTo.setText("Assigned To: " + tasks.get(taskIndex).getAssigned_to().getUsername());
                         labelMenuTaskSubtasks.setText("Subtasks: " + tasks.get(taskIndex).getSubtaskNames());
+                        labelMenuTaskReoccuringValue.setText("Occurs: " + tasks.get(taskIndex).getReoccuringValue());
                     }
 
                 }
@@ -971,12 +978,13 @@ public class JPanelManager extends JFrame {
                         else if (tasks.get(taskIndex).getTextColor() == "Green")
                             labelMenuTaskName.setForeground(Color.GREEN);
                         labelMenuTaskDescription.setText("Description: " + tasks.get(taskIndex).getDescription());
-                        labelMenuTaskDueDay.setText("Day Due: " + tasks.get(taskIndex).getDue_date());
-                        labelMenuTaskDueMonth.setText("Month Due3: " + tasks.get(taskIndex).getCreated_on());
+                        labelMenuTaskDateDue.setText("Date due: " + tasks.get(taskIndex).getDue_date());
+                        labelMenuTaskDateMade.setText("Date Created: " + tasks.get(taskIndex).getCreated_on());
                         labelMenuTaskStatus.setText("Status: " + tasks.get(taskIndex).getStatus());
                         labelMenuTaskCreatedBy.setText("Created By: " + tasks.get(taskIndex).getCreated_by().getUsername());
                         labelMenuTaskAssignedTo.setText("Assigned To: " + tasks.get(taskIndex).getAssigned_to().getUsername());
                         labelMenuTaskSubtasks.setText("Subtasks: " + tasks.get(taskIndex).getSubtaskNames());
+                        labelMenuTaskReoccuringValue.setText("Occurs: " + tasks.get(taskIndex).getReoccuringValue());
                     }
                 }
             }
@@ -1128,6 +1136,7 @@ public class JPanelManager extends JFrame {
                 if (src == buttonTaskCreate) // on pressing button
                 {
                     int assignedMemberIndex = memberSearch(textTaskAssignedTo.getText());
+                    labelTaskStatusCheckbox.setVisible(false);
 
                     Boolean dateIsNumber = true;
                     for (int i = 0; i < textTaskDueMonth.getText().length(); i++)
@@ -1161,16 +1170,18 @@ public class JPanelManager extends JFrame {
 
                         menuCreateTaskVis(false);
                         // name, description, due date, created on, status, created by, assigned to
-
+                        String reoccuringValue = (String) reoccuringTaskComboBox.getSelectedItem();
+                        System.out.println("here   :" + reoccuringValue);
                         Task task = new Task(textTaskName.getText(), textTaskDescription.getText(), textTaskDueMonth.getText(), textTaskDueDay.getText(),
-                                labelTaskStatusCheckbox.isSelected(), currMember, members.get(assignedMemberIndex));
+                                reoccuringValue, currMember, members.get(assignedMemberIndex));
+                        System.out.println("next    :" + task.getReoccuringValue());
                         members.get(assignedMemberIndex).assignTask(task);// this assigns the task to the member from the member's point of view as well ie, you can see it in member view
                         task.assignColor((String) comboColorBox.getSelectedItem());
                         tasks.add(task);
                         //Task task = new Task(textTaskName.getText(), textTaskDescription.getText(), textTaskDueMonth.getText(), textTaskDueDay.getText(),
                         //textTaskStatus.getText(), textTaskCreatedBy.getText(), textTaskAssignedTo.getText());
                         menuTasks(); // moves onto the next menu
-
+                     
 
                     }
                 }
@@ -1215,13 +1226,14 @@ public class JPanelManager extends JFrame {
                     }
                     else {
                         menuCreateTaskVis(false);
+                        String reoccuringValue = (String) reoccuringTaskComboBox.getSelectedItem();
                         // name, description, due date, created on, status, created by, assigned to
                         tasks.get(taskIndex).getAssigned_to().deleteTask(tasks.get(taskIndex));// this removes the task from the old member it was assigned to
                         tasks.get(taskIndex).Edit(textTaskName.getText(), textTaskDescription.getText(), textTaskDueMonth.getText(), textTaskDueDay.getText(),
-                                labelTaskStatusCheckbox.isSelected(), currMember, members.get(assignedMemberIndex));
+                                labelTaskStatusCheckbox.isSelected(), reoccuringValue, currMember, members.get(assignedMemberIndex));
                         members.get(assignedMemberIndex).assignTask(tasks.get(taskIndex)); // this assigns the task to the member from the member's point of view as well ie, you can see it in member view
                         tasks.get(taskIndex).assignColor((String) comboColorBox.getSelectedItem());
-
+                        labelTaskStatusCheckbox.setSelected(false);
                         //Task task = new Task(textTaskName.getText(), textTaskDescription.getText(), textTaskDueMonth.getText(), textTaskDueDay.getText(),
                         //textTaskStatus.getText(), textTaskCreatedBy.getText(), textTaskAssignedTo.getText());
                         menuTasks(); // moves onto the next menu
@@ -1500,12 +1512,13 @@ public class JPanelManager extends JFrame {
     private JLabel labelMenuTasks = new JLabel("Current Task(s)");
     private JLabel labelMenuTaskName = new JLabel();
     private JLabel labelMenuTaskDescription = new JLabel();
-    private JLabel labelMenuTaskDueMonth = new JLabel();
-    private JLabel labelMenuTaskDueDay = new JLabel();
+    private JLabel labelMenuTaskDateDue = new JLabel();
+    private JLabel labelMenuTaskDateMade = new JLabel();
     private JLabel labelMenuTaskStatus = new JLabel();
     private JLabel labelMenuTaskCreatedBy = new JLabel();
     private JLabel labelMenuTaskAssignedTo = new JLabel();
     private JLabel labelMenuTaskSubtasks = new JLabel();
+    private JLabel labelMenuTaskReoccuringValue = new JLabel();
 
     private JLabel labelSubTaskAddError= new JLabel("Error: Subtask Not Found");
     private JButton buttonSubTaskAdd = new JButton("Add Subtask");
@@ -1525,13 +1538,14 @@ public class JPanelManager extends JFrame {
         textFieldSubTaskName.setVisible(a);
         labelMenuTasks.setVisible(a);
         labelMenuTaskDescription.setVisible(a);
-        labelMenuTaskDueMonth.setVisible(a);
-        labelMenuTaskDueDay.setVisible(a);
+        labelMenuTaskDateDue.setVisible(a);
+        labelMenuTaskDateMade.setVisible(a);
         labelMenuTaskStatus.setVisible(a);
         labelMenuTaskCreatedBy.setVisible(a);
         labelMenuTaskAssignedTo.setVisible(a);
         labelMenuTaskSubtasks.setVisible(a);
         labelMenuTaskName.setVisible(a);
+        labelMenuTaskReoccuringValue.setVisible(a);
         buttonCreateTask.setVisible(a);
         buttonNextTask.setVisible(a);
         buttonTaskReturn.setVisible(a);
@@ -1553,12 +1567,13 @@ public class JPanelManager extends JFrame {
             labelMenuTaskName.setForeground(Color.GREEN);
 
         labelMenuTaskDescription.setText("Description: " + tasks.get(taskIndex).getDescription());
-        labelMenuTaskDueMonth.setText("Due Date: " + tasks.get(taskIndex).getDue_date());
-        labelMenuTaskDueDay.setText("Created On: " + tasks.get(taskIndex).getCreated_on());
+        labelMenuTaskDateDue.setText("Date due: " + tasks.get(taskIndex).getDue_date());
+        labelMenuTaskDateMade.setText("Date Created: " + tasks.get(taskIndex).getCreated_on());
         labelMenuTaskStatus.setText("Status: " + tasks.get(taskIndex).getStatus());
         labelMenuTaskCreatedBy.setText("Created By: " + tasks.get(taskIndex).getCreated_by().getUsername());
         labelMenuTaskAssignedTo.setText("Assigned To: " + tasks.get(taskIndex).getAssigned_to().getUsername());
         labelMenuTaskSubtasks.setText("Subtasks: " + tasks.get(taskIndex).getSubtaskNames());
+        labelMenuTaskReoccuringValue.setText("Occurs: " + tasks.get(taskIndex).getReoccuringValue());
 
         menuTasksVis(true);
 
@@ -1618,6 +1633,7 @@ public class JPanelManager extends JFrame {
     private JLabel labelTaskDueMonth = new JLabel("Due Month: ");
     private JLabel labelTaskDueDay = new JLabel("Day Due: ");
     private JCheckBox labelTaskStatusCheckbox = new JCheckBox("Completed?: ");
+    private JComboBox<String> reoccuringTaskComboBox = new JComboBox<>(new String[] { "Once", "Weekly", "Monthly" });
     private JLabel labelTaskCreatedBy = new JLabel("CreatedBy: ");
     private JLabel labelTaskAssignedTo = new JLabel("AssignedTo: ");
     private JLabel labelTaskCreatedByError = new JLabel("");
@@ -1640,6 +1656,7 @@ public class JPanelManager extends JFrame {
         labelTaskDueMonth.setVisible(a);
         labelTaskDueDay.setVisible(a);
         labelTaskStatusCheckbox.setVisible(a);
+        reoccuringTaskComboBox.setVisible(a);
         labelTaskCreatedBy.setVisible(a);
         labelTaskAssignedTo.setVisible(a);
         textTaskName.setVisible(a);
@@ -1658,9 +1675,16 @@ public class JPanelManager extends JFrame {
         menuCreateTaskVis(true);
         labelTaskCreatedByError.setVisible(false);
         if (edit)
+        {
             buttonTaskCreate.setVisible(false);
+            labelTaskStatusCheckbox.setVisible(true);
+            }
         else
+        {
             buttonTaskEdit.setVisible(false);
+            labelTaskStatusCheckbox.setVisible(false);
+            }
+            
     }
 
     //instantiate text field
@@ -1803,7 +1827,7 @@ public class JPanelManager extends JFrame {
 
     private static Member Admin = new Member("Admin", "123");// Use this to login
     private static Member nobody = new Member("N/A", "N/A");
-    private static Task nullTask = new Task("N/A", "N/A", "1", "1", false, nobody,nobody);
+    private static Task nullTask = new Task("N/A", "N/A", "1", "1", "Once", nobody,nobody);
     private static TaskCategory nullCategory = new TaskCategory("N/A", "N/A",  "N/A", nobody);
     private static Team nullTeam = new Team("N/A");
 
