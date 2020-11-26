@@ -7,38 +7,38 @@ import java.util.Date;
 import java.text.DateFormat;  
 import java.text.SimpleDateFormat;  
 public class Task {
-    String name, description, status;
+    String name, description;
+    String status = "In Progress";
+    String reoccuring;
     Member created_by, assigned_to;
     List<Task> subtasks =  new ArrayList<>();
     String textColor = "White";
     int day, month;
     Calendar created_on = Calendar.getInstance(); 
     Calendar due_date = Calendar.getInstance();
-    Task(String name, String description, String duemonth, String dueday, String status, Member created_by, Member assigned_to, List<Task> subtasks) {
+    Task(String name, String description, String duemonth, String dueday, String reoccuring, Member created_by, Member assigned_to, List<Task> subtasks) {
         this.name = name;
         this.description = description;
         day = Integer.parseInt(dueday);
         month = Integer.parseInt(duemonth);
-        due_date.set(Calendar.MONTH, month);
+        due_date.set(Calendar.MONTH, month-1);
         due_date.set(Calendar.DATE, day);
-        this.status = status;
+        this.reoccuring = reoccuring;
         this.created_by = created_by;
         this.assigned_to = assigned_to;
         this.subtasks = subtasks;
-
+        
+        
     }
 
-    Task(String name, String description, String duemonth, String dueday, boolean status, Member created_by, Member assigned_to) {
+    Task(String name, String description, String duemonth, String dueday, String reoccuring, Member created_by, Member assigned_to) {
         this.name = name;
         this.description = description;
         day = Integer.parseInt(dueday);
         month = Integer.parseInt(duemonth);
-        due_date.set(Calendar.MONTH, month);
+        due_date.set(Calendar.MONTH, month-1);
         due_date.set(Calendar.DATE, day);
-        if (status)
-            this.status = "Completed";
-        else
-            this.status = "In Progress";
+        this.reoccuring = reoccuring;
         this.created_by = created_by;
         this.assigned_to = assigned_to;
     }
@@ -98,13 +98,16 @@ public class Task {
     public String getStatus() {
         return status;
     }
+    public String getReoccuringValue() {
+        return reoccuring;
+    }
+
 
     public List <Task> getSubtasks() {
         return subtasks;
     }
 
     public String getDue_date() {
-    due_date.add(Calendar.MONTH, -1);
     Date date = due_date.getTime();  
     DateFormat dateFormat = new SimpleDateFormat("MM.dd");  
     String strDate = dateFormat.format(date);
@@ -123,20 +126,43 @@ public class Task {
         return info;
     }
     */
-    public void Edit(String name,String description,String duemonth, String dueday,boolean status,Member created_by,Member assigned_to)
+    public void Edit(String name,String description,String duemonth, String dueday,boolean status, String reoccuring, Member created_by,Member assigned_to)
     {
-    System.out.print("here");
+    
         this.name = name;
         this.description = description;
         day = Integer.parseInt(dueday);
         month = Integer.parseInt(duemonth);
-        due_date.set(Calendar.MONTH, month);
-        due_date.set(Calendar.DATE, day);
+        
         if (status)
             this.status = "Completed";
         else
             this.status = "In Progress";
+        this.reoccuring = reoccuring;
         this.created_by = created_by;
         this. assigned_to = assigned_to;
+        
+     if(this.status.equals("Completed"))
+     {
+        if( reoccuring.equals("Weekly"))
+          {
+            this.status = "In Progress";
+            
+            due_date.add(Calendar.DATE, 7);
+            
+            }
+            
+       else  if(reoccuring.equals("Monthly"))
+          {
+            this.status = "In Progress";
+            
+            due_date.add(Calendar.MONTH, 1);
+            
+            }        
+            }
+            else {
+            due_date.set(Calendar.MONTH, month-1);
+        due_date.set(Calendar.DATE, day);
+            }
     }
 }
