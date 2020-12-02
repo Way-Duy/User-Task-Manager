@@ -1392,7 +1392,8 @@ public class JPanelManager extends JFrame {
                 {
                 if(memberSearch(textMemberUsername.getText()) !=-1 && memberSearch(textMemberUsername.getText())!= memberSearch(members.get(memberIndex).getUsername()))
                 {
-                
+                    labelMemberCreateError.setText("No Duplicate Usernames allowed");
+                    labelMemberCreateError.setVisible(true);
                 //insert member category error here
                 }
                 else
@@ -1848,9 +1849,11 @@ public class JPanelManager extends JFrame {
         tasks.add(nullTask);
         teams.add(nullTeam);
         categories.add(nullCategory);
-        SwingUtilities.invokeLater(new Runnable() {
+        SwingUtilities.invokeLater(new Runnable() 
+        {
             @Override
-            public void run() {
+            public void run() 
+            {
                 new JPanelManager().setVisible(true);
             }
         });
