@@ -6,12 +6,25 @@ import java.util.List;
 public class Member
 {
     private String username, password; //immutable
-
+    private int taskPoints;
     List<Task> task_assigned_list = new ArrayList<>();
     Member(String username, String password)
     {
         this.username = username;
         this.password = password;
+        this.taskPoints = 0; // starting taskpoints at 0 when creating a account
+    }
+    public int getTaskPoints() // return individual task points
+    {
+        return taskPoints;
+    }
+    public void completedTask() // add a point for task completed by user
+    {
+        taskPoints++;
+    }
+    public void clearTaskPoints() // clear the user points 
+    {
+        taskPoints = 0;
     }
     public String getTasks()
     {
