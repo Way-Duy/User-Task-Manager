@@ -144,25 +144,27 @@ public class Task {
         
      if(this.status.equals("Completed"))
      {
+         //
+        // PUT CODE HERE THAT ADDS TO MEMBER.JAVA TASKPOINTS VIA completedTask() thats in member.java
+        //
         if( reoccuring.equals("Weekly"))
-          {
+        {
             this.status = "In Progress";
-            
             due_date.add(Calendar.DATE, 7);
-            
-            }
-            
-       else  if(reoccuring.equals("Monthly"))
-          {
-            this.status = "In Progress";
-            
-            due_date.add(Calendar.MONTH, 1);
-            
-            }        
-            }
-            else {
-            due_date.set(Calendar.MONTH, month-1);
+        }
+        else
+        {
+            if(reoccuring.equals("Monthly"))
+            {
+                this.status = "In Progress";
+                due_date.add(Calendar.MONTH, 1);
+            }  
+        }      
+    }
+    else 
+    {
+        due_date.set(Calendar.MONTH, month-1);
         due_date.set(Calendar.DATE, day);
-            }
+    }
     }
 }
