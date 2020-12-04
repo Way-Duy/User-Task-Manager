@@ -144,9 +144,6 @@ public class Task {
         
      if(this.status.equals("Completed"))
      {
-         //
-        // PUT CODE HERE THAT ADDS TO MEMBER.JAVA TASKPOINTS VIA completedTask() thats in member.java
-        //
         if( reoccuring.equals("Weekly"))
         {
             this.status = "In Progress";
