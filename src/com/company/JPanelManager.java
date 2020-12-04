@@ -716,20 +716,29 @@ public class JPanelManager extends JFrame {
                 {
                     int index= memberSearch(textMenuTeamaddMember.getText());
 
-                    Boolean flagMemberOnTeam = false;
-                    for(Member member: teams.get(teamIndex).getTeam())
-                        if (textMenuTeamaddMember.getText().equals(member.getUsername())) {
-                            flagMemberOnTeam= true;
+                    //Boolean flagMemberOnTeam = false;
+                    Boolean MemberOnATeam = false;
+                    int checking = 0;
+                    while(checking < teams.size())//Go through all the teams to check for repeat members
+                    {
+                        for(Member member: teams.get(checking).getTeam())
+                        {
+                            if (textMenuTeamaddMember.getText().equals(member.getUsername())) 
+                            {
+                                MemberOnATeam= true;
+                            }
                         }
+                        checking++;
+                    }
                     if(index< 1)// no member found with that name
                     {
                         labelMenuTeamAddMemberError.setText("Member Username not found");
                         labelMenuTeamAddMemberError.setVisible(true);
                     }
-                    else if(flagMemberOnTeam) // members cannot be assigned to multiple teams check
+                    else if(MemberOnATeam) // members cannot be assigned to multiple teams check
                     {
                         labelMenuTeamAddMemberError.setVisible(true);
-                        labelMenuTeamAddMemberError.setText("Member is already on selected Team");
+                        labelMenuTeamAddMemberError.setText("Member is already on a Team. Either this one or another");
                     }
                     else // match and add to team
                     {
@@ -820,7 +829,7 @@ public class JPanelManager extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 Object src = e.getSource();
 
-                if (src == buttonCreateTask) // on pressing button
+                if (src == buttonCreateTask /*&& currMember.equals("Admin")*/) // on pressing button
                 {
                     menuTasksVis(false);
                     menuCreateTask(false); // moves onto the next menu
@@ -833,7 +842,7 @@ public class JPanelManager extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 Object src = e.getSource();
 
-                if (src == buttonEditTask) // on pressing button
+                if (src == buttonEditTask) //&& currMember.equals("Admin")) // on pressing button
                 {
                     menuTasksVis(false);
                     menuCreateTask(true); // moves onto the next menu
@@ -1133,6 +1142,7 @@ public class JPanelManager extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Object src = e.getSource();
+                //System.out.println(currMember);
                 if (src == buttonTaskCreate) // on pressing button
                 {
                     int assignedMemberIndex = memberSearch(textTaskAssignedTo.getText());
@@ -1166,6 +1176,11 @@ public class JPanelManager extends JFrame {
                         labelTaskCreatedByError.setVisible(true);
                         labelTaskCreatedByError.setText("Duplicate Task Name Found");
                     }
+                    else if(currMember.getUsername() != "Admin")
+                    {
+                        labelTaskCreatedByError.setVisible(true);
+                        labelTaskCreatedByError.setText("Not Admin. Only Admin can create tasks."); 
+                    }
                     else {
 
                         menuCreateTaskVis(false);
@@ -1197,6 +1212,21 @@ public class JPanelManager extends JFrame {
                     int assignedMemberIndex = memberSearch(textTaskAssignedTo.getText());
 
                     Boolean dateIsNumber = true;
+                    Boolean MemberOnATeam = false;
+                    int checking = 0;
+                    int teamNumber = 0;
+                    while(checking < teams.size())//Go through all the teams to see if currmember is on a team
+                    {
+                        for(Member member: teams.get(checking).getTeam())
+                        {
+                            if (currMember.getUsername().equals(member.getUsername())) 
+                            {
+                                MemberOnATeam= true;
+                                teamNumber = checking;
+                            }
+                        }
+                        checking++;
+                    }
                     for (int i = 0; i < textTaskDueMonth.getText().length(); i++)
                     {
                         if (!Character.isDigit(textTaskDueMonth.getText().charAt(i)))
@@ -1224,6 +1254,16 @@ public class JPanelManager extends JFrame {
                         labelTaskCreatedByError.setVisible(true);
                         labelTaskCreatedByError.setText("Duplicate Task Name Found");
                     }
+                    else if(currMember.getUsername() != "Admin" && tasks.get(taskIndex).getStatus() == "Completed")
+                    { // makes sure that regular users cant mess with tasks that have been set to completed
+                        labelTaskCreatedByError.setVisible(true);
+                        labelTaskCreatedByError.setText("Not Admin. Only Admin can edit Completed tasks."); 
+                    }
+                    else if(currMember.getUsername() != "Admin" && MemberOnATeam == false)
+                    { // makes sure that regular users cant submit tasks if they arent in a team
+                        labelTaskCreatedByError.setVisible(true);
+                        labelTaskCreatedByError.setText("Normal user that is trying to submit completed task is not in a team."); 
+                    }
                     else {
                         menuCreateTaskVis(false);
                         String reoccuringValue = (String) reoccuringTaskComboBox.getSelectedItem();
@@ -1233,6 +1273,15 @@ public class JPanelManager extends JFrame {
                                 labelTaskStatusCheckbox.isSelected(), reoccuringValue, currMember, members.get(assignedMemberIndex));
                         members.get(assignedMemberIndex).assignTask(tasks.get(taskIndex)); // this assigns the task to the member from the member's point of view as well ie, you can see it in member view
                         tasks.get(taskIndex).assignColor((String) comboColorBox.getSelectedItem());
+                        if (labelTaskStatusCheckbox.isSelected() == true && currMember.getUsername() != "Admin")
+                        { //if status is set to complete it gives the current member (not a admin) who set the task as complete a point
+                            currMember.completedTask();//as well as the team they're on a point as well
+                            teams.get(teamNumber).completedTask();
+                        }
+                        /*else if(labelTaskStatusCheckbox.isSelected() == true && currMember.getUsername() == "Admin")
+                        {
+                            System.out.println("Admin by default does not gain points for submitting completed tasks.");
+                        }*/
                         labelTaskStatusCheckbox.setSelected(false);
                         //Task task = new Task(textTaskName.getText(), textTaskDescription.getText(), textTaskDueMonth.getText(), textTaskDueDay.getText(),
                         //textTaskStatus.getText(), textTaskCreatedBy.getText(), textTaskAssignedTo.getText());
