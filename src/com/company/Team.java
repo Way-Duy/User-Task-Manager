@@ -1,12 +1,14 @@
 package com.company;
 import java.util.ArrayList;
 import java.util.List;
+import java.text.DecimalFormat;
 public class Team 
 {
     List<Member> team = new ArrayList<>();
     String name;
     String memberNames = "" ;
     int taskPoints = 0;
+    String formatter = "###.###";
     public int getTaskPoints() // return team task points
     {
         return taskPoints;
@@ -35,8 +37,22 @@ public class Team
     public String getMemberNames() {
         memberNames ="";
         for (Member member: team)
-            memberNames = memberNames + "  " + member.getUsername();
-
+        {
+            if(taskPoints == 0)
+            {
+                memberNames = memberNames + " " + member.getUsername();
+            }
+            else
+            {
+                double place =(((double)(member.getTaskPoints()))/((double)(taskPoints)))*100;
+                DecimalFormat df = new DecimalFormat(formatter);//print out to 3 decimal places
+                memberNames = memberNames + " " + member.getUsername() + " Part %: " + df.format(place);
+            }
+        }
+        if(taskPoints == 0)
+        {
+            memberNames = memberNames + " No completed team tasks/ No participation score. ";
+        }
         return memberNames;
     }
 
